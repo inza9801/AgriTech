@@ -1,0 +1,752 @@
+/* ==========================================
+   PRODUCT LISTING FORM
+========================================== */
+
+.listingSection{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.listingForm{
+
+    margin-top:20px;
+
+}
+
+.formGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:20px;
+
+}
+
+.inputGroup{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.inputGroup label{
+
+    font-weight:600;
+
+    color:#333;
+
+    margin-bottom:8px;
+
+}
+
+.inputGroup input,
+
+.inputGroup select{
+
+    padding:12px 15px;
+
+    border:1px solid #dcdcdc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+    background:#fff;
+
+}
+
+.inputGroup input:focus,
+
+.inputGroup select:focus{
+
+    border-color:#2E7D32;
+
+    box-shadow:0 0 0 3px rgba(46,125,50,.12);
+
+}
+
+.toggleSection{
+
+    margin-top:30px;
+
+}
+
+.toggleSection label{
+
+    display:block;
+
+    font-weight:600;
+
+    color:#333;
+
+    margin-bottom:12px;
+
+}
+
+.toggleButtons{
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+.activeButton{
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 24px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.activeButton:hover{
+
+    background:#1B5E20;
+
+}
+
+.inactiveButton{
+
+    background:#ececec;
+
+    color:#333;
+
+    border:none;
+
+    padding:12px 24px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.inactiveButton:hover{
+
+    background:#dcdcdc;
+
+}
+
+.submitButton{
+
+    margin-top:30px;
+
+    padding:14px 30px;
+
+    background:#2E7D32;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.submitButton:hover{
+
+    background:#1B5E20;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:768px){
+
+    .formGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .toggleButtons{
+
+        flex-direction:column;
+
+    }
+
+    .toggleButtons button{
+
+        width:100%;
+
+    }
+
+    .submitButton{
+
+        width:100%;
+
+    }
+
+}
+/* ==========================================
+   MARKETPLACE PRODUCTS
+========================================== */
+
+.productsSection{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.productsGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+
+}
+
+.productCard{
+
+    background:#fafafa;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    border:1px solid #ececec;
+
+}
+
+.productCard:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+
+}
+
+.productImage{
+
+    height:170px;
+
+    background:#E8F5E9;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:70px;
+
+}
+
+.productBody{
+
+    padding:22px;
+
+}
+
+.productBody h3{
+
+    color:#2E7D32;
+
+    margin-bottom:15px;
+
+}
+
+.productBody p{
+
+    margin:10px 0;
+
+    color:#555;
+
+    font-size:15px;
+
+}
+
+/* ==========================
+   PRODUCT FOOTER
+========================== */
+
+.productFooter{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:20px;
+
+}
+
+.priceTag{
+
+    background:#2E7D32;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:20px;
+
+    font-weight:600;
+
+}
+
+/* ==========================
+   STATUS ROW
+========================== */
+
+.statusRow{
+
+    margin-top:20px;
+
+}
+
+.availableBadge{
+
+    display:inline-block;
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    padding:7px 16px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.auctionBadge{
+
+    display:inline-block;
+
+    background:#FFF4E5;
+
+    color:#EF6C00;
+
+    padding:7px 16px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ==========================
+   GRADE BADGES
+========================== */
+
+.premiumBadge{
+
+    background:#FFF3CD;
+
+    color:#B8860B;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.gradeABadge{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.gradeBBadge{
+
+    background:#E3F2FD;
+
+    color:#1565C0;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:768px){
+
+    .productsGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .productFooter{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+
+    }
+
+}
+/* ==========================================
+   BUYER OFFERS
+========================================== */
+
+.offersSection{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.offersGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+
+    gap:25px;
+
+}
+
+.offerCard{
+
+    background:#fafafa;
+
+    border:1px solid #ececec;
+
+    border-radius:12px;
+
+    padding:22px;
+
+    transition:.3s;
+
+}
+
+.offerCard:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+/* ==========================
+   OFFER HEADER
+========================== */
+
+.offerHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.offerHeader h3{
+
+    color:#2E7D32;
+
+    margin-bottom:6px;
+
+}
+
+.offerHeader p{
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+/* ==========================
+   OFFER INFO
+========================== */
+
+.offerInfo{
+
+    margin-bottom:20px;
+
+}
+
+.offerInfo p{
+
+    margin:10px 0;
+
+    color:#555;
+
+    font-size:15px;
+
+}
+
+/* ==========================
+   STATUS BADGES
+========================== */
+
+.pendingBadge{
+
+    background:#FFF4E5;
+
+    color:#EF6C00;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.acceptedBadge{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.rejectedBadge{
+
+    background:#FDECEA;
+
+    color:#C62828;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.offerButtons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+.acceptBtn{
+
+    flex:1;
+
+    background:#2E7D32;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.acceptBtn:hover{
+
+    background:#1B5E20;
+
+}
+
+.rejectBtn{
+
+    flex:1;
+
+    background:#D32F2F;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.rejectBtn:hover{
+
+    background:#B71C1C;
+
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:768px){
+
+    .offersGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .offerButtons{
+
+        flex-direction:column;
+
+    }
+
+    .acceptBtn,
+
+    .rejectBtn{
+
+        width:100%;
+
+    }
+
+}
+/* ==========================================
+   DISABLED BUTTONS
+========================================== */
+
+.acceptBtn:disabled{
+
+    background:#A5D6A7;
+
+    cursor:not-allowed;
+
+    opacity:.75;
+
+}
+
+.rejectBtn:disabled{
+
+    background:#EF9A9A;
+
+    cursor:not-allowed;
+
+    opacity:.75;
+
+}
+
+.acceptBtn:disabled:hover,
+
+.rejectBtn:disabled:hover{
+
+    transform:none;
+
+}

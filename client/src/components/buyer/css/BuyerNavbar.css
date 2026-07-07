@@ -1,0 +1,62 @@
+.buyerNavbar{
+    height:70px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    border-bottom:1px solid #ddd;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.navbarLeft h2{
+    color:#2e7d32;
+}
+
+.navbarCenter{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.navbarCenter input{
+    width:400px;
+    padding:10px 15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+}
+
+.navbarRight{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.iconBtn{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    background:#f3f3f3;
+    font-size:18px;
+}
+
+.iconBtn:hover{
+    background:#e0e0e0;
+}
+
+.buyerProfile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.buyerProfile img{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+}

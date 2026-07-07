@@ -1,0 +1,115 @@
+.notFound{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#F4F7F5;
+
+    padding:30px;
+
+}
+
+.notFoundCard{
+
+    background:#fff;
+
+    width:500px;
+
+    max-width:100%;
+
+    padding:50px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+}
+
+.notFoundCard h1{
+
+    font-size:120px;
+
+    color:#2E7D32;
+
+    margin-bottom:10px;
+
+}
+
+.notFoundCard h2{
+
+    font-size:34px;
+
+    color:#333;
+
+    margin-bottom:20px;
+
+}
+
+.notFoundCard p{
+
+    color:#666;
+
+    line-height:1.8;
+
+    margin-bottom:35px;
+
+}
+
+.homeButton{
+
+    display:inline-block;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    padding:14px 30px;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.homeButton:hover{
+
+    background:#1B5E20;
+
+    transform:translateY(-2px);
+
+}
+
+@media(max-width:768px){
+
+    .notFoundCard{
+
+        padding:35px 25px;
+
+    }
+
+    .notFoundCard h1{
+
+        font-size:90px;
+
+    }
+
+    .notFoundCard h2{
+
+        font-size:28px;
+
+    }
+
+}

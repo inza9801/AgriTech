@@ -1,0 +1,640 @@
+/* ===================================
+   PAGE
+=================================== */
+
+.assignedContainer{
+
+    padding:30px;
+
+    background:#f5f7fa;
+
+    min-height:100vh;
+
+}
+
+/* ===================================
+   PAGE HEADER
+=================================== */
+
+.pageHeader{
+
+    margin-bottom:30px;
+
+}
+
+.pageHeader h1{
+
+    color:#2E7D32;
+
+    margin-bottom:10px;
+
+}
+
+.pageHeader p{
+
+    color:#666;
+
+    font-size:16px;
+
+}
+
+/* ===================================
+   SUMMARY
+=================================== */
+
+.summaryGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+    margin-bottom:35px;
+
+}
+
+.summaryCard{
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.summaryCard:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.summaryIcon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+}
+
+.assignedIcon{
+
+    background:#E8F5E9;
+
+}
+
+.pendingIcon{
+
+    background:#FFF3E0;
+
+}
+
+.transitIcon{
+
+    background:#E3F2FD;
+
+}
+
+.completedIcon{
+
+    background:#E8F5E9;
+
+}
+
+.summaryCard h2{
+
+    margin:0;
+
+    color:#2E7D32;
+
+}
+
+.summaryCard p{
+
+    margin-top:8px;
+
+    color:#666;
+
+}
+
+/* ===================================
+   DELIVERY SECTION
+=================================== */
+
+.deliverySection{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.sectionTitle{
+
+    margin-bottom:25px;
+
+}
+
+.sectionTitle h2{
+
+    color:#2E7D32;
+
+}
+
+/* ===================================
+   DELIVERY GRID
+=================================== */
+
+.deliveryGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+
+    gap:25px;
+
+}
+
+/* ===================================
+   DELIVERY CARD
+=================================== */
+
+.deliveryCard{
+
+    background:#fafafa;
+
+    border-radius:15px;
+
+    padding:22px;
+
+    transition:.3s;
+
+    border:1px solid #eee;
+
+}
+
+.deliveryCard:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+
+}
+
+/* ===================================
+   CARD HEADER
+=================================== */
+
+.cardHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:20px;
+
+}
+
+.cardHeader h3{
+
+    color:#2E7D32;
+
+    margin-bottom:10px;
+
+}
+
+.cardHeader p{
+
+    color:#666;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.vehicleTag{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    padding:8px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ===================================
+   ROUTE
+=================================== */
+
+.routeContainer{
+
+    margin:25px 0;
+
+}
+
+.locationCard{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:flex-start;
+
+}
+
+.locationCard svg{
+
+    color:#2E7D32;
+
+    font-size:22px;
+
+    margin-top:3px;
+
+}
+
+.locationCard h4{
+
+    color:#2E7D32;
+
+    margin-bottom:6px;
+
+}
+
+.locationCard p{
+
+    font-weight:600;
+
+    color:#333;
+
+}
+
+.locationCard small{
+
+    color:#777;
+
+}
+
+.routeArrow{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:18px 0;
+
+    color:#2E7D32;
+
+    font-size:22px;
+
+}
+
+/* ===================================
+   INFO GRID
+=================================== */
+
+.infoGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+
+    margin-top:25px;
+
+}
+
+.infoGrid div{
+
+    background:white;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+}
+
+.infoGrid span{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:6px;
+
+    color:#777;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.infoGrid h4{
+
+    color:#2E7D32;
+
+    margin:0;
+
+}
+/* ===================================
+   PRIORITY
+=================================== */
+
+.statusRow{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:25px;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+}
+
+.priority{
+
+    padding:7px 15px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.priority.high{
+
+    background:#FFEBEE;
+
+    color:#C62828;
+
+}
+
+.priority.medium{
+
+    background:#FFF3E0;
+
+    color:#EF6C00;
+
+}
+
+.priority.low{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+}
+
+/* ===================================
+   DELIVERY STATUS
+=================================== */
+
+.deliveryStatus{
+
+    background:#E3F2FD;
+
+    color:#1565C0;
+
+    padding:7px 16px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ===================================
+   BUTTONS
+=================================== */
+
+.buttonRow{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+.buttonRow button{
+
+    flex:1;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:12px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    transition:.3s;
+
+}
+
+.acceptBtn{
+
+    background:#2E7D32;
+
+    color:#fff;
+
+}
+
+.acceptBtn:hover{
+
+    background:#256528;
+
+}
+
+.detailsBtn{
+
+    background:#ECEFF1;
+
+    color:#333;
+
+}
+
+.detailsBtn:hover{
+
+    background:#CFD8DC;
+
+}
+
+/* ===================================
+   CARD ANIMATION
+=================================== */
+
+.deliveryCard:hover .vehicleTag{
+
+    transform:scale(1.05);
+
+}
+
+.vehicleTag{
+
+    transition:.3s;
+
+}
+
+.deliveryCard:hover .locationCard svg{
+
+    transform:scale(1.1);
+
+}
+
+.locationCard svg{
+
+    transition:.3s;
+
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:992px){
+
+    .deliveryGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .assignedContainer{
+
+        padding:20px;
+
+    }
+
+    .summaryGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .infoGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .statusRow{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .buttonRow{
+
+        flex-direction:column;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .cardHeader{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    .vehicleTag{
+
+        width:fit-content;
+
+    }
+
+    .pageHeader h1{
+
+        font-size:28px;
+
+    }
+
+    .pageHeader p{
+
+        font-size:14px;
+
+    }
+
+    .deliveryCard{
+
+        padding:18px;
+
+    }
+
+}

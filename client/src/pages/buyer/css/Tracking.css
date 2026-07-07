@@ -1,0 +1,133 @@
+.trackingPage{
+    padding:30px;
+    background:#f5f7fa;
+    min-height:100vh;
+}
+
+.trackingPage h1{
+    color:#2e7d32;
+    margin-bottom:30px;
+}
+
+.progressSection{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:35px;
+}
+
+.progressItem{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.circle{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#ccc;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+.active .circle{
+    background:#2e7d32;
+}
+
+.line{
+    flex:1;
+    height:4px;
+    background:#ccc;
+}
+
+.line.active{
+    background:#2e7d32;
+}
+
+.trackingCards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.trackCard{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.trackCard h3{
+    color:#777;
+    margin-bottom:12px;
+}
+
+.trackCard p{
+    color:#2e7d32;
+    font-weight:600;
+}
+
+.driverSection,
+.mapSection,
+.timelineSection{
+    background:white;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:30px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.driverSection table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.driverSection td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+}
+
+.mapPlaceholder{
+    height:300px;
+    margin-top:20px;
+    background:#eef7ee;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:10px;
+    font-size:30px;
+    color:#2e7d32;
+}
+
+.timelineItem{
+    display:flex;
+    gap:20px;
+    margin:25px 0;
+}
+
+.timelineDot{
+    width:16px;
+    height:16px;
+    background:#2e7d32;
+    border-radius:50%;
+    margin-top:5px;
+}
+
+.timelineItem h4{
+    color:#2e7d32;
+    margin-bottom:5px;
+}
+
+.timelineItem small{
+    color:#777;
+}
+
+.timelineItem p{
+    margin-top:8px;
+}

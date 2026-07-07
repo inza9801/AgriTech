@@ -1,0 +1,462 @@
+/* ===================================
+   PAGE
+=================================== */
+
+.deliveryHistory{
+
+    padding:30px;
+
+    background:#f5f7fa;
+
+    min-height:100vh;
+
+}
+
+/* ===================================
+   HEADER
+=================================== */
+
+.pageHeader{
+
+    margin-bottom:30px;
+
+}
+
+.pageHeader h1{
+
+    color:#2E7D32;
+
+    margin-bottom:10px;
+
+}
+
+.pageHeader p{
+
+    color:#666;
+
+}
+
+/* ===================================
+   SUMMARY
+=================================== */
+
+.summaryGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+    margin-bottom:35px;
+
+}
+
+.summaryCard{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.summaryCard:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.summaryIcon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+}
+
+.deliveryIcon{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+}
+
+.completedIcon{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+}
+
+.delayedIcon{
+
+    background:#FFF3E0;
+
+    color:#EF6C00;
+
+}
+
+.revenueIcon{
+
+    background:#E3F2FD;
+
+    color:#1565C0;
+
+}
+
+.summaryCard h2{
+
+    margin:0;
+
+    color:#2E7D32;
+
+}
+
+.summaryCard p{
+
+    margin-top:8px;
+
+    color:#666;
+
+}
+
+/* ===================================
+   TABLE
+=================================== */
+
+.deliverySection{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.deliverySection h2{
+
+    color:#2E7D32;
+
+    margin-bottom:20px;
+
+}
+
+.tableContainer{
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+th{
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    padding:14px;
+
+    text-align:left;
+
+}
+
+td{
+
+    padding:14px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+tbody tr:hover{
+
+    background:#fafafa;
+
+}
+
+/* ===================================
+   STATUS
+=================================== */
+
+.deliveredStatus{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.delayedStatus{
+
+    background:#FFF3E0;
+
+    color:#EF6C00;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ===================================
+   BUTTON
+=================================== */
+
+.detailsBtn{
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.detailsBtn:hover{
+
+    background:#256428;
+
+}
+/* ===================================
+   DELIVERY DETAILS
+=================================== */
+
+.detailsSection{
+
+    margin-top:35px;
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.detailsSection h2{
+
+    color:#2E7D32;
+
+    margin-bottom:25px;
+
+}
+
+.detailsGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+
+    gap:25px;
+
+}
+
+.infoCard{
+
+    background:#fafafa;
+
+    padding:22px;
+
+    border-radius:12px;
+
+}
+
+.infoCard h3{
+
+    color:#2E7D32;
+
+    margin-bottom:18px;
+
+}
+
+.infoCard table{
+
+    width:100%;
+
+}
+
+.infoCard td{
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.paidStatus{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ===================================
+   TIMELINE
+=================================== */
+
+.timelineCard{
+
+    margin-top:30px;
+
+    background:#fafafa;
+
+    padding:25px;
+
+    border-radius:12px;
+
+}
+
+.timelineCard h3{
+
+    color:#2E7D32;
+
+    margin-bottom:20px;
+
+}
+
+.deliveryTimeline{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.timelineItem{
+
+    background:#f2f2f2;
+
+    padding:15px 18px;
+
+    border-radius:10px;
+
+    color:#666;
+
+    font-weight:500;
+
+}
+
+.completedStep{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    font-weight:600;
+
+}
+
+/* ===================================
+   DELIVERY SUMMARY
+=================================== */
+
+.summaryDetails{
+
+    margin-top:30px;
+
+    background:#fafafa;
+
+    padding:25px;
+
+    border-radius:12px;
+
+}
+
+.summaryDetails h3{
+
+    color:#2E7D32;
+
+    margin-bottom:20px;
+
+}
+
+.summaryDetails table{
+
+    width:100%;
+
+}
+
+.summaryDetails td{
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+@media(max-width:900px){
+
+    .detailsGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

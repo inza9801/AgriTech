@@ -1,0 +1,441 @@
+/* ==========================================
+   CROP TABLE
+========================================== */
+
+.cropTableSection{
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.tableContainer{
+
+    overflow-x:auto;
+
+}
+
+.cropTable{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1100px;
+
+}
+
+.cropTable thead{
+
+    background:#2e7d32;
+
+    color:#fff;
+
+}
+
+.cropTable th{
+
+    padding:15px;
+
+    text-align:left;
+
+    font-size:15px;
+
+}
+
+.cropTable td{
+
+    padding:15px;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.cropTable tbody tr{
+
+    transition:.3s;
+
+}
+
+.cropTable tbody tr:hover{
+
+    background:#f5f9f5;
+
+}
+
+.stageBadge{
+
+    background:#e3f2fd;
+
+    color:#1565c0;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.healthyBadge{
+
+    background:#d4edda;
+
+    color:#1b5e20;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.warningBadge{
+
+    background:#fdecea;
+
+    color:#c62828;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+/* ===================================
+   GROWTH TRACKING
+=================================== */
+
+.growthSection{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.growthGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+
+}
+
+.growthCard{
+
+    background:#fafafa;
+
+    padding:22px;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.growthCard:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.growthHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.growthHeader h3{
+
+    color:#2e7d32;
+
+    margin-bottom:5px;
+
+}
+
+.growthHeader p{
+
+    color:#777;
+
+}
+
+.growthStage{
+
+    background:#E8F5E9;
+
+    color:#2e7d32;
+
+    padding:8px 15px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.progressArea{
+
+    margin-bottom:25px;
+
+}
+
+.progressInfo{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+}
+
+.progressBar{
+
+    width:100%;
+
+    height:12px;
+
+    background:#ddd;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+.progressFill{
+
+    height:100%;
+
+    background:#43A047;
+
+    border-radius:30px;
+
+}
+
+.growthStats{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    text-align:center;
+
+}
+
+.growthStats h4{
+
+    font-size:28px;
+
+    color:#2e7d32;
+
+    margin-bottom:8px;
+
+}
+
+.growthStats p{
+
+    color:#666;
+
+    font-size:14px;
+
+}
+
+/* ===================================
+   HARVEST TIMELINE
+=================================== */
+
+.timelineSection{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.timelineGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+
+}
+
+.timelineCard{
+
+    background:#fafafa;
+
+    border-radius:12px;
+
+    padding:22px;
+
+    transition:.3s;
+
+}
+
+.timelineCard:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.timelineTop{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.timelineTop h3{
+
+    color:#2E7D32;
+
+}
+
+.urgentTag{
+
+    background:#FDECEA;
+
+    color:#C62828;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.warningTag{
+
+    background:#FFF4E5;
+
+    color:#EF6C00;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.normalTag{
+
+    background:#E8F5E9;
+
+    color:#2E7D32;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.timelineCard p{
+
+    margin:12px 0;
+
+    color:#555;
+
+}
+
+.timelineBar{
+
+    width:100%;
+
+    height:10px;
+
+    background:#ddd;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-top:20px;
+
+}
+
+.timelineFill{
+
+    height:100%;
+
+    border-radius:20px;
+
+}
+
+.urgentFill{
+
+    background:#D32F2F;
+
+}
+
+.warningFill{
+
+    background:#FB8C00;
+
+}
+
+.normalFill{
+
+    background:#43A047;
+
+}
+.heading{
+
+    color:#2E7D32;
+
+    font-size:28px;
+
+    margin-bottom:30px;
+
+}
