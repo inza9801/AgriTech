@@ -41,7 +41,7 @@ export const createListing = async ({ farmer_id, batch_id, quantity_tons, price_
 
 export const getListingsSummary = async (farmer_id) => {
   const [rows] = await pool.query(
-    `SELECT COUNT(*) AS totalListings FROM marketplace_listings WHERE farmer_id = ?`,
+    `SELECT COUNT(*) AS totalListings FROM marketplace_listings WHERE farmer_id = ? AND status != 'Sold'`,
     [farmer_id]
   );
   return rows[0];
@@ -193,4 +193,53 @@ export const createProduct = async ({ farmer_id, name, description, price, quant
     [farmer_id, name, description, price, quantity]
   );
   return { id: result.insertId, farmer_id, name, description, price, quantity };
+};
+
+export const updateCrop = async (crop_id, growth_stage, health_status) => {
+  await pool.query(
+    `UPDATE crops
+     SET growth_stage = ?, health_status = ?
+     WHERE crop_id = ?`,
+    [growth_stage, health_status, crop_id]
+  );
+};
+
+export const addBatch = async ({
+  farmer_id,
+  crop_name,
+  quantity_tons,
+  arrival_date,
+  expiry_date,
+  status,
+}) => {
+  const [result] = await pool.query(
+    `INSERT INTO warehouse_batches
+    (
+      farmer_id,
+      crop_name,
+      quantity_tons,
+      arrival_date,
+      expiry_date,
+      status
+    )
+    VALUES (?, ?, ?, ?, ?, ?)`,
+    [
+      farmer_id,
+      crop_name,
+      quantity_tons,
+      arrival_date,
+      expiry_date,
+      status,
+    ]
+  );
+
+  return {
+    batch_id: result.insertId,
+    farmer_id,
+    crop_name,
+    quantity_tons,
+    arrival_date,
+    expiry_date,
+    status,
+  };
 };

@@ -14,16 +14,16 @@ import {
 
 const router = express.Router();
 
-router.get("/incoming-requests", incomingRequests);
-router.get("/incoming-requests/:orderId", requestDetail);
-router.get("/drivers", drivers);
-router.post("/assign-order", assignOrder);
-router.get("/shipments", shipments);
-router.get("/dashboard-summary", dashboardSummary);
-router.get("/history-summary", historySummary);
+router.get("/admin/incoming-requests", incomingRequests);
+router.get("/admin/incoming-requests/:orderId", requestDetail);
+router.get("/admin/drivers", drivers);
+router.post("/admin/assign-order", assignOrder);
+router.get("/admin/shipments", shipments);
+router.get("/admin/dashboard-summary", dashboardSummary);
+router.get("/admin/history-summary", historySummary);
 
-router.get("/assignable-orders", assignableOrders);
-router.get("/assigned-orders", assignedOrdersToday);
-router.get("/assigned-orders/:deliveryId", assignedOrderDetail);
+router.get("/admin/assignable-orders", assignableOrders);
+router.get("/admin/assigned-orders", assignedOrdersToday);
+router.get("/admin/assigned-orders/:deliveryId", assignedOrderDetail);
 
 export default router;

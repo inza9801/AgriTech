@@ -15,16 +15,16 @@ import {
 
 const router = express.Router();
 
-router.get("/dashboard-summary", dashboardSummary);
-router.get("/recent-orders", recentOrders);
-router.get("/locations", locations);
-router.get("/listings", listings);
-router.get("/listings/:id", listingDetail);
-router.get("/cart", cartItems);
-router.post("/cart", addCartItem);
-router.delete("/cart/:id", deleteCartItem);
-router.post("/cart/place-order", placeOrder);
-router.get("/orders", orderHistory);
-router.get("/tracking", tracking);
+router.get("/buyer/dashboard-summary", dashboardSummary);
+router.get("/buyer/recent-orders", recentOrders);
+router.get("/buyer/locations", locations);
+router.get("/buyer/listings", listings);
+router.get("/buyer/listings/:id", listingDetail);
+router.get("/buyer/cart", cartItems);
+router.post("/buyer/cart", addCartItem);
+router.delete("/buyer/cart/:id", deleteCartItem);
+router.post("/buyer/cart/place-order", placeOrder);
+router.get("/buyer/orders", orderHistory);
+router.get("/buyer/tracking", tracking);
 
 export default router;

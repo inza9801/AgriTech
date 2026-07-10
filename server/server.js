@@ -32,12 +32,11 @@ app.use("/api/auth", authRoutes);
 // (/crops, /sensors, /weather, /warehouse, /marketplace, /orders, /products)
 app.use("/api", farmerRoutes);
 
-app.use("/api/drivers", deliveryRoutes);
-app.use("/api/deliveries", deliveryRoutes);
+app.use("/api", deliveryRoutes);
 
-app.use("/api/buyer", buyerRoutes);
+app.use("/api", buyerRoutes);
 
-app.use("/api/admin", adminRoutes);
+app.use("/api", adminRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

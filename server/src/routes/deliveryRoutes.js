@@ -11,12 +11,15 @@ import {
 
 const router = express.Router();
 
-router.get("/pending-offers", pendingOffers);
-router.post("/:orderId/accept", accept);
-router.get("/", listDeliveries);
-router.patch("/:id/status", updateStatus);
-router.get("/dashboard-summary", dashboardSummary);
-router.get("/earnings-summary", earningsSummary);
-router.get("/profile", profile);
+// Drivers
+router.get("/drivers/profile", profile);
+
+// Deliveries
+router.get("/deliveries/pending-offers", pendingOffers);
+router.post("/deliveries/:orderId/accept", accept);
+router.get("/deliveries/dashboard-summary", dashboardSummary);
+router.get("/deliveries/earnings-summary", earningsSummary);
+router.get("/deliveries", listDeliveries);
+router.patch("/deliveries/:id/status", updateStatus);
 
 export default router;

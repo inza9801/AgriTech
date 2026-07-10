@@ -423,3 +423,112 @@
     line-height:1.6;
 
 }
+
+.headings{
+    color : #43A047;
+}
+.addBatchSection{
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.batchForm{
+
+    margin-top:20px;
+
+}
+
+.formGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+    gap:20px;
+
+}
+
+.inputGroup{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.inputGroup label{
+
+    margin-bottom:8px;
+
+    color:#2E7D32;
+
+    font-weight:600;
+
+}
+
+.inputGroup input,
+.inputGroup select{
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    color:#333;
+
+    background:#fff;
+
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus{
+
+    outline:none;
+
+    border-color:#2E7D32;
+
+    box-shadow:0 0 0 3px rgba(46,125,50,.15);
+
+}
+
+.submitButton{
+
+    margin-top:25px;
+
+    background:#2E7D32;
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 30px;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.submitButton:hover{
+
+    background:#1B5E20;
+
+}

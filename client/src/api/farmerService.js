@@ -23,11 +23,12 @@ export const getOrders = () => api.get("/orders");
 export const getPickups = () => api.get("/orders/pickups");
 export const getShipmentStatuses = () => api.get("/orders/shipment-status");
 
-export const updateGrowthStage = (crop_id, growth_stage) =>
-  api.patch(`/crops/${crop_id}/growth-stage`, { growth_stage });
+export const updateGrowthStage = (crop_id, growth_stage) => api.patch(`/crops/${crop_id}/growth-stage`, { growth_stage });
 export const getAllBatches = () => api.get("/warehouse/all-batches");
 export const addBatch = (data) => api.post("/warehouse/batches", data);
 
 export const getProducts = () => api.get("/products");
 export const getProduct = (id) => api.get(`/products/${id}`);
 export const createProduct = (data) => api.post("/products", data);
+
+export const updateCrop = (crop_id, data) => api.patch(`/crops/${crop_id}`, data);

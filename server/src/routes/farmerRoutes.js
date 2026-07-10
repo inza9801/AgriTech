@@ -18,7 +18,9 @@ import { getCrop,
     getHistory,
     getCurrentWeather,
     listBatches, 
-    getSummary
+    getSummary,
+    updateCropStatus,
+    createBatch,
  } from "../controllers/farmerController.js";
 
  import { protect, protectRole } from "../middleware/authMiddleware.js";
@@ -39,6 +41,7 @@ router.get("/weather", getCurrentWeather);
 
 // Warehouse
 router.get("/warehouse/batches", listBatches);
+router.post("/warehouse/batches", createBatch);
 router.get("/warehouse/summary", getSummary);
 
 // Marketplace
@@ -58,5 +61,7 @@ router.get("/orders/shipment-status", listShipmentStatuses);
 router.get("/products", listProducts);
 router.get("/products/:id", getProduct);
 router.post("/products", protect, protectRole("farmer"), addProduct);
+
+router.patch("/crops/:crop_id", updateCropStatus);
 
 export default router;

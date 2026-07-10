@@ -16,7 +16,9 @@ import {
   insertSensorReading, getLatestSensorReading, 
   getSensorHistory,
   getUnsoldBatches, 
-  getBatchSummary
+  getBatchSummary,
+  updateCrop,
+  addBatch,
 } from "../models/farmerModel.js";
 
 
@@ -26,6 +28,45 @@ import {
 const DEFAULT_FIELD_ID = 1;
 const MOISTURE_THRESHOLD = 40; // below this => irrigation needed
 const DEFAULT_FARMER_ID = 1;
+
+export const createBatch = async (req, res, next) => {
+  try {
+    const {
+      crop_name,
+      quantity_tons,
+      arrival_date,
+      expiry_date,
+      status,
+    } = req.body;
+
+    if (
+      !crop_name ||
+      !quantity_tons ||
+      !arrival_date ||
+      !expiry_date ||
+      !status
+    ) {
+      res.status(400);
+      throw new Error("All fields are required.");
+    }
+
+    const batch = await addBatch({
+      farmer_id: DEFAULT_FARMER_ID,
+      crop_name,
+      quantity_tons,
+      arrival_date,
+      expiry_date,
+      status,
+    });
+
+    res.status(201).json({
+      success: true,
+      data: batch,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 
 export const getCrop = async (req, res, next) => {
   try {
@@ -320,6 +361,21 @@ export const getCurrentWeather = async (req, res, next) => {
         rainProbability: current.precipitation_probability,
         weatherCode: current.weather_code,
       },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+export const updateCropStatus = async (req, res, next) => {
+  try {
+    const { crop_id } = req.params;
+    const { growth_stage, health_status } = req.body;
+
+    await updateCrop(crop_id, growth_stage, health_status);
+
+    res.json({
+      success: true,
+      message: "Crop updated successfully",
     });
   } catch (err) {
     next(err);

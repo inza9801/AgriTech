@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import "./css/CropManagement.css";
-import { getCrop } from "../../api/farmerService";
+import { getCrop, updateCrop } from "../../api/farmerService";
 
 function CropManagement() {
   const [crop, setCrop] = useState(null);
   const [error, setError] = useState("");
+  const [growthStage, setGrowthStage] = useState("");
+  const [healthStatus, setHealthStatus] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -18,7 +20,41 @@ function CropManagement() {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getCrop();
+
+        setCrop(res.data.data);
+
+        setGrowthStage(res.data.data.growth_stage);
+        setHealthStatus(res.data.data.health_status);
+      } catch (err) {
+        setError("Failed to load crop data");
+      }
+    })();
+  }, []);
+
   const health = crop?.health_status === "Healthy" ? "Healthy" : "Diseased";
+  const handleUpdate = async () => {
+    try {
+      await updateCrop(crop.crop_id, {
+        growth_stage: growthStage,
+        health_status: healthStatus,
+      });
+
+      setCrop({
+        ...crop,
+        growth_stage: growthStage,
+        health_status: healthStatus,
+      });
+
+      alert("Crop updated successfully");
+    } catch (err) {
+      console.error(err);
+      alert("Update failed");
+    }
+  };
 
   return (
     <div className="cropManagement">
@@ -48,7 +84,9 @@ function CropManagement() {
 
         <div className="summaryCard">
           <h3>Expected Yield</h3>
-          <h1 className="heading">{crop ? `${crop.expected_yield_tons} Ton` : "--"}</h1>
+          <h1 className="heading">
+            {crop ? `${crop.expected_yield_tons} Ton` : "--"}
+          </h1>
           <p>Estimated production</p>
         </div>
       </div>
@@ -71,6 +109,7 @@ function CropManagement() {
                 <th>Health</th>
                 <th>Expected Harvest</th>
                 <th>Expected Yield</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -79,108 +118,43 @@ function CropManagement() {
                   <td>{crop.crop_name}</td>
                   <td>Field A</td>
                   <td>2.5 Acres</td>
-                  <td>{crop.planting_date}</td>
+                  <td>{crop.planting_date.split("T")[0]}</td>
                   <td>
-                    <span className="stageBadge">{crop.growth_stage}</span>
-                  </td>
-                  <td>
-                    <span
-                      className={
-                        health === "Healthy" ? "healthyBadge" : "warningBadge"
-                      }
+                    <select
+                      className="cropSelect"
+                      value={growthStage}
+                      onChange={(e) => setGrowthStage(e.target.value)}
                     >
-                      {health}
-                    </span>
+                      <option>Seedling</option>
+                      <option>Tillering</option>
+                      <option>Vegetative</option>
+                      <option>Flowering</option>
+                      <option>Grain Filling</option>
+                      <option>Harvest Ready</option>
+                    </select>
                   </td>
-                  <td>{crop.expected_harvest_date}</td>
+                  <td>
+                    <select
+                      className="cropSelect"
+                      value={healthStatus}
+                      onChange={(e) => setHealthStatus(e.target.value)}
+                    >
+                      <option>Healthy</option>
+                      <option>Diseased</option>
+                      <option>Needs Attention</option>
+                    </select>
+                  </td>
+                  <td>{crop.expected_harvest_date.split("T")[0]}</td>
                   <td>{crop.expected_yield_tons} Ton</td>
+                  <td className="actionCell">
+                    <button className="saveBtn" onClick={handleUpdate}>
+                      Save
+                    </button>
+                  </td>
                 </tr>
               )}
             </tbody>
           </table>
-        </div>
-      </div>
-
-      {/* GROWTH TRACKING */}
-      <div className="growthSection">
-        <div className="sectionTitle">
-          <h2>Growth Tracking</h2>
-        </div>
-
-        <div className="growthGrid">
-          {crop && (
-            <div className="growthCard">
-              <div className="growthHeader">
-                <div>
-                  <h3>{crop.crop_name}</h3>
-                  <p>Field A</p>
-                </div>
-                <span className="growthStage">{crop.growth_stage}</span>
-              </div>
-
-              <div className="progressArea">
-                <div className="progressInfo">
-                  <span>Growth Progress</span>
-                  <span>{crop.progress_percentage}%</span>
-                </div>
-
-                <div className="progressBar">
-                  <div
-                    className="progressFill"
-                    style={{ width: `${crop.progress_percentage}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="growthStats">
-                <div>
-                  <h4>{crop.days_after_planting}</h4>
-                  <p>Days After Planting</p>
-                </div>
-                <div>
-                  <h4>{crop.expected_yield_tons} Ton</h4>
-                  <p>Expected Yield</p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* HARVEST TIMELINE */}
-      <div className="timelineSection">
-        <div className="sectionTitle">
-          <h2>Harvest Timeline</h2>
-        </div>
-
-        <div className="timelineGrid">
-          {crop && (
-            <div className="timelineCard">
-              <div className="timelineTop">
-                <h3>{crop.crop_name}</h3>
-                <span className="normalTag">{crop.expected_harvest_date}</span>
-              </div>
-
-              <p>
-                <strong>Field:</strong> Field A
-              </p>
-
-              <p>
-                <strong>Harvest Date:</strong> {crop.expected_harvest_date}
-              </p>
-
-              <p>
-                <strong>Expected Yield:</strong> {crop.expected_yield_tons} Ton
-              </p>
-
-              <div className="timelineBar">
-                <div
-                  className="timelineFill normalFill"
-                  style={{ width: `${crop.progress_percentage}%` }}
-                ></div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
