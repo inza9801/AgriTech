@@ -47,40 +47,30 @@ export const getListingsSummary = async (farmer_id) => {
   return rows[0];
 };
 
-export const getOffersForFarmer = async (farmer_id) => {
+// Buyer "requests" are now sourced directly from the orders table.
+// Only Pending orders are surfaced to the farmer for confirm/cancel action.
+export const getPendingRequestsForFarmer = async (farmer_id) => {
   const [rows] = await pool.query(
-    `SELECT bo.offer_id, u.full_name AS buyer_name, ml.crop_name, bo.quantity_tons,
-            bo.offer_price_per_kg, bo.created_at, bo.offer_status, bo.listing_id
-     FROM buyer_offers bo
-     JOIN marketplace_listings ml ON bo.listing_id = ml.listing_id
-     JOIN users u ON bo.buyer_id = u.user_id
-     WHERE ml.farmer_id = ?
-     ORDER BY bo.created_at DESC`,
+    `SELECT o.order_id, o.order_unique_id, u.full_name AS buyer_name, ml.crop_name,
+            o.quantity_tons, o.total_price, o.created_at, o.order_status
+     FROM orders o
+     JOIN users u ON o.buyer_id = u.user_id
+     JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
+     WHERE o.farmer_id = ? AND o.order_status = 'Pending'
+     ORDER BY o.created_at DESC`,
     [farmer_id]
   );
   return rows;
 };
 
-export const updateOfferStatus = async (offer_id, status) => {
-  await pool.query(`UPDATE buyer_offers SET offer_status = ? WHERE offer_id = ?`, [status, offer_id]);
-};
-
-export const getOfferById = async (offer_id) => {
-  const [rows] = await pool.query(`SELECT * FROM buyer_offers WHERE offer_id = ?`, [offer_id]);
+export const getOrderById = async (order_id) => {
+  const [rows] = await pool.query(`SELECT * FROM orders WHERE order_id = ?`, [order_id]);
   return rows[0];
 };
 
-export const createOrderFromOffer = async ({ farmer_id, buyer_id, listing_id, quantity_tons, total_price }) => {
-  const order_unique_id = `ORD${Date.now()}`;
-  const [result] = await pool.query(
-    `INSERT INTO orders (order_unique_id, farmer_id, buyer_id, listing_id, quantity_tons, total_price, order_status, payment_status, payment_method)
-     VALUES (?, ?, ?, ?, ?, ?, 'Confirmed', 'Pending', 'Bank Transfer')`,
-    [order_unique_id, farmer_id, buyer_id, listing_id, quantity_tons, total_price]
-  );
-  return result.insertId;
+export const updateOrderStatus = async (order_id, status) => {
+  await pool.query(`UPDATE orders SET order_status = ? WHERE order_id = ?`, [status, order_id]);
 };
-
-
 
 export const getOrdersForFarmer = async (farmer_id) => {
   const [rows] = await pool.query(

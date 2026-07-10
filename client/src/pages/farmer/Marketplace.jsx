@@ -4,15 +4,15 @@ import {
   getListableBatches,
   createListing,
   getListingsSummary,
-  getOffers,
-  acceptOffer,
-  rejectOffer,
+  getBuyerRequests,
+  confirmOrder,
+  cancelOrder,
 } from "../../api/farmerService";
 
 function Marketplace() {
   const [listableBatches, setListableBatches] = useState([]);
   const [summary, setSummary] = useState(null);
-  const [offers, setOffers] = useState([]);
+  const [requests, setRequests] = useState([]);
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
@@ -22,15 +22,15 @@ function Marketplace() {
 
   const loadData = async () => {
     try {
-      const [batchesRes, summaryRes, offersRes] = await Promise.all([
+      const [batchesRes, summaryRes, requestsRes] = await Promise.all([
         getListableBatches(),
         getListingsSummary(),
-        getOffers(),
+        getBuyerRequests(),
       ]);
 
       setListableBatches(batchesRes.data.data);
       setSummary(summaryRes.data.data);
-      setOffers(offersRes.data.data);
+      setRequests(requestsRes.data.data);
     } catch (err) {
       setError("Failed to load marketplace data");
       console.error(err);
@@ -79,18 +79,18 @@ function Marketplace() {
     }
   };
 
-  const handleAccept = async (id) => {
+  const handleConfirm = async (id) => {
     try {
-      await acceptOffer(id);
+      await confirmOrder(id);
       loadData();
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleReject = async (id) => {
+  const handleCancel = async (id) => {
     try {
-      await rejectOffer(id);
+      await cancelOrder(id);
       loadData();
     } catch (err) {
       console.error(err);
@@ -105,7 +105,7 @@ function Marketplace() {
     <div className="marketplace">
       <div className="pageHeader">
         <h1>Marketplace</h1>
-        <p>List warehouse batches for sale and manage buyer offers.</p>
+        <p>List warehouse batches for sale and manage buyer requests.</p>
       </div>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -118,8 +118,8 @@ function Marketplace() {
         </div>
 
         <div className="summaryCard">
-          <h3>Pending Offers</h3>
-          <h1>{offers.filter((o) => o.offer_status === "Pending").length}</h1>
+          <h3>Pending Requests</h3>
+          <h1>{requests.length}</h1>
           <p>Awaiting response</p>
         </div>
       </div>
@@ -191,47 +191,41 @@ function Marketplace() {
         </form>
       </div>
 
-      {/* BUYER OFFERS */}
+      {/* BUYER REQUESTS */}
       <div className="offersSection">
         <div className="sectionTitle">
-          <h2>Buyer Offers</h2>
+          <h2>Buyer Requests</h2>
         </div>
 
         <div className="offersGrid">
-          {offers.map((offer) => (
-            <div className="offerCard" key={offer.offer_id}>
+          {requests.length === 0 && <p>No pending requests.</p>}
+
+          {requests.map((request) => (
+            <div className="offerCard" key={request.order_id}>
               <div className="offerHeader">
                 <div>
-                  <h3>{offer.buyer_name}</h3>
-                  <p>{offer.crop_name}</p>
+                  <h3>{request.buyer_name}</h3>
+                  <p>{request.crop_name}</p>
                 </div>
 
-                <span
-                  className={
-                    offer.offer_status === "Accepted"
-                      ? "acceptedBadge"
-                      : offer.offer_status === "Rejected"
-                      ? "rejectedBadge"
-                      : "pendingBadge"
-                  }
-                >
-                  {offer.offer_status}
+                <span className="pendingBadge">
+                  {request.order_status}
                 </span>
               </div>
 
               <div className="offerInfo">
                 <p>
-                  <strong>Quantity:</strong> {offer.quantity_tons} Ton
+                  <strong>Quantity:</strong> {request.quantity_tons} Ton
                 </p>
 
                 <p>
-                  <strong>Offer Price:</strong> ৳
-                  {offer.offer_price_per_kg}/kg
+                  <strong>Total Price:</strong> ৳
+                  {request.total_price}
                 </p>
 
                 <p>
-                  <strong>Offer Date:</strong>{" "}
-                  {new Date(offer.created_at).toLocaleDateString()}
+                  <strong>Request Date:</strong>{" "}
+                  {new Date(request.created_at).toLocaleDateString()}
                 </p>
               </div>
 
@@ -239,19 +233,17 @@ function Marketplace() {
                 <button
                   className="acceptBtn"
                   type="button"
-                  disabled={offer.offer_status !== "Pending"}
-                  onClick={() => handleAccept(offer.offer_id)}
+                  onClick={() => handleConfirm(request.order_id)}
                 >
-                  Accept
+                  Confirm
                 </button>
 
                 <button
                   className="rejectBtn"
                   type="button"
-                  disabled={offer.offer_status !== "Pending"}
-                  onClick={() => handleReject(offer.offer_id)}
+                  onClick={() => handleCancel(request.order_id)}
                 >
-                  Reject
+                  Cancel
                 </button>
               </div>
             </div>

@@ -15,9 +15,9 @@ export const getWarehouseSummary = () => api.get("/warehouse/summary");
 export const getListableBatches = () => api.get("/marketplace/listable-batches");
 export const createListing = (data) => api.post("/marketplace/listings", data);
 export const getListingsSummary = () => api.get("/marketplace/summary");
-export const getOffers = () => api.get("/marketplace/offers");
-export const acceptOffer = (id) => api.patch(`/marketplace/offers/${id}/accept`);
-export const rejectOffer = (id) => api.patch(`/marketplace/offers/${id}/reject`);
+export const getBuyerRequests = () => api.get("/marketplace/requests");
+export const confirmOrder = (id) => api.patch(`/marketplace/requests/${id}/confirm`);
+export const cancelOrder = (id) => api.patch(`/marketplace/requests/${id}/cancel`);
 
 export const getOrders = () => api.get("/orders");
 export const getPickups = () => api.get("/orders/pickups");

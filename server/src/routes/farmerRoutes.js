@@ -4,9 +4,9 @@ import { getCrop,
     listableBatches,
     addListing,
     summary,
-    offers,
-    acceptOffer,
-    rejectOffer,
+    requests,
+    confirmOrder,
+    cancelOrder,
     listOrders, 
     listPickups, 
     listShipmentStatuses,
@@ -48,9 +48,9 @@ router.get("/warehouse/summary", getSummary);
 router.get("/marketplace/listable-batches", listableBatches);
 router.post("/marketplace/listings", addListing);
 router.get("/marketplace/summary", summary);
-router.get("/marketplace/offers", offers);
-router.patch("/marketplace/offers/:id/accept", acceptOffer);
-router.patch("/marketplace/offers/:id/reject", rejectOffer);
+router.get("/marketplace/requests", requests);
+router.patch("/marketplace/requests/:id/confirm", confirmOrder);
+router.patch("/marketplace/requests/:id/cancel", cancelOrder);
 
 // Orders
 router.get("/orders", listOrders);

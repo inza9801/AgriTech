@@ -3,10 +3,9 @@ import {
   getListableBatches,
   createListing,
   getListingsSummary,
-  getOffersForFarmer,
-  updateOfferStatus,
-  getOfferById,
-  createOrderFromOffer,
+  getPendingRequestsForFarmer,
+  getOrderById,
+  updateOrderStatus,
   getOrdersForFarmer,
   getPickupsForFarmer,
   getShipmentStatusesForFarmer,
@@ -140,41 +139,39 @@ export const summary = async (req, res, next) => {
   }
 };
 
-export const offers = async (req, res, next) => {
+// Pending buyer requests, sourced from the orders table
+export const requests = async (req, res, next) => {
   try {
-    const data = await getOffersForFarmer(DEFAULT_FARMER_ID);
+    const data = await getPendingRequestsForFarmer(DEFAULT_FARMER_ID);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
   }
 };
 
-export const acceptOffer = async (req, res, next) => {
+export const confirmOrder = async (req, res, next) => {
   try {
-    const offer = await getOfferById(req.params.id);
-    if (!offer) {
+    const order = await getOrderById(req.params.id);
+    if (!order) {
       res.status(404);
-      throw new Error("Offer not found");
+      throw new Error("Order not found");
     }
-    await updateOfferStatus(offer.offer_id, "Accepted");
-    const total_price = offer.quantity_tons * 1000 * offer.offer_price_per_kg;
-    await createOrderFromOffer({
-      farmer_id: DEFAULT_FARMER_ID,
-      buyer_id: offer.buyer_id,
-      listing_id: offer.listing_id,
-      quantity_tons: offer.quantity_tons,
-      total_price,
-    });
-    res.json({ success: true, message: "Offer accepted and order created" });
+    await updateOrderStatus(order.order_id, "Confirmed");
+    res.json({ success: true, message: "Order confirmed" });
   } catch (err) {
     next(err);
   }
 };
 
-export const rejectOffer = async (req, res, next) => {
+export const cancelOrder = async (req, res, next) => {
   try {
-    await updateOfferStatus(req.params.id, "Rejected");
-    res.json({ success: true, message: "Offer rejected" });
+    const order = await getOrderById(req.params.id);
+    if (!order) {
+      res.status(404);
+      throw new Error("Order not found");
+    }
+    await updateOrderStatus(order.order_id, "Cancelled");
+    res.json({ success: true, message: "Order cancelled" });
   } catch (err) {
     next(err);
   }
@@ -297,8 +294,6 @@ export const getLatestReading = async (req, res, next) => {
 };
 
 
-
-// ...keep existing code, add this new function:
 
 export const getHistory = async (req, res, next) => {
   try {
