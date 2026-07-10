@@ -10,7 +10,7 @@ import {
 import {
   getLatestSensorReading,
   getWeather,
-} from "../../api/dashboardService";
+} from "../../api/farmerService";
 
 function Irrigation() {
   const [latest, setLatest] = useState(null);

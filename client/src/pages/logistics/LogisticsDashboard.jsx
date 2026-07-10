@@ -6,7 +6,7 @@ import {
   FaShippingFast,
   FaCheckCircle,
 } from "react-icons/fa";
-import { getDriverProfile, getDashboardSummary } from "../../api/logisticsService";
+import { getDriverProfile, getDashboardSummary } from "../../api/deliveryService";
 
 function LogisticsDashboard() {
   const [driver, setDriver] = useState(null);

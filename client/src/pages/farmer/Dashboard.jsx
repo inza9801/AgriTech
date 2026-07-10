@@ -15,7 +15,7 @@ import {
   submitSensorReading,
   getWeather,
   // getlistableBatches,
-} from "../../api/dashboardService";
+} from "../../api/farmerService";
 
 function Dashboard() {
   const [summary, setSummary] = useState(null);

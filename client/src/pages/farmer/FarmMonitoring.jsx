@@ -28,7 +28,7 @@ import {
   getLatestSensorReading,
   getSensorHistory,
   getWeather,
-} from "../../api/dashboardService";
+} from "../../api/farmerService";
 
 function FarmMonitoring() {
   const [latest, setLatest] = useState(null);

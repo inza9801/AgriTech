@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./css/Earnings.css";
 import { FaMoneyBillWave, FaTruck, FaWallet } from "react-icons/fa";
-import { getEarningsSummary } from "../../api/logisticsService";
+import { getEarningsSummary } from "../../api/deliveryService";
 
 function Earnings() {
   const [earnings, setEarnings] = useState(null);

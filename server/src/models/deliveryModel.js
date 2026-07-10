@@ -1,5 +1,12 @@
 import pool from "../config/db.js";
 
+
+
+export const getDriverProfile = async (driver_id) => {
+  const [rows] = await pool.query(`SELECT * FROM drivers WHERE driver_id = ?`, [driver_id]);
+  return rows[0];
+};
+
 export const getPendingOffers = async () => {
   const [rows] = await pool.query(
     `SELECT o.order_id, o.order_unique_id, ml.crop_name, o.quantity_tons,

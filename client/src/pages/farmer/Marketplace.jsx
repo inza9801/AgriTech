@@ -7,7 +7,7 @@ import {
   getOffers,
   acceptOffer,
   rejectOffer,
-} from "../../api/dashboardService";
+} from "../../api/farmerService";
 
 function Marketplace() {
   const [listableBatches, setListableBatches] = useState([]);

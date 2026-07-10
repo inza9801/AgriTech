@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./css/AssignedDeliveries.css";
 import { FaMapMarkerAlt, FaArrowDown, FaCheckCircle } from "react-icons/fa";
-import { getPendingOffers, acceptDelivery } from "../../api/logisticsService";
+import { getPendingOffers, acceptDelivery } from "../../api/deliveryService";
 
 function AssignedDeliveries() {
   const [offers, setOffers] = useState([]);

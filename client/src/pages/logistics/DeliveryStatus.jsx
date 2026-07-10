@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./css/DeliveryStatus.css";
 import { FaMapMarkerAlt, FaArrowDown, FaClipboardCheck } from "react-icons/fa";
-import { getDeliveries, updateDeliveryStatus } from "../../api/logisticsService";
+import { getDeliveries, updateDeliveryStatus } from "../../api/deliveryService";
 
 const STAGES = ["Assigned", "Picked Up", "In Transit", "Delivered"];
 const NEXT_STATUS = {

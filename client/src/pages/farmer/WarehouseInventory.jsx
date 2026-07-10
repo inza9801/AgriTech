@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./css/WarehouseInventory.css";
-import { getUnsoldBatches, getWarehouseSummary } from "../../api/dashboardService";
+import { getUnsoldBatches, getWarehouseSummary } from "../../api/farmerService";
 
 function WarehouseInventory() {
   const [batches, setBatches] = useState([]);

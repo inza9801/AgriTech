@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./css/OrdersLogistics.css";
-import { getOrders, getPickups, getShipmentStatuses } from "../../api/dashboardService";
+import { getOrders, getPickups, getShipmentStatuses } from "../../api/farmerService";
 
 function OrdersLogistics() {
   const [orders, setOrders] = useState([]);

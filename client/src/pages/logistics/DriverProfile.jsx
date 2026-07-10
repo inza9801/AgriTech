@@ -10,7 +10,7 @@ import {
   FaBriefcase,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import { getDriverProfile, getEarningsSummary } from "../../api/logisticsService";
+import { getDriverProfile, getEarningsSummary } from "../../api/deliveryService";
 
 function DriverProfile() {
   const [driver, setDriver] = useState(null);

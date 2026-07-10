@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./css/CropManagement.css";
-import { getCrop } from "../../api/dashboardService";
+import { getCrop } from "../../api/farmerService";
 
 function CropManagement() {
   const [crop, setCrop] = useState(null);
