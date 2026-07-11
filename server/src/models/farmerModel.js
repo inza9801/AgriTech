@@ -103,13 +103,16 @@ export const getPickupsForFarmer = async (farmer_id) => {
   return rows;
 };
 
-export const getShipmentStatusesForFarmer = async (farmer_id) => {
+export const getShipmentsForFarmer = async (farmer_id) => {
   const [rows] = await pool.query(
-    `SELECT ss.shipment_status_id, o.order_unique_id, ss.status, ss.updated_at
-     FROM shipment_status ss
-     JOIN orders o ON ss.order_id = o.order_id
-     WHERE o.farmer_id = ?
-     ORDER BY ss.updated_at DESC`,
+    `SELECT d.delivery_id, o.order_unique_id, d.crop_name, d.quantity_tons,
+            d.pickup_location, d.drop_location, d.status,
+            dr.name AS driver_name, dr.vehicle_number
+     FROM deliveries d
+     JOIN orders o ON d.order_id = o.order_id
+     JOIN drivers dr ON d.driver_id = dr.driver_id
+     WHERE o.farmer_id = ? AND d.status != 'Delivered'
+     ORDER BY d.assigned_at DESC`,
     [farmer_id]
   );
   return rows;

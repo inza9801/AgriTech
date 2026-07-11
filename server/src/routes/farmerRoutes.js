@@ -9,7 +9,7 @@ import { getCrop,
     cancelOrder,
     listOrders, 
     listPickups, 
-    listShipmentStatuses,
+    listShipments,
     listProducts, 
     getProduct, 
     addProduct, 
@@ -55,7 +55,7 @@ router.patch("/marketplace/requests/:id/cancel", cancelOrder);
 // Orders
 router.get("/orders", listOrders);
 router.get("/orders/pickups", listPickups);
-router.get("/orders/shipment-status", listShipmentStatuses);
+router.get("/orders/shipments", listShipments);
 
 // Products
 router.get("/products", listProducts);

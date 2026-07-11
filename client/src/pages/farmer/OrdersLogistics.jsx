@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "./css/OrdersLogistics.css";
-import { getOrders, getPickups, getShipmentStatuses } from "../../api/farmerService";
+import { getOrders, getPickups, getShipments } from "../../api/farmerService";
+
+const STAGES = ["Assigned", "Picked Up", "In Transit", "Delivered"];
 
 function OrdersLogistics() {
   const [orders, setOrders] = useState([]);
@@ -14,7 +16,7 @@ function OrdersLogistics() {
         const [ordersRes, pickupsRes, shipmentsRes] = await Promise.all([
           getOrders(),
           getPickups(),
-          getShipmentStatuses(),
+          getShipments(),
         ]);
         setOrders(ordersRes.data.data);
         setPickups(pickupsRes.data.data);
@@ -25,8 +27,6 @@ function OrdersLogistics() {
       }
     })();
   }, []);
-
-  const stageOrder = ["Order Confirmed", "Picked Up", "In Transit", "Delivered"];
 
   return (
     <div className="ordersContainer">
@@ -75,40 +75,6 @@ function OrdersLogistics() {
         </div>
       </div>
 
-      {/* PICKUP SCHEDULE */}
-      <div className="pickupSection">
-        <div className="sectionTitle">
-          <h2>Pickup Schedule</h2>
-        </div>
-
-        <div className="tableContainer">
-          <table>
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Driver</th>
-                <th>Vehicle</th>
-                <th>Pickup Date</th>
-                <th>Time</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pickups.map((p) => (
-                <tr key={p.pickup_id}>
-                  <td>{p.order_unique_id}</td>
-                  <td>{p.driver_name}</td>
-                  <td>{p.vehicle_number}</td>
-                  <td>{p.pickup_date}</td>
-                  <td>{p.pickup_time}</td>
-                  <td>{p.status}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
       {/* SHIPMENT STATUS */}
       <div className="shipmentSection">
         <div className="sectionTitle">
@@ -116,17 +82,23 @@ function OrdersLogistics() {
         </div>
 
         <div className="shipmentGrid">
+          {shipments.length === 0 && <p>No active shipments.</p>}
+
           {shipments.map((s) => {
-            const currentIndex = stageOrder.indexOf(s.status);
+            const currentIndex = STAGES.indexOf(s.status);
             return (
-              <div className="shipmentCard" key={s.shipment_status_id}>
+              <div className="shipmentCard" key={s.delivery_id}>
                 <div className="shipmentHeader">
                   <h3>Order #{s.order_unique_id}</h3>
                   <span className="transitStatus">{s.status}</span>
                 </div>
 
+                <p><strong>Product:</strong> {s.crop_name} ({s.quantity_tons} Ton)</p>
+                <p><strong>Driver:</strong> {s.driver_name} • {s.vehicle_number}</p>
+                <p><strong>Route:</strong> {s.pickup_location} → {s.drop_location}</p>
+
                 <div className="shipmentTimeline">
-                  {stageOrder.map((stage, i) => (
+                  {STAGES.map((stage, i) => (
                     <div
                       key={stage}
                       className={

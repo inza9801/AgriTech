@@ -9,7 +9,7 @@ import {
   updateListingStatus,
   getOrdersForFarmer,
   getPickupsForFarmer,
-  getShipmentStatusesForFarmer,
+  getShipmentsForFarmer,
   getAllProducts, 
   getProductById, 
   createProduct,
@@ -203,9 +203,9 @@ export const listPickups = async (req, res, next) => {
   }
 };
 
-export const listShipmentStatuses = async (req, res, next) => {
+export const listShipments = async (req, res, next) => {
   try {
-    const data = await getShipmentStatusesForFarmer(DEFAULT_FARMER_ID);
+    const data = await getShipmentsForFarmer(DEFAULT_FARMER_ID);
     res.json({ success: true, data });
   } catch (err) {
     next(err);

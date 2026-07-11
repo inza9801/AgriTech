@@ -21,7 +21,7 @@ export const cancelOrder = (id) => api.patch(`/marketplace/requests/${id}/cancel
 
 export const getOrders = () => api.get("/orders");
 export const getPickups = () => api.get("/orders/pickups");
-export const getShipmentStatuses = () => api.get("/orders/shipment-status");
+export const getShipments = () => api.get("/orders/shipments");
 
 export const updateGrowthStage = (crop_id, growth_stage) => api.patch(`/crops/${crop_id}/growth-stage`, { growth_stage });
 export const getAllBatches = () => api.get("/warehouse/all-batches");

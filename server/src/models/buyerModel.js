@@ -138,7 +138,7 @@ export const getTrackingForBuyer = async (buyer_id) => {
      FROM orders o
      JOIN deliveries d ON d.order_id = o.order_id
      JOIN drivers dr ON d.driver_id = dr.driver_id
-     WHERE o.buyer_id = ?
+     WHERE o.buyer_id = ? AND d.status != 'Delivered'
      ORDER BY d.assigned_at DESC`,
     [buyer_id]
   );

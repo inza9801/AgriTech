@@ -26,6 +26,8 @@ const Tracking = () => {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
+      {shipments.length === 0 && !error && <p>No active shipments to track.</p>}
+
       {shipments.map((shipment, index) => {
         const currentIndex = STAGES.indexOf(shipment.status);
 
