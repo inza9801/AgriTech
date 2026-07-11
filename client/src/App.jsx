@@ -1,9 +1,19 @@
 import { Routes, Route } from "react-router-dom";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 import FarmerLayout from "./layouts/FarmerLayout";
 import BuyerLayout from "./layouts/BuyerLayout";
 import LogisticsLayout from "./layouts/LogisticsLayout";
 import LogisticsAdminLayout from "./layouts/LogisticsAdminLayout";
+
+/* ===========================
+   AUTH / PUBLIC PAGES
+=========================== */
+
+import Landing from "./pages/auth/Landing";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
 /* ===========================
    FARMER PAGES
@@ -30,7 +40,7 @@ import Tracking from "./pages/buyer/Tracking";
 import BuyerPayment from "./pages/buyer/BuyerPayment";
 
 /* ===========================
-   LOGISTICS PAGES
+   LOGISTICS (DRIVER) PAGES
 =========================== */
 
 import LogisticsDashboard from "./pages/logistics/LogisticsDashboard";
@@ -59,70 +69,91 @@ import NotFound from "./pages/NotFound";
 import "./App.css";
 
 function App() {
-
   return (
-
     <Routes>
+      {/* ===========================
+          PUBLIC ROUTES
+      =========================== */}
+
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       {/* ===========================
           FARMER ROUTES
       =========================== */}
 
-      <Route element={<FarmerLayout />}>
-
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/farm-monitoring" element={<FarmMonitoring />} />
-        <Route path="/irrigation" element={<Irrigation />} />
-        <Route path="/crop-management" element={<CropManagement />} />
-        <Route path="/warehouse" element={<WarehouseInventory />} />
-        <Route path="/marketplace" element={<Marketplace />} />
-        <Route path="/orders-logistics" element={<OrdersLogistics />} />
-        <Route path="/payments" element={<Payments />} />
-
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={["farmer"]}>
+            <FarmerLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/farmer" element={<Dashboard />} />
+        <Route path="/farmer/farm-monitoring" element={<FarmMonitoring />} />
+        <Route path="/farmer/irrigation" element={<Irrigation />} />
+        <Route path="/farmer/crop-management" element={<CropManagement />} />
+        <Route path="/farmer/warehouse" element={<WarehouseInventory />} />
+        <Route path="/farmer/marketplace" element={<Marketplace />} />
+        <Route path="/farmer/orders-logistics" element={<OrdersLogistics />} />
+        <Route path="/farmer/payments" element={<Payments />} />
       </Route>
 
       {/* ===========================
           BUYER ROUTES
       =========================== */}
 
-      <Route element={<BuyerLayout />}>
-
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={["buyer"]}>
+            <BuyerLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/buyer" element={<BuyerDashboard />} />
         <Route path="/buyer/marketplace" element={<MarketplaceHome />} />
         <Route path="/buyer/product/:id" element={<ProductDetail />} />
         <Route path="/buyer/orders" element={<CartOrders />} />
         <Route path="/buyer/tracking" element={<Tracking />} />
         <Route path="/buyer/payments" element={<BuyerPayment />} />
-
       </Route>
 
       {/* ===========================
-          LOGISTICS ROUTES
+          LOGISTICS (DRIVER) ROUTES
       =========================== */}
 
-      <Route element={<LogisticsLayout />}>
-
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={["driver"]}>
+            <LogisticsLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/logistics" element={<LogisticsDashboard />} />
         <Route path="/logistics/deliveries" element={<AssignedDeliveries />} />
         <Route path="/logistics/status" element={<DeliveryStatus />} />
         <Route path="/logistics/earnings" element={<Earnings />} />
         <Route path="/logistics/profile" element={<DriverProfile />} />
-
       </Route>
 
       {/* ===========================
           LOGISTICS ADMIN ROUTES
       =========================== */}
 
-      <Route element={<LogisticsAdminLayout />}>
-
+      <Route
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <LogisticsAdminLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/logistics-admin" element={<LogisticsAdminDashboard />} />
         <Route path="/logistics-admin/incoming-requests" element={<IncomingRequests />} />
         <Route path="/logistics-admin/assigned-orders" element={<AssignedOrders />} />
         <Route path="/logistics-admin/drivers" element={<DriverManagement />} />
         <Route path="/logistics-admin/shipments" element={<ShipmentMonitoring />} />
         <Route path="/logistics-admin/history" element={<DeliveryHistory />} />
-
       </Route>
 
       {/* ===========================
@@ -130,11 +161,8 @@ function App() {
       =========================== */}
 
       <Route path="*" element={<NotFound />} />
-
     </Routes>
-
   );
-
 }
 
 export default App;

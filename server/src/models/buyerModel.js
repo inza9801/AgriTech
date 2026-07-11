@@ -1,15 +1,32 @@
 import pool from "../config/db.js";
 
 export const getBuyerDashboardSummary = async (buyer_id) => {
-  const [rows] = await pool.query(
-    `SELECT
-      COUNT(*) AS totalOrders,
-      SUM(CASE WHEN order_status NOT IN ('Delivered','Cancelled') THEN 1 ELSE 0 END) AS pendingDeliveries,
-      SUM(CASE WHEN order_status = 'Delivered' THEN 1 ELSE 0 END) AS completedOrders
-     FROM orders WHERE buyer_id = ?`,
+  const [totalRows] = await pool.query(
+    `SELECT COUNT(*) AS totalOrders FROM orders WHERE buyer_id = ?`,
     [buyer_id]
   );
-  return rows[0];
+
+  // Orders still awaiting farmer confirmation
+  const [pendingRows] = await pool.query(
+    `SELECT COUNT(*) AS pendingDeliveries FROM orders
+     WHERE buyer_id = ? AND order_status = 'Pending'`,
+    [buyer_id]
+  );
+
+  // Completed = delivery actually marked Delivered in the deliveries table
+  const [completedRows] = await pool.query(
+    `SELECT COUNT(*) AS completedOrders
+     FROM orders o
+     JOIN deliveries d ON d.order_id = o.order_id
+     WHERE o.buyer_id = ? AND d.status = 'Delivered'`,
+    [buyer_id]
+  );
+
+  return {
+    totalOrders: totalRows[0].totalOrders,
+    pendingDeliveries: pendingRows[0].pendingDeliveries,
+    completedOrders: completedRows[0].completedOrders,
+  };
 };
 
 export const getRecentOrders = async (buyer_id) => {

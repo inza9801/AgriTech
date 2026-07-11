@@ -1,6 +1,19 @@
 import pool from "../config/db.js";
 
-// Single-crop setup: returns the one Rice crop for the given field
+// Resolve the logged-in farmer's field_id dynamically (was hardcoded DEFAULT_FIELD_ID)
+export const getFieldIdForFarmer = async (farmer_id) => {
+  const [rows] = await pool.query(
+    `SELECT f.field_id
+     FROM fields f
+     JOIN farms fm ON f.farm_id = fm.farm_id
+     WHERE fm.farmer_id = ?
+     ORDER BY f.field_id ASC
+     LIMIT 1`,
+    [farmer_id]
+  );
+  return rows[0]?.field_id || null;
+};
+
 export const getCropByField = async (field_id) => {
   const [rows] = await pool.query(
     `SELECT crop_id, crop_name, planting_date, expected_harvest_date,
@@ -11,7 +24,6 @@ export const getCropByField = async (field_id) => {
   );
   return rows[0] || null;
 };
-
 
 export const getListableBatches = async (farmer_id) => {
   const [rows] = await pool.query(
@@ -47,8 +59,6 @@ export const getListingsSummary = async (farmer_id) => {
   return rows[0];
 };
 
-// Buyer "requests" are now sourced directly from the orders table.
-// Only Pending orders are surfaced to the farmer for confirm/cancel action.
 export const getPendingRequestsForFarmer = async (farmer_id) => {
   const [rows] = await pool.query(
     `SELECT o.order_id, o.order_unique_id, u.full_name AS buyer_name, ml.crop_name,
@@ -118,8 +128,6 @@ export const getShipmentsForFarmer = async (farmer_id) => {
   return rows;
 };
 
-
-
 export const insertSensorReading = async ({
   field_id,
   soil_moisture_percent,
@@ -152,8 +160,6 @@ export const getSensorHistory = async (field_id, limit = 20) => {
   );
   return rows;
 };
-
-
 
 export const getUnsoldBatches = async (farmer_id) => {
   const [rows] = await pool.query(
@@ -194,49 +200,16 @@ export const createProduct = async ({ farmer_id, name, description, price, quant
 
 export const updateCrop = async (crop_id, growth_stage, health_status) => {
   await pool.query(
-    `UPDATE crops
-     SET growth_stage = ?, health_status = ?
-     WHERE crop_id = ?`,
+    `UPDATE crops SET growth_stage = ?, health_status = ? WHERE crop_id = ?`,
     [growth_stage, health_status, crop_id]
   );
 };
 
-export const addBatch = async ({
-  farmer_id,
-  crop_name,
-  quantity_tons,
-  arrival_date,
-  expiry_date,
-  status,
-}) => {
+export const addBatch = async ({ farmer_id, crop_name, quantity_tons, arrival_date, expiry_date, status }) => {
   const [result] = await pool.query(
-    `INSERT INTO warehouse_batches
-    (
-      farmer_id,
-      crop_name,
-      quantity_tons,
-      arrival_date,
-      expiry_date,
-      status
-    )
-    VALUES (?, ?, ?, ?, ?, ?)`,
-    [
-      farmer_id,
-      crop_name,
-      quantity_tons,
-      arrival_date,
-      expiry_date,
-      status,
-    ]
+    `INSERT INTO warehouse_batches (farmer_id, crop_name, quantity_tons, arrival_date, expiry_date, status)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [farmer_id, crop_name, quantity_tons, arrival_date, expiry_date, status]
   );
-
-  return {
-    batch_id: result.insertId,
-    farmer_id,
-    crop_name,
-    quantity_tons,
-    arrival_date,
-    expiry_date,
-    status,
-  };
+  return { batch_id: result.insertId, farmer_id, crop_name, quantity_tons, arrival_date, expiry_date, status };
 };

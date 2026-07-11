@@ -1,6 +1,10 @@
 import pool from "../config/db.js";
 
 
+export const getDriverIdByUserId = async (user_id) => {
+  const [rows] = await pool.query(`SELECT driver_id FROM drivers WHERE user_id = ?`, [user_id]);
+  return rows[0]?.driver_id || null;
+};
 
 export const getDriverProfile = async (driver_id) => {
   const [rows] = await pool.query(`SELECT * FROM drivers WHERE driver_id = ?`, [driver_id]);

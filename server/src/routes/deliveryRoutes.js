@@ -9,12 +9,13 @@ import {
   profile,
 } from "../controllers/deliveryController.js";
 
+import { protect, protectRole } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-// Drivers
-router.get("/drivers/profile", profile);
+router.use(protect, protectRole("driver"));
 
-// Deliveries
+router.get("/drivers/profile", profile);
 router.get("/deliveries/pending-offers", pendingOffers);
 router.post("/deliveries/:orderId/accept", accept);
 router.get("/deliveries/dashboard-summary", dashboardSummary);

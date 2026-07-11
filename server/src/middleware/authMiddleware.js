@@ -1,25 +1,36 @@
 import jwt from "jsonwebtoken";
+import { findUserById } from "../models/userModel.js";
 
-export const protect = (req, res, next) => {
-  let token = req.headers.authorization;
+export const protect = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
 
-  if (token && token.startsWith("Bearer")) {
-    try {
-      token = token.split(" ")[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = decoded; // { id, role, ... }
-      return next();
-    } catch (err) {
-      return res.status(401).json({ success: false, message: "Not authorized, invalid token" });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      res.status(401);
+      throw new Error("Not authorized, no token");
     }
+
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await findUserById(decoded.user_id);
+    if (!user) {
+      res.status(401);
+      throw new Error("User no longer exists");
+    }
+
+    req.user = user; // { user_id, username, email, role, full_name, ... }
+    next();
+  } catch (err) {
+    res.status(401);
+    next(new Error("Not authorized, token invalid or expired"));
   }
-  return res.status(401).json({ success: false, message: "Not authorized, no token" });
 };
 
-// Usage: protectRole("farmer", "admin")
-export const protectRole = (...roles) => (req, res, next) => {
-  if (!req.user || !roles.includes(req.user.role)) {
-    return res.status(403).json({ success: false, message: "Forbidden: insufficient role" });
+export const protectRole = (...allowedRoles) => (req, res, next) => {
+  if (!req.user || !allowedRoles.includes(req.user.role)) {
+    res.status(403);
+    return next(new Error("Forbidden: insufficient role"));
   }
   next();
 };

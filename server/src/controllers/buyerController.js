@@ -12,11 +12,9 @@ import {
   getTrackingForBuyer,
 } from "../models/buyerModel.js";
 
-const DEFAULT_BUYER_ID = 2; // seeded 'dhaka_agro' buyer
-
 export const dashboardSummary = async (req, res, next) => {
   try {
-    const data = await getBuyerDashboardSummary(DEFAULT_BUYER_ID);
+    const data = await getBuyerDashboardSummary(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -25,7 +23,7 @@ export const dashboardSummary = async (req, res, next) => {
 
 export const recentOrders = async (req, res, next) => {
   try {
-    const data = await getRecentOrders(DEFAULT_BUYER_ID);
+    const data = await getRecentOrders(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -66,7 +64,7 @@ export const listingDetail = async (req, res, next) => {
 
 export const cartItems = async (req, res, next) => {
   try {
-    const data = await getCartItems(DEFAULT_BUYER_ID);
+    const data = await getCartItems(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -76,7 +74,7 @@ export const cartItems = async (req, res, next) => {
 export const addCartItem = async (req, res, next) => {
   try {
     const { listing_id, quantity_kg } = req.body;
-    const data = await addToCart({ buyer_id: DEFAULT_BUYER_ID, listing_id, quantity_kg });
+    const data = await addToCart({ buyer_id: req.user.user_id, listing_id, quantity_kg });
     res.status(201).json({ success: true, data });
   } catch (err) {
     next(err);
@@ -94,7 +92,7 @@ export const deleteCartItem = async (req, res, next) => {
 
 export const placeOrder = async (req, res, next) => {
   try {
-    const orderIds = await placeOrderFromCart(DEFAULT_BUYER_ID);
+    const orderIds = await placeOrderFromCart(req.user.user_id);
     res.status(201).json({ success: true, data: { orderIds } });
   } catch (err) {
     next(err);
@@ -103,7 +101,7 @@ export const placeOrder = async (req, res, next) => {
 
 export const orderHistory = async (req, res, next) => {
   try {
-    const data = await getOrderHistory(DEFAULT_BUYER_ID);
+    const data = await getOrderHistory(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -112,7 +110,7 @@ export const orderHistory = async (req, res, next) => {
 
 export const tracking = async (req, res, next) => {
   try {
-    const data = await getTrackingForBuyer(DEFAULT_BUYER_ID);
+    const data = await getTrackingForBuyer(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);

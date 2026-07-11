@@ -13,7 +13,11 @@ import {
   tracking,
 } from "../controllers/buyerController.js";
 
+import { protect, protectRole } from "../middleware/authMiddleware.js";
+
 const router = express.Router();
+
+router.use(protect, protectRole("buyer"));
 
 router.get("/buyer/dashboard-summary", dashboardSummary);
 router.get("/buyer/recent-orders", recentOrders);

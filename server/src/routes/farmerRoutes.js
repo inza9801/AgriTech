@@ -1,35 +1,39 @@
 import express from "express";
-import { getCrop, 
-    getDashboardSummary,
-    listableBatches,
-    addListing,
-    summary,
-    requests,
-    confirmOrder,
-    cancelOrder,
-    listOrders, 
-    listPickups, 
-    listShipments,
-    listProducts, 
-    getProduct, 
-    addProduct, 
-    addSensorReading, 
-    getLatestReading, 
-    getHistory,
-    getCurrentWeather,
-    listBatches, 
-    getSummary,
-    updateCropStatus,
-    createBatch,
- } from "../controllers/farmerController.js";
+import {
+  getCrop,
+  getDashboardSummary,
+  listableBatches,
+  addListing,
+  summary,
+  requests,
+  confirmOrder,
+  cancelOrder,
+  listOrders,
+  listPickups,
+  listShipments,
+  listProducts,
+  getProduct,
+  addProduct,
+  addSensorReading,
+  getLatestReading,
+  getHistory,
+  getCurrentWeather,
+  listBatches,
+  getSummary,
+  updateCropStatus,
+  createBatch,
+} from "../controllers/farmerController.js";
 
- import { protect, protectRole } from "../middleware/authMiddleware.js";
+import { protect, protectRole } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
+
+router.use(protect, protectRole("farmer"));
 
 // Crops
 router.get("/crops", getCrop);
 router.get("/crops/dashboard-summary", getDashboardSummary);
+router.patch("/crops/:crop_id", updateCropStatus);
 
 // Sensors
 router.post("/sensors", addSensorReading);
@@ -60,8 +64,6 @@ router.get("/orders/shipments", listShipments);
 // Products
 router.get("/products", listProducts);
 router.get("/products/:id", getProduct);
-router.post("/products", protect, protectRole("farmer"), addProduct);
-
-router.patch("/crops/:crop_id", updateCropStatus);
+router.post("/products", addProduct);
 
 export default router;

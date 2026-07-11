@@ -1,4 +1,5 @@
 import {
+  getDriverIdByUserId,
   getDriverProfile,
   getPendingOffers,
   acceptDelivery,
@@ -8,11 +9,19 @@ import {
   getEarningsSummary,
 } from "../models/deliveryModel.js";
 
-const DEFAULT_DRIVER_ID = 1;
+const resolveDriverId = async (req, res) => {
+  const driver_id = await getDriverIdByUserId(req.user.user_id);
+  if (!driver_id) {
+    res.status(404);
+    throw new Error("Driver profile not found for this account");
+  }
+  return driver_id;
+};
 
 export const profile = async (req, res, next) => {
   try {
-    const driver = await getDriverProfile(DEFAULT_DRIVER_ID);
+    const driver_id = await resolveDriverId(req, res);
+    const driver = await getDriverProfile(driver_id);
     if (!driver) {
       res.status(404);
       throw new Error("Driver not found");
@@ -22,9 +31,6 @@ export const profile = async (req, res, next) => {
     next(err);
   }
 };
-
-
-
 
 export const pendingOffers = async (req, res, next) => {
   try {
@@ -37,8 +43,9 @@ export const pendingOffers = async (req, res, next) => {
 
 export const accept = async (req, res, next) => {
   try {
+    const driver_id = await resolveDriverId(req, res);
     const { orderId } = req.params;
-    const result = await acceptDelivery(orderId, DEFAULT_DRIVER_ID);
+    const result = await acceptDelivery(orderId, driver_id);
     res.status(201).json({ success: true, data: result });
   } catch (err) {
     next(err);
@@ -47,7 +54,8 @@ export const accept = async (req, res, next) => {
 
 export const listDeliveries = async (req, res, next) => {
   try {
-    const data = await getActiveDeliveriesForDriver(DEFAULT_DRIVER_ID);
+    const driver_id = await resolveDriverId(req, res);
+    const data = await getActiveDeliveriesForDriver(driver_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -71,7 +79,8 @@ export const updateStatus = async (req, res, next) => {
 
 export const dashboardSummary = async (req, res, next) => {
   try {
-    const data = await getDashboardSummary(DEFAULT_DRIVER_ID);
+    const driver_id = await resolveDriverId(req, res);
+    const data = await getDashboardSummary(driver_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -80,7 +89,8 @@ export const dashboardSummary = async (req, res, next) => {
 
 export const earningsSummary = async (req, res, next) => {
   try {
-    const data = await getEarningsSummary(DEFAULT_DRIVER_ID);
+    const driver_id = await resolveDriverId(req, res);
+    const data = await getEarningsSummary(driver_id);
     const RATE_PER_TRIP = 100;
     res.json({
       success: true,

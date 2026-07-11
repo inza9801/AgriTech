@@ -1,4 +1,5 @@
 import {
+  getFieldIdForFarmer,
   getCropByField,
   getListableBatches,
   createListing,
@@ -10,48 +11,41 @@ import {
   getOrdersForFarmer,
   getPickupsForFarmer,
   getShipmentsForFarmer,
-  getAllProducts, 
-  getProductById, 
+  getAllProducts,
+  getProductById,
   createProduct,
-  insertSensorReading, getLatestSensorReading, 
+  insertSensorReading,
+  getLatestSensorReading,
   getSensorHistory,
-  getUnsoldBatches, 
+  getUnsoldBatches,
   getBatchSummary,
   updateCrop,
   addBatch,
 } from "../models/farmerModel.js";
 
+const MOISTURE_THRESHOLD = 40;
 
-
-
-
-const DEFAULT_FIELD_ID = 1;
-const MOISTURE_THRESHOLD = 40; // below this => irrigation needed
-const DEFAULT_FARMER_ID = 1;
+// Resolves the logged-in farmer's field_id, or throws a 404-style error
+const resolveFieldId = async (req, res) => {
+  const field_id = await getFieldIdForFarmer(req.user.user_id);
+  if (!field_id) {
+    res.status(404);
+    throw new Error("No field found for this farmer. Please set up your farm/field first.");
+  }
+  return field_id;
+};
 
 export const createBatch = async (req, res, next) => {
   try {
-    const {
-      crop_name,
-      quantity_tons,
-      arrival_date,
-      expiry_date,
-      status,
-    } = req.body;
+    const { crop_name, quantity_tons, arrival_date, expiry_date, status } = req.body;
 
-    if (
-      !crop_name ||
-      !quantity_tons ||
-      !arrival_date ||
-      !expiry_date ||
-      !status
-    ) {
+    if (!crop_name || !quantity_tons || !arrival_date || !expiry_date || !status) {
       res.status(400);
       throw new Error("All fields are required.");
     }
 
     const batch = await addBatch({
-      farmer_id: DEFAULT_FARMER_ID,
+      farmer_id: req.user.user_id,
       crop_name,
       quantity_tons,
       arrival_date,
@@ -59,10 +53,7 @@ export const createBatch = async (req, res, next) => {
       status,
     });
 
-    res.status(201).json({
-      success: true,
-      data: batch,
-    });
+    res.status(201).json({ success: true, data: batch });
   } catch (err) {
     next(err);
   }
@@ -70,7 +61,8 @@ export const createBatch = async (req, res, next) => {
 
 export const getCrop = async (req, res, next) => {
   try {
-    const crop = await getCropByField(DEFAULT_FIELD_ID);
+    const field_id = await resolveFieldId(req, res);
+    const crop = await getCropByField(field_id);
     if (!crop) {
       res.status(404);
       throw new Error("No crop found");
@@ -81,11 +73,11 @@ export const getCrop = async (req, res, next) => {
   }
 };
 
-// Simplified summary used by the dashboard's top cards
 export const getDashboardSummary = async (req, res, next) => {
   try {
-    const crop = await getCropByField(DEFAULT_FIELD_ID);
-    const reading = await getLatestSensorReading(DEFAULT_FIELD_ID);
+    const field_id = await resolveFieldId(req, res);
+    const crop = await getCropByField(field_id);
+    const reading = await getLatestSensorReading(field_id);
 
     const cropHealth = crop && crop.health_status === "Healthy" ? "Healthy" : "Diseased";
 
@@ -108,13 +100,9 @@ export const getDashboardSummary = async (req, res, next) => {
   }
 };
 
-
-
-
-
 export const listableBatches = async (req, res, next) => {
   try {
-    const batches = await getListableBatches(DEFAULT_FARMER_ID);
+    const batches = await getListableBatches(req.user.user_id);
     res.json({ success: true, data: batches });
   } catch (err) {
     next(err);
@@ -124,7 +112,7 @@ export const listableBatches = async (req, res, next) => {
 export const addListing = async (req, res, next) => {
   try {
     const { batch_id, quantity_tons, price_per_kg } = req.body;
-    const listing = await createListing({ farmer_id: DEFAULT_FARMER_ID, batch_id, quantity_tons, price_per_kg });
+    const listing = await createListing({ farmer_id: req.user.user_id, batch_id, quantity_tons, price_per_kg });
     res.status(201).json({ success: true, data: listing });
   } catch (err) {
     next(err);
@@ -133,17 +121,16 @@ export const addListing = async (req, res, next) => {
 
 export const summary = async (req, res, next) => {
   try {
-    const data = await getListingsSummary(DEFAULT_FARMER_ID);
+    const data = await getListingsSummary(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
   }
 };
 
-// Pending buyer requests, sourced from the orders table
 export const requests = async (req, res, next) => {
   try {
-    const data = await getPendingRequestsForFarmer(DEFAULT_FARMER_ID);
+    const data = await getPendingRequestsForFarmer(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -153,14 +140,12 @@ export const requests = async (req, res, next) => {
 export const confirmOrder = async (req, res, next) => {
   try {
     const order = await getOrderById(req.params.id);
-    if (!order) {
+    if (!order || order.farmer_id !== req.user.user_id) {
       res.status(404);
       throw new Error("Order not found");
     }
-
     await updateOrderStatus(order.order_id, "Confirmed");
     await updateListingStatus(order.listing_id, "Reserved");
-
     res.json({ success: true, message: "Order confirmed and listing reserved" });
   } catch (err) {
     next(err);
@@ -170,7 +155,7 @@ export const confirmOrder = async (req, res, next) => {
 export const cancelOrder = async (req, res, next) => {
   try {
     const order = await getOrderById(req.params.id);
-    if (!order) {
+    if (!order || order.farmer_id !== req.user.user_id) {
       res.status(404);
       throw new Error("Order not found");
     }
@@ -181,13 +166,9 @@ export const cancelOrder = async (req, res, next) => {
   }
 };
 
-
-
-
-
 export const listOrders = async (req, res, next) => {
   try {
-    const data = await getOrdersForFarmer(DEFAULT_FARMER_ID);
+    const data = await getOrdersForFarmer(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -196,7 +177,7 @@ export const listOrders = async (req, res, next) => {
 
 export const listPickups = async (req, res, next) => {
   try {
-    const data = await getPickupsForFarmer(DEFAULT_FARMER_ID);
+    const data = await getPickupsForFarmer(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -205,14 +186,12 @@ export const listPickups = async (req, res, next) => {
 
 export const listShipments = async (req, res, next) => {
   try {
-    const data = await getShipmentsForFarmer(DEFAULT_FARMER_ID);
+    const data = await getShipmentsForFarmer(req.user.user_id);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
   }
 };
-
-
 
 export const listProducts = async (req, res, next) => {
   try {
@@ -239,27 +218,16 @@ export const getProduct = async (req, res, next) => {
 export const addProduct = async (req, res, next) => {
   try {
     const { name, description, price, quantity } = req.body;
-    const product = await createProduct({
-      farmer_id: req.user.id,
-      name,
-      description,
-      price,
-      quantity,
-    });
+    const product = await createProduct({ farmer_id: req.user.user_id, name, description, price, quantity });
     res.status(201).json({ success: true, data: product });
   } catch (err) {
     next(err);
   }
 };
 
-
-
-// Hardcoded to the single seeded field for this one-farmer setup
-
-
-
 export const addSensorReading = async (req, res, next) => {
   try {
+    const field_id = await resolveFieldId(req, res);
     const { soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha } = req.body;
 
     if (
@@ -274,7 +242,7 @@ export const addSensorReading = async (req, res, next) => {
     }
 
     const reading = await insertSensorReading({
-      field_id: DEFAULT_FIELD_ID,
+      field_id,
       soil_moisture_percent,
       soil_temperature_celsius,
       nitrogen_kgha,
@@ -290,31 +258,27 @@ export const addSensorReading = async (req, res, next) => {
 
 export const getLatestReading = async (req, res, next) => {
   try {
-    const reading = await getLatestSensorReading(DEFAULT_FIELD_ID);
+    const field_id = await resolveFieldId(req, res);
+    const reading = await getLatestSensorReading(field_id);
     res.json({ success: true, data: reading });
   } catch (err) {
     next(err);
   }
 };
 
-
-
 export const getHistory = async (req, res, next) => {
   try {
-    const history = await getSensorHistory(DEFAULT_FIELD_ID);
+    const field_id = await resolveFieldId(req, res);
+    const history = await getSensorHistory(field_id);
     res.json({ success: true, data: history });
   } catch (err) {
     next(err);
   }
 };
 
-
-
-
-
 export const listBatches = async (req, res, next) => {
   try {
-    const batches = await getUnsoldBatches(DEFAULT_FARMER_ID);
+    const batches = await getUnsoldBatches(req.user.user_id);
     res.json({ success: true, data: batches });
   } catch (err) {
     next(err);
@@ -323,15 +287,12 @@ export const listBatches = async (req, res, next) => {
 
 export const getSummary = async (req, res, next) => {
   try {
-    const summary = await getBatchSummary(DEFAULT_FARMER_ID);
+    const summary = await getBatchSummary(req.user.user_id);
     res.json({ success: true, data: summary });
   } catch (err) {
     next(err);
   }
 };
-
-// Uses Open-Meteo (free, no API key required)
-// Docs: https://open-meteo.com/en/docs
 
 export const getCurrentWeather = async (req, res, next) => {
   try {
@@ -342,7 +303,6 @@ export const getCurrentWeather = async (req, res, next) => {
     }
 
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code`;
-
     const response = await fetch(url);
     if (!response.ok) {
       res.status(502);
@@ -365,17 +325,13 @@ export const getCurrentWeather = async (req, res, next) => {
     next(err);
   }
 };
+
 export const updateCropStatus = async (req, res, next) => {
   try {
     const { crop_id } = req.params;
     const { growth_stage, health_status } = req.body;
-
     await updateCrop(crop_id, growth_stage, health_status);
-
-    res.json({
-      success: true,
-      message: "Crop updated successfully",
-    });
+    res.json({ success: true, message: "Crop updated successfully" });
   } catch (err) {
     next(err);
   }
