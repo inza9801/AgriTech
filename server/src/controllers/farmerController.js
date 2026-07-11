@@ -6,6 +6,7 @@ import {
   getPendingRequestsForFarmer,
   getOrderById,
   updateOrderStatus,
+  updateListingStatus,
   getOrdersForFarmer,
   getPickupsForFarmer,
   getShipmentStatusesForFarmer,
@@ -156,8 +157,11 @@ export const confirmOrder = async (req, res, next) => {
       res.status(404);
       throw new Error("Order not found");
     }
+
     await updateOrderStatus(order.order_id, "Confirmed");
-    res.json({ success: true, message: "Order confirmed" });
+    await updateListingStatus(order.listing_id, "Reserved");
+
+    res.json({ success: true, message: "Order confirmed and listing reserved" });
   } catch (err) {
     next(err);
   }

@@ -72,6 +72,10 @@ export const updateOrderStatus = async (order_id, status) => {
   await pool.query(`UPDATE orders SET order_status = ? WHERE order_id = ?`, [status, order_id]);
 };
 
+export const updateListingStatus = async (listing_id, status) => {
+  await pool.query(`UPDATE marketplace_listings SET status = ? WHERE listing_id = ?`, [status, listing_id]);
+};
+
 export const getOrdersForFarmer = async (farmer_id) => {
   const [rows] = await pool.query(
     `SELECT o.order_id, o.order_unique_id, u.full_name AS buyer_name, ml.crop_name,
