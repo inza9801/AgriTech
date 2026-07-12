@@ -1,117 +1,53 @@
-.navbar{
-
-    position:sticky;
-
-    top:0;
-
-    z-index:100;
-
-    background:white;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:20px 30px;
-
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
-
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 30px;
+  border-bottom: 1px solid var(--border);
 }
 
-.navbar h2{
-
-    margin:0;
-    color: #1b5e20;
-
+.navbar h2 {
+  font-size: 17px;
+  color: var(--text-strong);
 }
 
-.navbar p{
-
-    margin-top:5px;
-    color:gray;
-
+.navbar p {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
-.navbarRight{
-
-    display:flex;
-    align-items:center;
-    gap:20px;
-
+.navbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
 }
 
-.weatherCard{
-
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    background:#e8f5e9;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--border);
 }
 
-.weatherCard svg{
-
-    color:orange;
-    font-size:28px;
-
+.profileIcon {
+  font-size: 34px;
+  color: var(--brand-700);
 }
 
-.notification{
-
-    position:relative;
-    font-size:24px;
-    cursor:pointer;
-
+.profile strong {
+  font-size: 13.5px;
+  color: var(--text-strong);
+  display: block;
 }
 
-.notification span{
-
-    position:absolute;
-
-    top:-8px;
-    right:-8px;
-
-    width:18px;
-    height:18px;
-
-    border-radius:50%;
-
-    background:red;
-    color:white;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:12px;
-
-}
-
-.profile{
-
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-}
-
-.profileIcon{
-
-    font-size:48px;
-    color:#1b5e20;
-
-}
-
-.profile p{
-
-    margin:0;
-    font-size:13px;
-
+.profile p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
 }

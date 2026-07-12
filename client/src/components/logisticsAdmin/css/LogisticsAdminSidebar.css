@@ -1,109 +1,75 @@
-.logisticsAdminSidebar{
-
-    width:260px;
-
-    min-height:100vh;
-
-    position:fixed;
-
-    left:0;
-
-    top:0;
-
-    background:#1B5E20;
-
-    color:#fff;
-
-    padding:20px;
-
-    display:flex;
-
-    flex-direction:column;
-
+.logisticsAdminSidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: var(--gray-900);
+  color: #fff;
+  padding: var(--space-5) var(--space-4);
+  display: flex;
+  flex-direction: column;
 }
 
-.logisticsAdminSidebar .logo{
-
-    margin-bottom:30px;
-
+.logisticsAdminSidebar .logo {
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.logisticsAdminSidebar .logo h2{
+.logisticsAdminSidebar .logo h2 { margin: 0; color: #fff; font-size: 17px; }
+.logisticsAdminSidebar .logo p { margin-top: 4px; opacity: 0.75; font-size: 12px; }
 
-    margin:0;
-
-    color:#fff;
-
+.logisticsAdminSidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
 }
 
-.logisticsAdminSidebar .logo p{
-
-    margin-top:5px;
-
-    opacity:.85;
-
+.logisticsAdminSidebar .navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: transparent;
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.logisticsAdminSidebar nav{
+.logisticsAdminSidebar .navItem svg { font-size: 15px; min-width: 15px; opacity: 0.9; }
 
-    display:flex;
+.logisticsAdminSidebar .navItem:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
 
-    flex-direction:column;
-
-    gap:12px;
-
-    flex:1;
-
+.logisticsAdminSidebar .navItem.active {
+  background: #fff;
+  color: var(--gray-900);
+  font-weight: 600;
 }
+.logisticsAdminSidebar .navItem.active svg { opacity: 1; }
 
-.logisticsAdminSidebar .navItem{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    padding:14px 16px;
-
-    background:rgba(255,255,255,.08);
-
-    border-radius:10px;
-
-    color:#fff;
-
-    text-decoration:none;
-
-    transition:.3s;
-
-    font-size:16px;
-
-    font-weight:500;
-
+.logisticsAdminSidebar .logoutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s ease;
+  margin-top: var(--space-3);
 }
+.logisticsAdminSidebar .logoutBtn:hover { background: rgba(255, 255, 255, 0.16); }
 
-.logisticsAdminSidebar .navItem svg{
-
-    font-size:20px;
-
-    min-width:20px;
-
-}
-
-.logisticsAdminSidebar .navItem:hover{
-
-    background:rgba(255,255,255,.18);
-
-    transform:translateX(5px);
-
-}
-
-.logisticsAdminSidebar .navItem.active{
-
-    background:#fff;
-
-    color:#1B5E20;
-
-    font-weight:600;
-
+@media (max-width: 768px) {
+  .logisticsAdminSidebar { position: relative; width: 100%; min-height: auto; }
 }

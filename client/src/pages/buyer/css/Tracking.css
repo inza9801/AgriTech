@@ -1,133 +1,111 @@
-.trackingPage{
-    padding:30px;
-    background:#f5f7fa;
-    min-height:100vh;
+.shipmentCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-5);
 }
 
-.trackingPage h1{
-    color:#2e7d32;
-    margin-bottom:30px;
+.shipmentCard h2 { margin-bottom: var(--space-4); }
+
+.progressSection {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-6);
 }
 
-.progressSection{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:35px;
+.progressRow {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  last-child: none;
 }
 
-.progressItem{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+.progressItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.circle{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:#ccc;
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-weight:bold;
+.progressItem p { font-size: 12.5px; color: var(--text-muted); white-space: nowrap; }
+.progressItem.active p { color: var(--brand-700); font-weight: 600; }
+
+.circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--gray-200);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 13px;
+  transition: background 0.25s ease;
 }
 
-.active .circle{
-    background:#2e7d32;
+.active .circle { background: var(--brand-500); }
+
+.line {
+  flex: 1;
+  height: 3px;
+  background: var(--gray-200);
+  margin: 0 8px;
+  transition: background 0.25s ease;
+  align-self: flex-start;
+  margin-top: 19px;
 }
 
-.line{
-    flex:1;
-    height:4px;
-    background:#ccc;
+.line.active { background: var(--brand-500); }
+
+.trackingCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
 }
 
-.line.active{
-    background:#2e7d32;
+.locationCard {
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
 }
 
-.trackingCards{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-    margin-bottom:35px;
-}
-
-.trackCard{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.trackCard h3{
-    color:#777;
-    margin-bottom:12px;
-}
-
-.trackCard p{
-    color:#2e7d32;
-    font-weight:600;
-}
+.locationCard h3 { color: var(--text-muted); font-size: 13px; margin-bottom: 8px; }
+.locationCard p { color: var(--brand-700); font-weight: 600; }
 
 .driverSection,
-.mapSection,
-.timelineSection{
-    background:white;
-    border-radius:12px;
-    padding:25px;
-    margin-bottom:30px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
+.timelineSection {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-5);
+  margin-top: var(--space-5);
 }
 
-.driverSection table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
+.driverSection h2,
+.timelineSection h2 { margin-bottom: var(--space-3); }
+
+.timelineItem {
+  display: flex;
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
 }
 
-.driverSection td{
-    padding:14px;
-    border-bottom:1px solid #eee;
+.timelineDot {
+  width: 12px;
+  height: 12px;
+  background: var(--brand-500);
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
 }
 
-.mapPlaceholder{
-    height:300px;
-    margin-top:20px;
-    background:#eef7ee;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius:10px;
-    font-size:30px;
-    color:#2e7d32;
-}
+.timelineItem h4 { color: var(--text-strong); margin-bottom: 4px; font-size: 14px; }
+.timelineItem small { color: var(--text-muted); }
 
-.timelineItem{
-    display:flex;
-    gap:20px;
-    margin:25px 0;
-}
-
-.timelineDot{
-    width:16px;
-    height:16px;
-    background:#2e7d32;
-    border-radius:50%;
-    margin-top:5px;
-}
-
-.timelineItem h4{
-    color:#2e7d32;
-    margin-bottom:5px;
-}
-
-.timelineItem small{
-    color:#777;
-}
-
-.timelineItem p{
-    margin-top:8px;
+@media (max-width: 640px) {
+  .progressItem p { display: none; }
 }

@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./css/ProductDetail.css";
-import { getListingDetail, addToCart } from "../../api/buyerService";
+import { getListingDetail } from "../../api/buyerService";
+import { useCart } from "../../contexts/CartContext";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addItem } = useCart();
 
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [added, setAdded] = useState(false);
   const [quantityKg, setQuantityKg] = useState("");
   const [adding, setAdding] = useState(false);
 
@@ -37,7 +39,7 @@ const ProductDetail = () => {
   const qtyNum = Number(quantityKg);
   const isQtyValid = qtyNum > 0 && qtyNum <= maxKg;
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (e) => {
     if (!isQtyValid) {
       setError(`Enter a quantity between 1 and ${maxKg} kg.`);
       return;
@@ -45,51 +47,54 @@ const ProductDetail = () => {
 
     setAdding(true);
     setError("");
-    setMessage("");
+    setAdded(false);
     try {
-      await addToCart({
-        listing_id: Number(id),
-        quantity_kg: qtyNum,
-      });
-      setMessage("Added to cart!");
+      await addItem({ listing_id: Number(id), quantity_kg: qtyNum }, e.currentTarget);
+      setAdded(true);
     } catch (err) {
       console.error(err);
-      setError(
-        err.response?.data?.message || "Failed to add product to cart."
-      );
+      setError(err.response?.data?.message || "Failed to add product to cart.");
     } finally {
       setAdding(false);
     }
   };
 
   if (loading) {
-    return <div className="productDetail">Loading...</div>;
+    return (
+      <div className="productDetail">
+        <div className="skeleton" style={{ height: 32, width: 240, marginBottom: 20 }} />
+        <div className="skeleton" style={{ height: 320, borderRadius: 16 }} />
+      </div>
+    );
   }
 
   if (!listing) {
-    return <div className="productDetail">{error || "Product not found."}</div>;
+    return (
+      <div className="productDetail">
+        <div className="emptyState">
+          <div className="emptyIcon">⚠</div>
+          <p>{error || "Product not found."}</p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="productDetail">
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && (
-        <p style={{ color: "green" }}>
-          {message}{" "}
-          <button className="cartBtn" onClick={() => navigate("/buyer/cart")}>
-            Go to Cart
+      {error && <div className="formError">{error}</div>}
+      {added && (
+        <div className="formSuccess">
+          Added to cart.
+          <button className="linkBtn" onClick={() => navigate("/buyer/orders")}>
+            Go to cart →
           </button>
-        </p>
+        </div>
       )}
 
       <div className="productContainer">
-        <div className="productImages">
-          <div className="mainImage">🌾</div>
-        </div>
-
         <div className="productInfo">
           <h1>{listing.crop_name}</h1>
-          <h2>৳{listing.price_per_kg} / kg</h2>
+          <h2 className="priceTag">৳{listing.price_per_kg} / kg</h2>
 
           <table>
             <tbody>
@@ -121,8 +126,9 @@ const ProductDetail = () => {
           </table>
 
           <div className="quantityInput">
-            <label>Quantity (kg)</label>
+            <label htmlFor="qtyInput">Quantity (kg)</label>
             <input
+              id="qtyInput"
               type="number"
               min="1"
               max={maxKg}
@@ -134,17 +140,18 @@ const ProductDetail = () => {
 
           <div className="actionButtons">
             <button
-              className="cartBtn"
+              className="primaryBtn cartBtn"
               onClick={handleAddToCart}
               disabled={adding || !isQtyValid}
             >
+              {adding && <span className="spinner" />}
               {adding ? "Adding..." : "Add to Cart"}
             </button>
           </div>
         </div>
       </div>
 
-      <div className="farmerCard">
+      <div className="farmerCard commonCard">
         <h2>Farmer Profile</h2>
 
         <table>

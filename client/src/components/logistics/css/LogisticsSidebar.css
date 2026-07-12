@@ -1,109 +1,75 @@
-.logisticsSidebar{
-
-    width:260px;
-
-    min-height:100vh;
-
-    position:fixed;
-
-    left:0;
-
-    top:0;
-
-    background:#1565c0;
-
-    color:#fff;
-
-    padding:20px;
-
-    display:flex;
-
-    flex-direction:column;
-
+.logisticsSidebar {
+  width: var(--sidebar-width);
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: var(--info-500);
+  color: #fff;
+  padding: var(--space-5) var(--space-4);
+  display: flex;
+  flex-direction: column;
 }
 
-.logo{
-
-    margin-bottom:30px;
-
+.logisticsSidebar .logo {
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.logo h2{
+.logisticsSidebar .logo h2 { margin: 0; color: #fff; font-size: 17px; }
+.logisticsSidebar .logo p { margin-top: 4px; opacity: 0.75; font-size: 12px; }
 
-    margin:0;
-
-    color:#fff;
-
+.logisticsSidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
 }
 
-.logo p{
-
-    margin-top:5px;
-
-    opacity:.85;
-
+.logisticsSidebar .navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: transparent;
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-nav{
+.logisticsSidebar .navItem svg { font-size: 15px; min-width: 15px; opacity: 0.9; }
 
-    display:flex;
+.logisticsSidebar .navItem:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
 
-    flex-direction:column;
-
-    gap:12px;
-
-    flex:1;
-
+.logisticsSidebar .navItem.active {
+  background: #fff;
+  color: var(--info-500);
+  font-weight: 600;
 }
+.logisticsSidebar .navItem.active svg { opacity: 1; }
 
-.navItem{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    padding:14px 16px;
-
-    background:rgba(255,255,255,.08);
-
-    border-radius:10px;
-
-    color:#fff;
-
-    text-decoration:none;
-
-    transition:.3s;
-
-    font-size:16px;
-
-    font-weight:500;
-
+.logisticsSidebar .logoutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s ease;
+  margin-top: var(--space-3);
 }
+.logisticsSidebar .logoutBtn:hover { background: rgba(255, 255, 255, 0.16); }
 
-.navItem svg{
-
-    font-size:20px;
-
-    min-width:20px;
-
-}
-
-.navItem:hover{
-
-    background:rgba(255,255,255,.18);
-
-    transform:translateX(5px);
-
-}
-
-.navItem.active{
-
-    background:#fff;
-
-    color:#1565c0;
-
-    font-weight:600;
-
+@media (max-width: 768px) {
+  .logisticsSidebar { position: relative; width: 100%; min-height: auto; }
 }

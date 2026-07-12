@@ -8,7 +8,7 @@
 
     align-items:center;
 
-    background:#F4F7F5;
+    background:var(--surface-muted);
 
     padding:30px;
 
@@ -36,7 +36,7 @@
 
     font-size:120px;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -46,7 +46,7 @@
 
     font-size:34px;
 
-    color:#333;
+    color:var(--text-strong);
 
     margin-bottom:20px;
 
@@ -54,7 +54,7 @@
 
 .notFoundCard p{
 
-    color:#666;
+    color:var(--text-muted);
 
     line-height:1.8;
 
@@ -66,7 +66,7 @@
 
     display:inline-block;
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
     color:#fff;
 
@@ -86,7 +86,7 @@
 
 .homeButton:hover{
 
-    background:#1B5E20;
+    background:var(--brand-700);
 
     transform:translateY(-2px);
 

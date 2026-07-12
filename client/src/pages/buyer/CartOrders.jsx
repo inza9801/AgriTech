@@ -1,60 +1,44 @@
 import { useState, useEffect } from "react";
 import "./css/CartOrders.css";
-import {
-  getCartItems,
-  removeCartItem,
-  placeOrder,
-  getOrderHistory,
-} from "../../api/buyerService";
+import { getOrderHistory } from "../../api/buyerService";
 import { jsPDF } from "jspdf";
+import { useCart } from "../../contexts/CartContext";
+import { useToast } from "../../hooks/useToast";
 
 const CartOrders = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const { cartItems, cartTotal, loading: cartLoading, removeItem, checkout } = useCart();
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [ordersLoading, setOrdersLoading] = useState(true);
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [placingOrder, setPlacingOrder] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
   const [removingId, setRemovingId] = useState(null);
+  const showToast = useToast();
 
-  const loadData = async () => {
-    setLoading(true);
+  const loadOrders = async () => {
+    setOrdersLoading(true);
     setError("");
     try {
-      const [cartRes, ordersRes] = await Promise.all([
-        getCartItems(),
-        getOrderHistory(),
-      ]);
-      setCartItems(cartRes.data.data);
-      setOrders(ordersRes.data.data);
+      const res = await getOrderHistory();
+      setOrders(res.data.data);
     } catch (err) {
-      setError("Failed to load cart/orders");
+      setError("Failed to load order history");
       console.error(err);
     } finally {
-      setLoading(false);
+      setOrdersLoading(false);
     }
   };
 
   useEffect(() => {
-    loadData();
+    loadOrders();
   }, []);
-
-  // Auto-clear success message after a few seconds
-  useEffect(() => {
-    if (!message) return;
-    const timer = setTimeout(() => setMessage(""), 4000);
-    return () => clearTimeout(timer);
-  }, [message]);
 
   const handleRemove = async (cart_item_id) => {
     setRemovingId(cart_item_id);
     setError("");
     try {
-      await removeCartItem(cart_item_id);
-      setCartItems((prev) =>
-        prev.filter((item) => item.cart_item_id !== cart_item_id)
-      );
-      setMessage("Item removed from cart.");
+      await removeItem(cart_item_id);
+      showToast("Item removed from cart.", "success");
     } catch (err) {
       setError("Failed to remove item");
       console.error(err);
@@ -67,23 +51,19 @@ const CartOrders = () => {
     if (cartItems.length === 0) return;
     setPlacingOrder(true);
     setError("");
-    setMessage("");
     try {
-      await placeOrder();
-      setMessage("Order placed successfully!");
-      await loadData();
+      await checkout();
+      setPlacingOrder(false);
+      setOrderPlaced(true);
+      showToast("Order placed successfully!", "success");
+      await loadOrders();
+      setTimeout(() => setOrderPlaced(false), 2200);
     } catch (err) {
+      setPlacingOrder(false);
       setError(err.response?.data?.message || "Failed to place order");
       console.error(err);
-    } finally {
-      setPlacingOrder(false);
     }
   };
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + Number(item.total_price),
-    0
-  );
 
   const handleInvoiceDownload = (order) => {
     const doc = new jsPDF();
@@ -93,11 +73,7 @@ const CartOrders = () => {
 
     doc.setFontSize(11);
     doc.text(`Order ID: ${order.order_unique_id}`, 14, 32);
-    doc.text(
-      `Date: ${new Date(order.created_at).toLocaleDateString()}`,
-      14,
-      40
-    );
+    doc.text(`Date: ${new Date(order.created_at).toLocaleDateString()}`, 14, 40);
     doc.text(`Status: ${order.order_status}`, 14, 48);
 
     doc.line(14, 54, 196, 54);
@@ -108,35 +84,35 @@ const CartOrders = () => {
     doc.text(`\u09F3${order.total_price}`, 14, 74);
 
     doc.setFontSize(10);
-    doc.text(
-      "Thank you for your order via AgriTech Marketplace.",
-      14,
-      90
-    );
+    doc.text("Thank you for your order via AgriNexus Marketplace.", 14, 90);
 
     doc.save(`invoice_${order.order_unique_id}.pdf`);
   };
 
+  const loading = cartLoading || ordersLoading;
+
   return (
     <div className="cartOrders">
       <div className="pageHeader">
-        <h1>Cart & Orders</h1>
-        <p>Review your cart, place orders, and download invoices.</p>
+        <h1 className="pageTitle">Cart & Orders</h1>
+        <p className="pageSubtitle">Review your cart, place orders, and download invoices.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <div className="formError">{error}</div>}
 
       {loading ? (
-        <p>Loading...</p>
+        <div className="skeleton" style={{ height: 240, marginBottom: 24 }} />
       ) : (
         <>
           <div className="cartLayout">
-            <div className="cartSection">
+            <div className="cartSection commonCard">
               <h2>Shopping Cart</h2>
 
               {cartItems.length === 0 ? (
-                <p>Your cart is empty.</p>
+                <div className="emptyState">
+                  <div className="emptyIcon">🛒</div>
+                  <p>Your cart is empty.</p>
+                </div>
               ) : (
                 <table>
                   <thead>
@@ -151,7 +127,10 @@ const CartOrders = () => {
                   </thead>
                   <tbody>
                     {cartItems.map((item) => (
-                      <tr key={item.cart_item_id}>
+                      <tr
+                        key={item.cart_item_id}
+                        className={removingId === item.cart_item_id ? "rowRemoving" : ""}
+                      >
                         <td>{item.crop_name}</td>
                         <td>{item.farmer_name}</td>
                         <td>৳{item.price_per_kg}</td>
@@ -163,9 +142,7 @@ const CartOrders = () => {
                             onClick={() => handleRemove(item.cart_item_id)}
                             disabled={removingId === item.cart_item_id}
                           >
-                            {removingId === item.cart_item_id
-                              ? "Removing..."
-                              : "Remove"}
+                            {removingId === item.cart_item_id ? "Removing..." : "Remove"}
                           </button>
                         </td>
                       </tr>
@@ -175,18 +152,29 @@ const CartOrders = () => {
               )}
             </div>
 
-            <div className="summarySection">
+            <div className="summarySection commonCard">
               <h2>Order Summary</h2>
               <div className="summaryRow total">
                 <span>Total</span>
-                <span>৳{subtotal}</span>
+                <span>৳{cartTotal}</span>
               </div>
+
               <button
-                className="checkoutBtn"
+                className={`checkoutBtn ${orderPlaced ? "success" : ""}`}
                 onClick={handlePlaceOrder}
-                disabled={cartItems.length === 0 || placingOrder}
+                disabled={cartItems.length === 0 || placingOrder || orderPlaced}
               >
-                {placingOrder ? "Placing Order..." : "Place Order"}
+                {orderPlaced ? (
+                  <span className="checkoutSuccessContent">
+                    <span className="checkmark">✓</span> Order Placed
+                  </span>
+                ) : placingOrder ? (
+                  <span className="checkoutSuccessContent">
+                    <span className="spinner" /> Placing Order...
+                  </span>
+                ) : (
+                  "Place Order"
+                )}
               </button>
             </div>
           </div>
@@ -195,7 +183,10 @@ const CartOrders = () => {
             <h2>Order History</h2>
 
             {orders.length === 0 ? (
-              <p>No past orders.</p>
+              <div className="emptyState">
+                <div className="emptyIcon">📦</div>
+                <p>No past orders.</p>
+              </div>
             ) : (
               <table>
                 <thead>
@@ -214,19 +205,12 @@ const CartOrders = () => {
                       <td>{new Date(order.created_at).toLocaleDateString()}</td>
                       <td>৳{order.total_price}</td>
                       <td>
-                        <span
-                          className={`status ${(
-                            order.order_status || ""
-                          ).toLowerCase()}`}
-                        >
+                        <span className={`status ${(order.order_status || "").toLowerCase()}`}>
                           {order.order_status}
                         </span>
                       </td>
                       <td>
-                        <button
-                          className="invoiceBtn"
-                          onClick={() => handleInvoiceDownload(order)}
-                        >
+                        <button className="invoiceBtn" onClick={() => handleInvoiceDownload(order)}>
                           Download
                         </button>
                       </td>

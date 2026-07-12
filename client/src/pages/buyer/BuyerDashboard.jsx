@@ -33,21 +33,25 @@ const BuyerDashboard = () => {
   return (
     <div className="buyerDashboard">
       <div className="pageHeader">
-        <h1>Buyer Dashboard</h1>
-        <p>Overview of your orders and activity.</p>
+        <h1 className="pageTitle">Buyer Dashboard</h1>
+        <p className="pageSubtitle">Overview of your orders and activity.</p>
       </div>
 
       {error && (
-        <p style={{ color: "red" }}>
-          {error}{" "}
+        <div className="formError">
+          {error}
           <button onClick={loadData} className="retryBtn">
             Retry
           </button>
-        </p>
+        </div>
       )}
 
       {loading ? (
-        <p>Loading dashboard...</p>
+        <div className="summaryGrid">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div className="skeleton" style={{ height: 100 }} key={i} />
+          ))}
+        </div>
       ) : (
         <>
           <div className="summaryGrid">
@@ -69,7 +73,10 @@ const BuyerDashboard = () => {
             <h2>Recent Orders</h2>
 
             {orders.length === 0 ? (
-              <p>No orders yet.</p>
+              <div className="emptyState">
+                <div className="emptyIcon">📦</div>
+                <p>No orders yet.</p>
+              </div>
             ) : (
               <table>
                 <thead>
@@ -88,11 +95,7 @@ const BuyerDashboard = () => {
                       <td>{order.crop_name}</td>
                       <td>{order.farmer_name}</td>
                       <td>
-                        <span
-                          className={`status ${(
-                            order.order_status || ""
-                          ).toLowerCase()}`}
-                        >
+                        <span className={`status ${(order.order_status || "").toLowerCase()}`}>
                           {order.order_status}
                         </span>
                       </td>
