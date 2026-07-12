@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { loginUser, registerUser, getMe } from "../api/authApi";
+import { loginUser, registerUser as registerUserApi, getMe } from "../api/authApi";
 
 const AuthContext = createContext(null);
 
@@ -46,13 +46,11 @@ export const AuthProvider = ({ children }) => {
     return loggedInUser;
   };
 
+  // Register only creates the account — does NOT log the user in.
+  // They are redirected to /login afterward.
   const register = async (payload) => {
-    const res = await registerUser(payload);
-    const { user: newUser, token } = res.data.data;
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(newUser));
-    setUser(newUser);
-    return newUser;
+    const res = await registerUserApi(payload);
+    return res.data.data.user;
   };
 
   const logout = () => {

@@ -29,6 +29,8 @@ export const protect = async (req, res, next) => {
 
 export const protectRole = (...allowedRoles) => (req, res, next) => {
   if (!req.user || !allowedRoles.includes(req.user.role)) {
+    console.log(req.user);
+    console.log(...allowedRoles);
     res.status(403);
     return next(new Error("Forbidden: insufficient role"));
   }

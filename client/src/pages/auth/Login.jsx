@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import "./css/Auth.css";
 
 const ROLE_HOME = {
-  farmer: "/farmer/dashboard",
-  buyer: "/buyer/dashboard",
-  admin: "/logistics-admin/dashboard",
-  driver: "/logistics/dashboard",
+  farmer: "/farmer",
+  buyer: "/buyer",
+  admin: "/logistics-admin",
+  driver: "/logistics",
 };
 
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const justRegistered = location.state?.registered;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,6 +44,12 @@ const Login = () => {
       <div className="authCard">
         <h1>Welcome Back</h1>
         <p className="authSubtitle">Login to your AgriTech account</p>
+
+        {justRegistered && (
+          <p style={{ color: "green", fontSize: "14px", marginBottom: "12px" }}>
+            Account created successfully! Please log in.
+          </p>
+        )}
 
         {error && <p className="authError">{error}</p>}
 

@@ -3,11 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import "./css/Auth.css";
 
-const ROLE_HOME = {
-  farmer: "/farmer/dashboard",
-  buyer: "/buyer/dashboard",
-};
-
 const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -33,8 +28,11 @@ const Register = () => {
     setError("");
     setLoading(true);
     try {
-      const user = await register(formData);
-      navigate(ROLE_HOME[user.role] || "/", { replace: true });
+      await register(formData);
+      navigate("/login", {
+        replace: true,
+        state: { registered: true },
+      });
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
     } finally {

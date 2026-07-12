@@ -13,9 +13,21 @@ import {
   FaWallet
 } from "react-icons/fa";
 
+
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 import "./css/FarmerSidebar.css";
 
 function FarmerSidebar() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <div className="sidebar">
 
@@ -32,54 +44,51 @@ function FarmerSidebar() {
 
       <nav>
 
-        <NavLink to="/" end>
+        <NavLink to="/farmer" end>
           <FaChartPie />
           <span>Dashboard</span>
         </NavLink>
 
-        <NavLink to="/farm-monitoring">
+        <NavLink to="/farmer/farm-monitoring">
           <FaSeedling />
           <span>Farm Monitoring</span>
         </NavLink>
 
-        <NavLink to="/irrigation">
+        <NavLink to="/farmer/irrigation">
           <FaTint />
           <span>Irrigation</span>
         </NavLink>
 
-        <NavLink to="/crop-management">
+        <NavLink to="/farmer/crop-management">
           <FaTractor />
           <span>Crop Management</span>
         </NavLink>
 
-        <NavLink to="/warehouse">
+        <NavLink to="/farmer/warehouse">
           <FaWarehouse />
           <span>Warehouse</span>
         </NavLink>
 
-        <NavLink to="/marketplace">
+        <NavLink to="/farmer/marketplace">
           <FaStore />
           <span>Marketplace</span>
         </NavLink>
 
-        <NavLink to="/orders-logistics">
+        <NavLink to="/farmer/orders-logistics">
           <FaTruck />
           <span>Orders & Logistics</span>
         </NavLink>
 
-        <NavLink to="/payments">
+        <NavLink to="/farmer/payments">
           <FaWallet />
           <span>Payments & Earnings</span>
         </NavLink>
 
       </nav>
 
-      <button className="logoutBtn">
-
+      <button className="logoutBtn" onClick={handleLogout}>
         <FaSignOutAlt />
-
         Logout
-
       </button>
 
     </div>
