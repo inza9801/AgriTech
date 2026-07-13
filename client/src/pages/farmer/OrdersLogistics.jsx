@@ -1,25 +1,19 @@
 import { useState, useEffect } from "react";
 import "./css/OrdersLogistics.css";
-import { getOrders, getPickups, getShipments } from "../../api/farmerService";
+import { getOrders, getShipments } from "../../api/farmerService";
 
 const STAGES = ["Assigned", "Picked Up", "In Transit", "Delivered"];
 
 function OrdersLogistics() {
   const [orders, setOrders] = useState([]);
-  const [pickups, setPickups] = useState([]);
   const [shipments, setShipments] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
     (async () => {
       try {
-        const [ordersRes, pickupsRes, shipmentsRes] = await Promise.all([
-          getOrders(),
-          getPickups(),
-          getShipments(),
-        ]);
+        const [ordersRes, shipmentsRes] = await Promise.all([getOrders(), getShipments()]);
         setOrders(ordersRes.data.data);
-        setPickups(pickupsRes.data.data);
         setShipments(shipmentsRes.data.data);
       } catch (err) {
         setError("Failed to load orders/logistics data");
@@ -31,11 +25,11 @@ function OrdersLogistics() {
   return (
     <div className="ordersContainer">
       <div className="pageHeader">
-        <h1>Orders & Logistics</h1>
-        <p>Track incoming orders, monitor pickups, and view shipment progress.</p>
+        <h1 className="pageTitle">Orders & Logistics</h1>
+        <p className="pageSubtitle">Track incoming orders and view shipment progress.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <div className="formError">{error}</div>}
 
       {/* INCOMING ORDERS */}
       <div className="ordersSection">
@@ -67,7 +61,11 @@ function OrdersLogistics() {
                   <td>{order.quantity_tons} Ton</td>
                   <td>৳{order.total_price}</td>
                   <td>{new Date(order.created_at).toLocaleDateString()}</td>
-                  <td>{order.order_status}</td>
+                  <td>
+                    <span className={`status ${(order.order_status || "").toLowerCase()}`}>
+                      {order.order_status}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>

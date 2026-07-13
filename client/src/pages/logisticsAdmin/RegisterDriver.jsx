@@ -10,7 +10,6 @@ const initialForm = {
   phone_number: "",
   address: "",
   employee_id: "",
-  driver_phone: "",
   vehicle_number: "",
   vehicle_type: "",
   registration_number: "",

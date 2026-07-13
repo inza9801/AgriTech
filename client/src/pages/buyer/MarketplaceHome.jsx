@@ -4,8 +4,6 @@ import { getLocations, getListings } from "../../api/buyerService";
 import { Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 
-const DEFAULT_QUICK_ADD_KG = 50;
-
 const MarketplaceHome = () => {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -48,16 +46,21 @@ const MarketplaceHome = () => {
   };
 
   const handleQuickAdd = async (item, e) => {
-    const maxKg = Math.round(item.quantity_tons * 1000);
-    const quantity_kg = Math.min(DEFAULT_QUICK_ADD_KG, maxKg);
+    const quantity_kg = Math.round(item.quantity_tons * 1000);
     if (quantity_kg <= 0) return;
 
     setAddingId(item.listing_id);
     setError("");
     try {
-      await addItem({ listing_id: item.listing_id, quantity_kg }, e.currentTarget);
+      await addItem(
+        { listing_id: item.listing_id, quantity_kg },
+        e.currentTarget,
+      );
       setAddedId(item.listing_id);
-      setTimeout(() => setAddedId((cur) => (cur === item.listing_id ? null : cur)), 1600);
+      setTimeout(
+        () => setAddedId((cur) => (cur === item.listing_id ? null : cur)),
+        1600,
+      );
     } catch (err) {
       setError(err.response?.data?.message || "Failed to add product to cart.");
       console.error(err);
@@ -70,7 +73,9 @@ const MarketplaceHome = () => {
     <div className="marketplace">
       <div className="pageHeader">
         <h1 className="pageTitle">Marketplace</h1>
-        <p className="pageSubtitle">Browse fresh produce sourced directly from verified farmers.</p>
+        <p className="pageSubtitle">
+          Browse fresh produce sourced directly from verified farmers.
+        </p>
       </div>
 
       {error && <div className="formError">{error}</div>}
@@ -122,7 +127,10 @@ const MarketplaceHome = () => {
               </p>
 
               <div className="marketCardActions">
-                <Link to={`/buyer/product/${item.listing_id}`} className="viewDetailsLink">
+                <Link
+                  to={`/buyer/product/${item.listing_id}`}
+                  className="viewDetailsLink"
+                >
                   View Details
                 </Link>
                 <button
@@ -134,8 +142,8 @@ const MarketplaceHome = () => {
                   {addedId === item.listing_id
                     ? "Added ✓"
                     : addingId === item.listing_id
-                    ? "Adding..."
-                    : "Add to Cart"}
+                      ? "Adding..."
+                      : "Add to Cart"}
                 </button>
               </div>
             </div>

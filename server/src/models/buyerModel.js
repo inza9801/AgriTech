@@ -31,11 +31,12 @@ export const getBuyerDashboardSummary = async (buyer_id) => {
 
 export const getRecentOrders = async (buyer_id) => {
   const [rows] = await pool.query(
-    `SELECT o.order_id, o.order_unique_id, ml.crop_name, u.full_name AS farmer_name,
+    `SELECT o.order_id, o.order_unique_id, wb.crop_name, fu.full_name AS farmer_name,
             o.order_status, o.total_price
      FROM orders o
      JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
-     JOIN users u ON o.farmer_id = u.user_id
+     JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     JOIN users fu ON wb.farmer_id = fu.user_id
      WHERE o.buyer_id = ?
      ORDER BY o.created_at DESC
      LIMIT 10`,
@@ -51,11 +52,12 @@ export const getLocations = async () => {
 
 export const getListings = async (location) => {
   let query = `
-    SELECT ml.listing_id, ml.crop_name, ml.quantity_tons, ml.price_per_kg, ml.grade,
-           u.full_name AS farmer_name, f.farm_name, f.location
+    SELECT ml.listing_id, wb.crop_name, ml.quantity_tons, ml.price_per_kg, wb.grade,
+           fu.full_name AS farmer_name, f.farm_name, f.location
     FROM marketplace_listings ml
-    JOIN users u ON ml.farmer_id = u.user_id
-    JOIN farms f ON f.farmer_id = u.user_id
+    JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+    JOIN users fu ON wb.farmer_id = fu.user_id
+    JOIN farms f ON f.farmer_id = fu.user_id
     WHERE ml.status = 'Available'`;
   const params = [];
   if (location) {
@@ -68,13 +70,13 @@ export const getListings = async (location) => {
 
 export const getListingDetail = async (listing_id) => {
   const [rows] = await pool.query(
-    `SELECT ml.listing_id, ml.crop_name, ml.quantity_tons, ml.price_per_kg, ml.grade,
+    `SELECT ml.listing_id, wb.crop_name, ml.quantity_tons, ml.price_per_kg, wb.grade,
             ml.buyer_type, ml.sale_type, wb.arrival_date, wb.expiry_date,
-            u.full_name AS farmer_name, f.farm_name, f.location
+            fu.full_name AS farmer_name, f.farm_name, f.location
      FROM marketplace_listings ml
-     JOIN users u ON ml.farmer_id = u.user_id
-     JOIN farms f ON f.farmer_id = u.user_id
      JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     JOIN users fu ON wb.farmer_id = fu.user_id
+     JOIN farms f ON f.farmer_id = fu.user_id
      WHERE ml.listing_id = ?`,
     [listing_id]
   );
@@ -84,10 +86,11 @@ export const getListingDetail = async (listing_id) => {
 export const getCartItems = async (buyer_id) => {
   const [rows] = await pool.query(
     `SELECT ci.cart_item_id, ci.listing_id, ci.quantity_kg, ci.price_per_kg, ci.total_price,
-            ml.crop_name, u.full_name AS farmer_name
+            wb.crop_name, fu.full_name AS farmer_name
      FROM cart_items ci
      JOIN marketplace_listings ml ON ci.listing_id = ml.listing_id
-     JOIN users u ON ml.farmer_id = u.user_id
+     JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     JOIN users fu ON wb.farmer_id = fu.user_id
      WHERE ci.buyer_id = ?`,
     [buyer_id]
   );
@@ -98,12 +101,12 @@ export const addToCart = async ({ buyer_id, listing_id, quantity_kg }) => {
   const [listingRows] = await pool.query(`SELECT price_per_kg FROM marketplace_listings WHERE listing_id = ?`, [listing_id]);
   const price_per_kg = listingRows[0]?.price_per_kg;
   if (!price_per_kg) throw new Error("Listing not found");
-  const total_price = quantity_kg * price_per_kg;
 
+  // total_price is a generated column now — no need to compute/insert it
   const [result] = await pool.query(
-    `INSERT INTO cart_items (buyer_id, listing_id, quantity_kg, price_per_kg, total_price)
-     VALUES (?, ?, ?, ?, ?)`,
-    [buyer_id, listing_id, quantity_kg, price_per_kg, total_price]
+    `INSERT INTO cart_items (buyer_id, listing_id, quantity_kg, price_per_kg)
+     VALUES (?, ?, ?, ?)`,
+    [buyer_id, listing_id, quantity_kg, price_per_kg]
   );
   return { cart_item_id: result.insertId };
 };
@@ -114,9 +117,8 @@ export const removeCartItem = async (cart_item_id) => {
 
 export const placeOrderFromCart = async (buyer_id) => {
   const [items] = await pool.query(
-    `SELECT ci.listing_id, ci.quantity_kg, ci.total_price, ml.farmer_id
+    `SELECT ci.listing_id, ci.quantity_kg, ci.total_price
      FROM cart_items ci
-     JOIN marketplace_listings ml ON ci.listing_id = ml.listing_id
      WHERE ci.buyer_id = ?`,
     [buyer_id]
   );
@@ -125,9 +127,9 @@ export const placeOrderFromCart = async (buyer_id) => {
   for (const item of items) {
     const order_unique_id = `ORD${Date.now()}${Math.floor(Math.random() * 1000)}`;
     const [result] = await pool.query(
-      `INSERT INTO orders (order_unique_id, farmer_id, buyer_id, listing_id, quantity_tons, total_price, order_status, payment_status, payment_method)
-       VALUES (?, ?, ?, ?, ?, ?, 'Pending', 'Pending', 'Cash')`,
-      [order_unique_id, item.farmer_id, buyer_id, item.listing_id, item.quantity_kg / 1000, item.total_price]
+      `INSERT INTO orders (order_unique_id, buyer_id, listing_id, quantity_tons, total_price, order_status, payment_status, payment_method)
+       VALUES (?, ?, ?, ?, ?, 'Pending', 'Pending', 'Cash')`,
+      [order_unique_id, buyer_id, item.listing_id, item.quantity_kg / 1000, item.total_price]
     );
     createdOrders.push(result.insertId);
   }
@@ -149,12 +151,17 @@ export const getOrderHistory = async (buyer_id) => {
 
 export const getTrackingForBuyer = async (buyer_id) => {
   const [rows] = await pool.query(
-    `SELECT o.order_unique_id, d.status, d.pickup_location, d.drop_location,
+    `SELECT o.order_unique_id, d.status, f.location AS pickup_location, bu.address AS drop_location,
             d.assigned_at, d.picked_up_at, d.in_transit_at, d.delivered_at,
-            dr.name AS driver_name, dr.phone, dr.vehicle_number
+            du.full_name AS driver_name, du.phone_number AS phone, dr.vehicle_number
      FROM orders o
      JOIN deliveries d ON d.order_id = o.order_id
      JOIN drivers dr ON d.driver_id = dr.driver_id
+     JOIN users du ON dr.user_id = du.user_id
+     JOIN users bu ON o.buyer_id = bu.user_id
+     JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
+     JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     JOIN farms f ON f.farmer_id = wb.farmer_id
      WHERE o.buyer_id = ? AND d.status != 'Delivered'
      ORDER BY d.assigned_at DESC`,
     [buyer_id]

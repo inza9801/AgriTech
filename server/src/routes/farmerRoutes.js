@@ -9,11 +9,7 @@ import {
   confirmOrder,
   cancelOrder,
   listOrders,
-  listPickups,
   listShipments,
-  listProducts,
-  getProduct,
-  addProduct,
   addSensorReading,
   getLatestReading,
   getHistory,
@@ -58,12 +54,6 @@ router.patch("/marketplace/requests/:id/cancel", farmerOnly, cancelOrder);
 
 // Orders
 router.get("/orders", farmerOnly, listOrders);
-router.get("/orders/pickups", farmerOnly,listPickups);
 router.get("/orders/shipments", farmerOnly, listShipments);
-
-// Products
-router.get("/products", farmerOnly, listProducts);
-router.get("/products/:id", farmerOnly, getProduct);
-router.post("/products", farmerOnly, addProduct);
 
 export default router;

@@ -52,7 +52,9 @@ export const comparePassword = async (plainPassword, hash) => {
   return bcrypt.compare(plainPassword, hash);
 };
 
-// Admin creates a driver: one user row (role='driver') + one linked drivers row
+// Admin creates a driver: one user row (role='driver') + one linked drivers row.
+// Driver identity (name/phone/email/address) lives ONLY in `users` now —
+// the drivers table only stores driver-specific facts.
 export const createDriverUser = async ({
   username,
   email,
@@ -61,7 +63,6 @@ export const createDriverUser = async ({
   phone_number,
   address,
   employee_id,
-  driver_phone,
   vehicle_number,
   vehicle_type,
   registration_number,
@@ -84,16 +85,12 @@ export const createDriverUser = async ({
 
     const [driverResult] = await connection.query(
       `INSERT INTO drivers
-        (user_id, name, employee_id, phone, email, address, experience_years, joining_date,
+        (user_id, employee_id, experience_years, joining_date,
          vehicle_number, vehicle_type, registration_number, capacity_tons)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         user_id,
-        full_name,
         employee_id || null,
-        driver_phone || phone_number || null,
-        email,
-        address || null,
         experience_years || null,
         joining_date || null,
         vehicle_number || null,
@@ -113,9 +110,12 @@ export const createDriverUser = async ({
   }
 };
 
+// Driver identity fields (name/phone/email/address) are joined in from `users`
+// but returned under the same keys the frontend already expects.
 export const getAllDrivers = async () => {
   const [rows] = await pool.query(
-    `SELECT d.driver_id, d.user_id, d.name, d.employee_id, d.phone, d.email, d.address,
+    `SELECT d.driver_id, d.user_id, u.full_name AS name, d.employee_id,
+            u.phone_number AS phone, u.email AS email, u.address AS address,
             d.experience_years, d.joining_date, d.vehicle_number, d.vehicle_type,
             d.registration_number, d.capacity_tons, u.username
      FROM drivers d
@@ -127,6 +127,15 @@ export const getAllDrivers = async () => {
 
 // Resolve driver_id from the logged-in user_id (used by delivery routes)
 export const getDriverByUserId = async (user_id) => {
-  const [rows] = await pool.query(`SELECT * FROM drivers WHERE user_id = ?`, [user_id]);
+  const [rows] = await pool.query(
+    `SELECT d.driver_id, d.user_id, u.full_name AS name, d.employee_id,
+            u.phone_number AS phone, u.email AS email, u.address AS address,
+            d.experience_years, d.joining_date, d.vehicle_number, d.vehicle_type,
+            d.registration_number, d.capacity_tons
+     FROM drivers d
+     JOIN users u ON d.user_id = u.user_id
+     WHERE d.user_id = ?`,
+    [user_id]
+  );
   return rows[0];
 };
