@@ -7,7 +7,20 @@ export const submitSensorReading = (data) => api.post("/sensors", data);
 export const getWeather = (lat, lon) => api.get(`/weather?lat=${lat}&lon=${lon}`);
 export const getSensorHistory = () => api.get("/sensors/history");
 
+// ML (fertilizer + irrigation recommendations)
+export const getFertilizerOptions = () => api.get("/ml/fertilizer-options");
+export const predictFertilizer = (data) => api.post("/ml/predict-fertilizer", data);
+export const predictIrrigation = (data) => api.post("/ml/predict-irrigation", data);
 
+// Disease detection — sends the image as multipart/form-data. The file is
+// only ever held in memory on the way through; nothing is saved server-side.
+export const predictDisease = (imageFile) => {
+  const formData = new FormData();
+  formData.append("image", imageFile);
+  return api.post("/ml/predict-disease", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};
 
 export const getUnsoldBatches = () => api.get("/warehouse/batches");
 export const getWarehouseSummary = () => api.get("/warehouse/summary");

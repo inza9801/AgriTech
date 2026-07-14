@@ -5,17 +5,24 @@ import {
   FaTemperatureHigh,
   FaWater,
   FaCloudRain,
+  FaFlask,
+  FaLightbulb,
   FaSeedling,
 } from "react-icons/fa";
 import {
   getLatestSensorReading,
   getWeather,
+  predictIrrigation,
 } from "../../api/farmerService";
 
 function Irrigation() {
   const [latest, setLatest] = useState(null);
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
+
+  const [irrigation, setIrrigation] = useState(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -44,6 +51,31 @@ function Irrigation() {
     })();
   }, []);
 
+  // AI Irrigation Recommendation — takes all sensor data (soil moisture and
+  // temperature from the latest reading) plus live humidity/light intensity
+  // from the weather feed, and asks the ML service for a recommendation.
+  // Replaces the previously hardcoded "irrigation needed" flag.
+  useEffect(() => {
+    if (!latest || !weather) return;
+    (async () => {
+      try {
+        setAiLoading(true);
+        setAiError("");
+        const res = await predictIrrigation({
+          humidity: weather.humidity,
+          lightIntensity: weather.lightIntensity,
+        });
+        setIrrigation(res.data.data);
+      } catch (err) {
+        setAiError("Failed to get irrigation recommendation");
+        console.error(err);
+      } finally {
+        setAiLoading(false);
+      }
+    })();
+  }, [latest, weather]);
+
+  // All sensors data
   const sensorData = [
     {
       icon: <FaTint />,
@@ -56,6 +88,26 @@ function Irrigation() {
       value: latest ? `${latest.soil_temperature_celsius} °C` : "--",
     },
     {
+      icon: <FaFlask />,
+      title: "Nitrogen",
+      value: latest ? `${latest.nitrogen_kgha} kg/ha` : "--",
+    },
+    {
+      icon: <FaFlask />,
+      title: "Phosphorus",
+      value: latest ? `${latest.phosphorus_kgha} kg/ha` : "--",
+    },
+    {
+      icon: <FaFlask />,
+      title: "Potassium",
+      value: latest ? `${latest.potassium_kgha} kg/ha` : "--",
+    },
+    {
+      icon: <FaFlask />,
+      title: "Soil pH",
+      value: latest ? latest.ph : "--",
+    },
+    {
       icon: <FaWater />,
       title: "Air Humidity",
       value: weather ? `${weather.humidity} %` : "--",
@@ -65,10 +117,12 @@ function Irrigation() {
       title: "Rain Probability",
       value: weather ? `${weather.rainProbability} %` : "--",
     },
+    {
+      icon: <FaLightbulb />,
+      title: "Light Intensity",
+      value: weather ? `${weather.lightIntensity} W/m²` : "--",
+    },
   ];
-
-  // Hardcoded for now — will be replaced by ML model later
-  const irrigationNeeded = true;
 
   return (
     <div className="irrigation">
@@ -79,7 +133,7 @@ function Irrigation() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* LIVE SENSOR DATA */}
+      {/* LIVE SENSOR DATA (all sensors) */}
       <div className="sensorSection">
         <div className="sectionTitle">
           <h2>Live IoT Sensor Data</h2>
@@ -98,7 +152,7 @@ function Irrigation() {
         </div>
       </div>
 
-      {/* AI RECOMMENDATION (hardcoded for now) */}
+      {/* AI RECOMMENDATION (real — ML irrigation model) */}
       <div className="recommendationSection">
         <div className="sectionTitle">
           <h2>AI Irrigation Recommendation</h2>
@@ -106,9 +160,18 @@ function Irrigation() {
 
         <div className="recommendationCard">
           <FaSeedling className="sensorIcon" />
-          <h1 className="recommendText">
-            {irrigationNeeded ? "Irrigation Required" : "Irrigation Not Required"}
-          </h1>
+          {aiLoading && <p className="inlineNote">Analyzing sensor data...</p>}
+          {aiError && <p className="inlineNote errorText">{aiError}</p>}
+          {irrigation && (
+            <>
+              <h1 className="recommendText">
+                {irrigation.pump === 1 ? "Irrigation Required" : "Irrigation Not Required"}
+              </h1>
+              <p className="confidenceText">
+                Confidence: {(irrigation.confidence * 100).toFixed(1)}%
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>

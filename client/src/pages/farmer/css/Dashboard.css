@@ -37,6 +37,45 @@
     margin-bottom:8px;
 }
 
+/* ===================================================
+   WEATHER CONDITION (sunny / overcast / rainy)
+=================================================== */
+
+.weatherIcon.sunny{
+    color:#f9a825;
+}
+
+.weatherIcon.overcast{
+    color:#78909c;
+}
+
+.weatherIcon.rainy{
+    color:#1565c0;
+}
+
+.weatherTag{
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.weatherTag.sunny{
+    background:#fff8e1;
+    color:#f9a825;
+}
+
+.weatherTag.overcast{
+    background:#eceff1;
+    color:#78909c;
+}
+
+.weatherTag.rainy{
+    background:#e3f2fd;
+    color:#1565c0;
+}
+
 .section{
     background:white;
     padding:25px;
@@ -69,34 +108,6 @@
     font-size: 20px;
 }
 
-.twoColumn{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:25px;
-}
-
-.prediction{
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
-}
-
-.prediction h2{
-    margin-bottom:20px;
-    color:#2e7d32;
-}
-
-.prediction table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-.prediction td{
-    padding:12px;
-    border-bottom:1px solid #ddd;
-}
-
 .cropTable{
     width:100%;
     margin-top:20px;
@@ -115,55 +126,6 @@
     text-align:left;
 }
 
-.alertBox{
-    margin-top:20px;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.alertItem{
-    background:#fff7e6;
-    border-left:5px solid orange;
-    padding:15px;
-    border-radius:8px;
-}
-
-@media(max-width:900px){
-
-.twoColumn{
-
-grid-template-columns:1fr;
-
-}
-
-}
 .headings{
     color: #43A047;
-}
-.sensorForm {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.sensorForm input {
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  flex: 1 1 180px;
-}
-
-.sensorForm button {
-  padding: 10px 20px;
-  background-color: #2e7d32;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.sensorForm button:hover {
-  background-color: #256428;
 }

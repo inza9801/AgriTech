@@ -57,180 +57,6 @@
 }
 
 /* ==========================================
-   CONTROL PANEL
-========================================== */
-
-.controlSection{
-
-    background:#fff;
-
-    padding:25px;
-
-    border-radius:12px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-}
-
-.controlCard{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:30px;
-
-    flex-wrap:wrap;
-
-}
-
-.modeInfo h3{
-
-    color:#666;
-
-    margin-bottom:8px;
-
-}
-
-.modeInfo h1{
-
-    color:#2e7d32;
-
-    font-size:36px;
-
-    margin-bottom:12px;
-
-}
-
-.modeInfo p{
-
-    color:#555;
-
-    line-height:1.6;
-
-    max-width:350px;
-
-}
-
-.toggleButtons{
-
-    display:flex;
-
-    gap:15px;
-
-}
-
-.activeButton{
-
-    background:#2e7d32;
-
-    color:white;
-
-    border:none;
-
-    padding:12px 24px;
-
-    border-radius:8px;
-
-    font-size:15px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.activeButton:hover{
-
-    background:#1b5e20;
-
-}
-
-.inactiveButton{
-
-    background:#e0e0e0;
-
-    color:#333;
-
-    border:none;
-
-    padding:12px 24px;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.inactiveButton:hover{
-
-    background:#d4d4d4;
-
-}
-
-.pumpControl{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
-}
-
-.startButton{
-
-    background:#1565c0;
-
-    color:white;
-
-    border:none;
-
-    padding:12px 20px;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-}
-
-.stopButton{
-
-    background:#d32f2f;
-
-    color:white;
-
-    border:none;
-
-    padding:12px 20px;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-}
-
-.disabledButton{
-
-    background:#bdbdbd;
-
-    color:white;
-
-    border:none;
-
-    padding:12px 20px;
-
-    border-radius:8px;
-
-    cursor:not-allowed;
-
-}
-
-/* ==========================================
    SENSOR SECTION
 ========================================== */
 
@@ -320,157 +146,6 @@
 
 }
 
-.sensorContent span{
-
-    background:#2e7d32;
-
-    color:white;
-
-    padding:5px 12px;
-
-    border-radius:20px;
-
-    font-size:13px;
-
-}
-/* ==========================================
-   PUMP STATUS
-========================================== */
-
-.pumpSection{
-
-    background:#fff;
-
-    padding:25px;
-
-    border-radius:12px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-}
-
-.pumpCard{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:30px;
-
-    flex-wrap:wrap;
-
-}
-
-.pumpLeft{
-
-    flex:1;
-
-}
-
-.pumpLeft h3{
-
-    color:#666;
-
-    margin-bottom:10px;
-
-}
-
-.pumpLeft h1{
-
-    color:#2e7d32;
-
-    font-size:38px;
-
-    margin-bottom:15px;
-
-}
-
-.pumpLeft p{
-
-    color:#555;
-
-}
-
-.pumpState{
-
-    color:#1565c0;
-
-    font-weight:600;
-
-}
-
-.pumpRight{
-
-    flex:1;
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:20px;
-
-}
-
-.pumpInfo{
-
-    background:#f8f8f8;
-
-    padding:20px;
-
-    border-radius:10px;
-
-    text-align:center;
-
-    transition:.3s;
-
-}
-
-.pumpInfo:hover{
-
-    transform:translateY(-3px);
-
-}
-
-.pumpInfo h4{
-
-    color:#666;
-
-    margin-bottom:10px;
-
-}
-
-.pumpInfo p{
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    color:#2e7d32;
-
-}
-
-/* ==========================================
-   WATER HISTORY
-========================================== */
-
-.historySection{
-
-    background:white;
-
-    padding:25px;
-
-    border-radius:12px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-}
-
-.historyCard{
-
-    margin-top:20px;
-
-}
-
 /* ==========================================
    AI RECOMMENDATION
 ========================================== */
@@ -487,63 +162,15 @@
 
 }
 
-.recommendationGrid{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:20px;
-
-}
-
 .recommendationCard{
 
     background:#fafafa;
 
-    padding:20px;
+    padding:25px;
 
     border-radius:10px;
 
-    transition:.3s;
-
-}
-
-.recommendationCard:hover{
-
-    transform:translateY(-4px);
-
-}
-
-.recommendationCard h3{
-
-    color:#2e7d32;
-
-    margin-bottom:18px;
-
-}
-
-.recommendationCard table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-}
-
-.recommendationCard td{
-
-    padding:12px;
-
-    border-bottom:1px solid #e6e6e6;
-
-}
-
-.recommendationCard td:first-child{
-
-    font-weight:600;
-
-    width:45%;
+    text-align:center;
 
 }
 
@@ -551,33 +178,33 @@
 
     color:#2e7d32;
 
-    margin-bottom:15px;
+    margin:15px 0;
 
     font-size:30px;
 
 }
 
-.recommendationCard p{
+.inlineNote{
 
-    color:#555;
+    color:#777;
 
-    line-height:1.7;
-
-    margin-bottom:18px;
+    font-size:14px;
 
 }
 
-.recommendationCard ul{
+.errorText{
 
-    padding-left:20px;
+    color:#d32f2f;
 
 }
 
-.recommendationCard li{
+.confidenceText{
 
-    margin-bottom:12px;
+    color:#2e7d32;
 
-    color:#444;
+    font-weight:600;
+
+    font-size:14px;
 
 }
 
@@ -603,73 +230,11 @@
    RESPONSIVE
 ========================================== */
 
-@media(max-width:1200px){
-
-    .recommendationGrid{
-
-        grid-template-columns:1fr;
-
-    }
-
-}
-
-@media(max-width:992px){
-
-    .pumpCard{
-
-        flex-direction:column;
-
-    }
-
-    .pumpRight{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-}
-
 @media(max-width:768px){
 
     .sensorGrid{
 
         grid-template-columns:1fr;
-
-    }
-
-    .pumpRight{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .controlCard{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-    }
-
-    .toggleButtons{
-
-        width:100%;
-
-        display:grid;
-
-        grid-template-columns:1fr 1fr;
-
-    }
-
-    .pumpControl{
-
-        width:100%;
-
-    }
-
-    .pumpControl button{
-
-        width:100%;
 
     }
 
@@ -686,12 +251,6 @@
     .sectionTitle h2{
 
         font-size:20px;
-
-    }
-
-    .toggleButtons{
-
-        grid-template-columns:1fr;
 
     }
 

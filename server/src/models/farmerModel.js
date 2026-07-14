@@ -138,6 +138,10 @@ export const getShipmentsForFarmer = async (farmer_id) => {
   return rows;
 };
 
+// Sensor readings now also carry `ph` and `soil_type`, both required by the
+// fertilizer ML model. N/P/K/ph/soil_type are entered by the farmer on the
+// Crop Management page; soil_moisture_percent/soil_temperature_celsius are
+// carried over from the most recent live IoT reading at submit time.
 export const insertSensorReading = async ({
   field_id,
   soil_moisture_percent,
@@ -145,14 +149,26 @@ export const insertSensorReading = async ({
   nitrogen_kgha,
   phosphorus_kgha,
   potassium_kgha,
+  ph,
+  soil_type,
 }) => {
   const [result] = await pool.query(
     `INSERT INTO iot_sensor_readings
-      (field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha)
-     VALUES (?, ?, ?, ?, ?, ?)`,
-    [field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha]
+      (field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha, ph, soil_type)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    [field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha, ph, soil_type]
   );
-  return { reading_id: result.insertId, field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha };
+  return {
+    reading_id: result.insertId,
+    field_id,
+    soil_moisture_percent,
+    soil_temperature_celsius,
+    nitrogen_kgha,
+    phosphorus_kgha,
+    potassium_kgha,
+    ph,
+    soil_type,
+  };
 };
 
 export const getLatestSensorReading = async (field_id) => {

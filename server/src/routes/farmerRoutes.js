@@ -1,4 +1,5 @@
 import express from "express";
+
 import {
   getCrop,
   getDashboardSummary,
@@ -18,42 +19,106 @@ import {
   getSummary,
   updateCropStatus,
   createBatch,
+  getFertilizerOptions,
+  predictFertilizer,
+  predictIrrigation,
+  predictDisease,
 } from "../controllers/farmerController.js";
 
-import { protect, protectRole } from "../middleware/authMiddleware.js";
+import {
+  protect,
+  protectRole,
+} from "../middleware/authMiddleware.js";
+
+import {
+  uploadLeafImage,
+} from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
-const farmerOnly = [protect, protectRole("farmer")];
+// Apply authentication & authorization to all farmer routes
+router.use(protect, protectRole("farmer"));
 
-// Crops
-router.get("/crops", farmerOnly, getCrop);
-router.get("/crops/dashboard-summary", farmerOnly, getDashboardSummary);
-router.patch("/crops/:crop_id", farmerOnly, updateCropStatus);
+/* -------------------------------------------------------------------------- */
+/*                                    Crops                                   */
+/* -------------------------------------------------------------------------- */
 
-// Sensors
-router.post("/sensors", farmerOnly, addSensorReading);
-router.get("/sensors/latest", farmerOnly, getLatestReading);
-router.get("/sensors/history", farmerOnly, getHistory);
+router.get("/crops", getCrop);
 
-// Weather
-router.get("/weather", farmerOnly, getCurrentWeather);
+router.get("/crops/dashboard-summary", getDashboardSummary);
 
-// Warehouse
-router.get("/warehouse/batches", farmerOnly, listBatches);
-router.post("/warehouse/batches", farmerOnly, createBatch);
-router.get("/warehouse/summary", farmerOnly, getSummary);
+router.patch("/crops/:crop_id", updateCropStatus);
 
-// Marketplace
-router.get("/marketplace/listable-batches", farmerOnly, listableBatches);
-router.post("/marketplace/listings", farmerOnly, addListing);
-router.get("/marketplace/summary", farmerOnly, summary);
-router.get("/marketplace/requests", farmerOnly, requests);
-router.patch("/marketplace/requests/:id/confirm", farmerOnly, confirmOrder);
-router.patch("/marketplace/requests/:id/cancel", farmerOnly, cancelOrder);
+/* -------------------------------------------------------------------------- */
+/*                                   Sensors                                  */
+/* -------------------------------------------------------------------------- */
 
-// Orders
-router.get("/orders", farmerOnly, listOrders);
-router.get("/orders/shipments", farmerOnly, listShipments);
+router.post("/sensors", addSensorReading);
+
+router.get("/sensors/latest", getLatestReading);
+
+router.get("/sensors/history", getHistory);
+
+/* -------------------------------------------------------------------------- */
+/*                                   Weather                                  */
+/* -------------------------------------------------------------------------- */
+
+router.get("/weather", getCurrentWeather);
+
+/* -------------------------------------------------------------------------- */
+/*                              Machine Learning                              */
+/* -------------------------------------------------------------------------- */
+
+router.get("/ml/fertilizer-options", getFertilizerOptions);
+
+router.post("/ml/predict-fertilizer", predictFertilizer);
+
+router.post("/ml/predict-irrigation", predictIrrigation);
+
+router.post(
+  "/ml/predict-disease",
+  uploadLeafImage.single("image"),
+  predictDisease
+);
+
+/* -------------------------------------------------------------------------- */
+/*                                  Warehouse                                 */
+/* -------------------------------------------------------------------------- */
+
+router.get("/warehouse/batches", listBatches);
+
+router.post("/warehouse/batches", createBatch);
+
+router.get("/warehouse/summary", getSummary);
+
+/* -------------------------------------------------------------------------- */
+/*                                 Marketplace                                */
+/* -------------------------------------------------------------------------- */
+
+router.get("/marketplace/listable-batches", listableBatches);
+
+router.post("/marketplace/listings", addListing);
+
+router.get("/marketplace/summary", summary);
+
+router.get("/marketplace/requests", requests);
+
+router.patch(
+  "/marketplace/requests/:id/confirm",
+  confirmOrder
+);
+
+router.patch(
+  "/marketplace/requests/:id/cancel",
+  cancelOrder
+);
+
+/* -------------------------------------------------------------------------- */
+/*                                   Orders                                   */
+/* -------------------------------------------------------------------------- */
+
+router.get("/orders", listOrders);
+
+router.get("/orders/shipments", listShipments);
 
 export default router;

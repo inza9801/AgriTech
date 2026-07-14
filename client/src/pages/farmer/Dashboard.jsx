@@ -2,20 +2,27 @@ import { useState, useEffect } from "react";
 import "./css/Dashboard.css";
 import {
   FaLeaf,
-  FaCloudSun,
+  FaSun,
+  FaCloud,
+  FaCloudRain,
   FaTint,
   FaShoppingBasket,
-  FaSeedling,
-  FaBug,
+  FaFlask,
+  FaLightbulb,
 } from "react-icons/fa";
 import {
   getDashboardSummary,
   getCrop,
   getLatestSensorReading,
-  submitSensorReading,
   getWeather,
-  // getlistableBatches,
 } from "../../api/farmerService";
+
+// Picks the weather icon for the current condition (sunny / overcast / rainy)
+function WeatherIcon({ condition }) {
+  if (condition === "sunny") return <FaSun className="cardIcon weatherIcon sunny" />;
+  if (condition === "rainy") return <FaCloudRain className="cardIcon weatherIcon rainy" />;
+  return <FaCloud className="cardIcon weatherIcon overcast" />;
+}
 
 function Dashboard() {
   const [summary, setSummary] = useState(null);
@@ -24,38 +31,6 @@ function Dashboard() {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  // const [totalRows, setTotalRows] = useState(0);
-
-  const [form, setForm] = useState({
-    soil_moisture_percent: "",
-    soil_temperature_celsius: "",
-    nitrogen_kgha: "",
-    phosphorus_kgha: "",
-    potassium_kgha: "",
-  });
-
-  // Hardcoded for now — will be replaced by ML model later
-  const diseasePrediction = {
-    disease: "Brown Spot",
-    confidence: "97.42%",
-    severity: "Medium",
-    treatment: "Copper Fungicide",
-  };
-
-  const fertilizerRecommendation = {
-    crop: "Rice",
-    nitrogen: 48,
-    phosphorus: 21,
-    potassium: 34,
-    recommendation: "Urea + DAP",
-  };
-
-  const alerts = [
-    "Brown Spot disease risk detected in Field A.",
-    "Irrigation recommended after 2 hours.",
-    "Heavy rainfall expected tomorrow.",
-    "Apply Urea within 3 days.",
-  ];
 
   const loadDashboardData = async () => {
     try {
@@ -96,46 +71,6 @@ function Dashboard() {
     })();
   }, []);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await submitSensorReading({
-        soil_moisture_percent: parseFloat(form.soil_moisture_percent),
-        soil_temperature_celsius: parseFloat(form.soil_temperature_celsius),
-        nitrogen_kgha: parseFloat(form.nitrogen_kgha),
-        phosphorus_kgha: parseFloat(form.phosphorus_kgha),
-        potassium_kgha: parseFloat(form.potassium_kgha),
-      });
-      setForm({
-        soil_moisture_percent: "",
-        soil_temperature_celsius: "",
-        nitrogen_kgha: "",
-        phosphorus_kgha: "",
-        potassium_kgha: "",
-      });
-      await loadDashboardData();
-    } catch (err) {
-      setError("Failed to submit sensor reading");
-    }
-  };
-
-  // useEffect(() => {
-  //   const loadBatches = async () => {
-  //     try {
-  //       const response = await getlistableBatches();
-  //       setTotalRows(response.data.data.length);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   loadBatches();
-  // }, []);
-
   if (loading) return <div className="dashboard">Loading dashboard...</div>;
 
   return (
@@ -155,81 +90,39 @@ function Dashboard() {
         </div>
 
         <div className="card">
-          <FaCloudSun className="cardIcon" />
+          <WeatherIcon condition={weather?.condition} />
           <h3>Weather</h3>
           <h2 className="headings">
             {weather ? `${weather.temperature}°C` : "Loading..."}
           </h2>
-          <p>
+          <p className={`weatherTag ${weather?.condition || ""}`}>
             {weather
-              ? `Humidity: ${weather.humidity}% · Rain chance: ${weather.rainProbability}%`
+              ? weather.condition.charAt(0).toUpperCase() + weather.condition.slice(1)
               : ""}
           </p>
         </div>
 
         <div className="card">
-          <FaTint className="cardIcon" />
-          <h3>Irrigation</h3>
-          <h2 className="headings">{summary?.irrigationStatus || "N/A"}</h2>
+          <FaCloudRain className="cardIcon" />
+          <h3>Rain Probability</h3>
+          <h2 className="headings">
+            {weather ? `${weather.rainProbability}%` : "--"}
+          </h2>
+          <p>Chance of rainfall</p>
         </div>
 
         <div className="card">
           <FaShoppingBasket className="cardIcon" />
           <h3>Marketplace</h3>
-          <h2 className="headings">{summary?.marketplaceListings || "N/A"}</h2>
+          <h2 className="headings">
+            {summary ? summary.marketplaceListings : "N/A"}
+          </h2>
           <p>Active Listings</p>
         </div>
       </div>
 
-      {/* Sensor Input Form */}
-      <div className="section">
-        <h2 className="headings">Enter Live IoT Sensor Data</h2>
-        <form onSubmit={handleSubmit} className="sensorForm">
-          <input
-            type="number"
-            name="soil_moisture_percent"
-            placeholder="Soil Moisture (%)"
-            value={form.soil_moisture_percent}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="number"
-            name="soil_temperature_celsius"
-            placeholder="Soil Temperature (°C)"
-            value={form.soil_temperature_celsius}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="number"
-            name="nitrogen_kgha"
-            placeholder="Nitrogen (kg/ha)"
-            value={form.nitrogen_kgha}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="number"
-            name="phosphorus_kgha"
-            placeholder="Phosphorus (kg/ha)"
-            value={form.phosphorus_kgha}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="number"
-            name="potassium_kgha"
-            placeholder="Potassium (kg/ha)"
-            value={form.potassium_kgha}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit">Submit Reading</button>
-        </form>
-      </div>
-
-      {/* Sensor Cards (real data) */}
+      {/* Sensor Cards (real data — loaded entirely from the API, taken from
+          both ML datasets: soil/nutrient sensors + live weather feed) */}
       <div className="section">
         <h2 className="headings">Live IoT Sensor Data</h2>
         <div className="sensorGrid">
@@ -253,65 +146,26 @@ function Dashboard() {
             <h3>Potassium</h3>
             <h1>{sensor ? `${sensor.potassium_kgha} kg/ha` : "--"}</h1>
           </div>
-        </div>
-      </div>
-
-      {/* AI Prediction (hardcoded for now) */}
-      <div className="twoColumn">
-        <div className="prediction">
-          <h2>
-            <FaBug /> AI Disease Prediction
-          </h2>
-          <table>
-            <tbody>
-              <tr>
-                <td>Disease</td>
-                <td>{diseasePrediction.disease}</td>
-              </tr>
-              <tr>
-                <td>Confidence</td>
-                <td>{diseasePrediction.confidence}</td>
-              </tr>
-              <tr>
-                <td>Severity</td>
-                <td>{diseasePrediction.severity}</td>
-              </tr>
-              <tr>
-                <td>Treatment</td>
-                <td>{diseasePrediction.treatment}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div className="prediction">
-          <h2>
-            <FaSeedling /> Fertilizer Recommendation
-          </h2>
-          <table>
-            <tbody>
-              <tr>
-                <td>Crop</td>
-                <td>{fertilizerRecommendation.crop}</td>
-              </tr>
-              <tr>
-                <td>Nitrogen</td>
-                <td>{fertilizerRecommendation.nitrogen}</td>
-              </tr>
-              <tr>
-                <td>Phosphorus</td>
-                <td>{fertilizerRecommendation.phosphorus}</td>
-              </tr>
-              <tr>
-                <td>Potassium</td>
-                <td>{fertilizerRecommendation.potassium}</td>
-              </tr>
-              <tr>
-                <td>Recommendation</td>
-                <td>{fertilizerRecommendation.recommendation}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="sensorCard">
+            <h3>Soil pH</h3>
+            <h1>{sensor ? sensor.ph : "--"}</h1>
+          </div>
+          <div className="sensorCard">
+            <h3>Soil Type</h3>
+            <h1>{sensor ? sensor.soil_type : "--"}</h1>
+          </div>
+          <div className="sensorCard">
+            <h3>Air Humidity</h3>
+            <h1>{weather ? `${weather.humidity} %` : "--"}</h1>
+          </div>
+          <div className="sensorCard">
+            <h3>Rainfall</h3>
+            <h1>{weather ? `${weather.rainfall} mm` : "--"}</h1>
+          </div>
+          <div className="sensorCard">
+            <h3>Light Intensity</h3>
+            <h1>{weather ? `${weather.lightIntensity} W/m²` : "--"}</h1>
+          </div>
         </div>
       </div>
 
@@ -336,18 +190,6 @@ function Dashboard() {
             </tr>
           </tbody>
         </table>
-      </div>
-
-      {/* Alerts (hardcoded for now) */}
-      <div className="section">
-        <h2 className="headings">AI Alerts</h2>
-        <div className="alertBox">
-          {alerts.map((alert, index) => (
-            <div className="alertItem" key={index}>
-              ⚠ {alert}
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
