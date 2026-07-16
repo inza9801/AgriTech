@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
+import PublicRoute from "./routes/PublicRoute";
 
 import FarmerLayout from "./layouts/FarmerLayout";
 import BuyerLayout from "./layouts/BuyerLayout";
@@ -76,9 +77,9 @@ function App() {
           PUBLIC ROUTES
       =========================== */}
 
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/" element={<PublicRoute><Landing /></PublicRoute>} />
+      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+      <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
 
       {/* ===========================
           FARMER ROUTES

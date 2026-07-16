@@ -385,10 +385,12 @@ export const listShipments = async (req, res, next) => {
   }
 };
 
-// Sensor readings now require ph + soil_type in addition to the original
-// fields. These are entered by the farmer on the Crop Management page
+// Sensor readings now require ph in addition to the original fields. These
+// are entered by the farmer on the Crop Management page
 // (soil_moisture_percent/soil_temperature_celsius are carried over from the
 // latest live reading rather than typed in — see CropManagement.jsx).
+// Soil type is NOT part of a sensor reading — it belongs to the field (see
+// fields table / getFieldById) and is not duplicated here.
 export const addSensorReading = async (req, res, next) => {
   try {
     const field_id = await resolveFieldId(req, res);
@@ -399,7 +401,6 @@ export const addSensorReading = async (req, res, next) => {
       phosphorus_kgha,
       potassium_kgha,
       ph,
-      soil_type,
     } = req.body;
 
     if (
@@ -408,11 +409,10 @@ export const addSensorReading = async (req, res, next) => {
       nitrogen_kgha === undefined ||
       phosphorus_kgha === undefined ||
       potassium_kgha === undefined ||
-      ph === undefined ||
-      !soil_type
+      ph === undefined
     ) {
       res.status(400);
-      throw new Error("All sensor fields (including ph and soil_type) are required");
+      throw new Error("All sensor fields (including ph) are required");
     }
 
     const reading = await insertSensorReading({
@@ -423,7 +423,6 @@ export const addSensorReading = async (req, res, next) => {
       phosphorus_kgha,
       potassium_kgha,
       ph,
-      soil_type,
     });
 
     res.status(201).json({ success: true, data: reading });
@@ -559,6 +558,19 @@ export const predictFertilizer = async (req, res, next) => {
       throw new Error("rainfall is required");
     }
 
+    // Soil type comes from the field itself (fields table, via the crop
+    // join in getCropByField) rather than the sensor reading, since it's
+    // not duplicated into iot_sensor_readings anymore.
+    let soil = crop?.soil_type;
+    if (!soil) {
+      const field = await getFieldById(field_id, req.user.user_id);
+      soil = field?.soil_type;
+    }
+    if (!soil) {
+      res.status(400);
+      throw new Error("This field has no soil type set. Please set it from Crop Management first.");
+    }
+
     const payload = {
       temperature: reading.soil_temperature_celsius,
       moisture: reading.soil_moisture_percent,
@@ -567,7 +579,7 @@ export const predictFertilizer = async (req, res, next) => {
       nitrogen: reading.nitrogen_kgha,
       phosphorous: reading.phosphorus_kgha,
       potassium: reading.potassium_kgha,
-      soil: reading.soil_type,
+      soil,
       crop: crop ? crop.crop_name : "rice",
     };
 

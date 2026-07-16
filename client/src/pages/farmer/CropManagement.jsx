@@ -4,7 +4,6 @@ import "./css/CropManagement.css";
 import {
   getLatestSensorReading,
   submitSensorReading,
-  getFertilizerOptions,
   getFarms,
   createFarm,
   getFields,
@@ -61,13 +60,11 @@ function CropManagement() {
   // are read from here (not editable) and carried over whenever a new N/P/K/pH
   // reading is saved below. Sensor entry stays scoped to the selected field.
   const [latestReading, setLatestReading] = useState(null);
-  const [soilOptions, setSoilOptions] = useState([]);
   const [sensorForm, setSensorForm] = useState({
     nitrogen_kgha: "",
     phosphorus_kgha: "",
     potassium_kgha: "",
     ph: "",
-    soil_type: "",
   });
   const [sensorSubmitting, setSensorSubmitting] = useState(false);
   const [sensorMessage, setSensorMessage] = useState("");
@@ -109,12 +106,8 @@ function CropManagement() {
     if (!sensorFieldId) return;
     (async () => {
       try {
-        const [latestRes, optionsRes] = await Promise.all([
-          getLatestSensorReading(sensorFieldId),
-          getFertilizerOptions(),
-        ]);
+        const latestRes = await getLatestSensorReading(sensorFieldId);
         setLatestReading(latestRes.data.data);
-        setSoilOptions(optionsRes.data.data.soils || []);
       } catch (err) {
         console.error(err);
       }
@@ -238,9 +231,11 @@ function CropManagement() {
     setSensorForm({ ...sensorForm, [e.target.name]: e.target.value });
   };
 
-  // Saves N/P/K/pH/soil type into the sensors table for the field currently
-  // being worked on, carrying over the current live soil_moisture_percent/
-  // soil_temperature_celsius reading.
+  // Saves N/P/K/pH into the sensors table for the field currently being
+  // worked on, carrying over the current live soil_moisture_percent/
+  // soil_temperature_celsius reading. Soil type is not part of this form —
+  // it lives on the field itself (see fields table) and is shown read-only
+  // below instead of being re-entered/duplicated here.
   const handleSensorSubmit = async (e) => {
     e.preventDefault();
     setSensorMessage("");
@@ -254,7 +249,6 @@ function CropManagement() {
           phosphorus_kgha: parseFloat(sensorForm.phosphorus_kgha),
           potassium_kgha: parseFloat(sensorForm.potassium_kgha),
           ph: parseFloat(sensorForm.ph),
-          soil_type: sensorForm.soil_type,
         },
         sensorFieldId
       );
@@ -264,7 +258,6 @@ function CropManagement() {
         phosphorus_kgha: "",
         potassium_kgha: "",
         ph: "",
-        soil_type: "",
       });
       setSensorMessage("success");
     } catch (err) {
@@ -438,7 +431,9 @@ function CropManagement() {
           <p className="sensorUpdateNote">
             Soil moisture ({latestReading ? `${latestReading.soil_moisture_percent}%` : "--"}) and soil
             temperature ({latestReading ? `${latestReading.soil_temperature_celsius}°C` : "--"}) are
-            read automatically from the live IoT feed.
+            read automatically from the live IoT feed. Soil type (
+            {fields.find((f) => String(f.field_id) === String(sensorFieldId))?.soil_type || "--"}
+            ) comes from this field's setup — update it from the field itself if it changes.
           </p>
 
           <form onSubmit={handleSensorSubmit} className="sensorUpdateForm">
@@ -480,21 +475,6 @@ function CropManagement() {
               onChange={handleSensorChange}
               required
             />
-            <select
-              name="soil_type"
-              value={sensorForm.soil_type}
-              onChange={handleSensorChange}
-              required
-            >
-              <option value="" disabled>
-                Select Soil Type
-              </option>
-              {soilOptions.map((soil) => (
-                <option key={soil} value={soil}>
-                  {soil}
-                </option>
-              ))}
-            </select>
             <button type="submit" disabled={sensorSubmitting}>
               {sensorSubmitting ? "Saving..." : "Save Reading"}
             </button>

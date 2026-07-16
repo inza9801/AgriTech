@@ -16,10 +16,13 @@ export const getFieldIdForFarmer = async (farmer_id) => {
 
 export const getCropByField = async (field_id) => {
   const [rows] = await pool.query(
-    `SELECT crop_id, field_id, crop_name, planting_date, expected_harvest_date,
-            growth_stage, health_status, expected_yield_tons,
-            days_after_planting, progress_percentage
-     FROM crops WHERE field_id = ? ORDER BY crop_id DESC LIMIT 1`,
+    `SELECT c.crop_id, c.field_id, c.crop_name, c.planting_date, c.expected_harvest_date,
+            c.growth_stage, c.health_status, c.expected_yield_tons,
+            c.days_after_planting, c.progress_percentage,
+            fl.soil_type
+     FROM crops c
+     JOIN fields fl ON c.field_id = fl.field_id
+     WHERE c.field_id = ? ORDER BY c.crop_id DESC LIMIT 1`,
     [field_id]
   );
   return rows[0] || null;
@@ -293,10 +296,12 @@ export const getShipmentsForFarmer = async (farmer_id) => {
   return rows;
 };
 
-// Sensor readings now also carry `ph` and `soil_type`, both required by the
-// fertilizer ML model. N/P/K/ph/soil_type are entered by the farmer on the
-// Crop Management page; soil_moisture_percent/soil_temperature_celsius are
-// carried over from the most recent live IoT reading at submit time.
+// Sensor readings now also carry `ph`, required by the fertilizer ML model.
+// N/P/K/ph are entered by the farmer on the Crop Management page;
+// soil_moisture_percent/soil_temperature_celsius are carried over from the
+// most recent live IoT reading at submit time. Soil type is NOT stored here
+// — it already lives on the `fields` table and is looked up from there
+// (see getFieldById / getCropByField) instead of being duplicated per reading.
 export const insertSensorReading = async ({
   field_id,
   soil_moisture_percent,
@@ -305,13 +310,12 @@ export const insertSensorReading = async ({
   phosphorus_kgha,
   potassium_kgha,
   ph,
-  soil_type,
 }) => {
   const [result] = await pool.query(
     `INSERT INTO iot_sensor_readings
-      (field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha, ph, soil_type)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha, ph, soil_type]
+      (field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha, ph)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [field_id, soil_moisture_percent, soil_temperature_celsius, nitrogen_kgha, phosphorus_kgha, potassium_kgha, ph]
   );
   return {
     reading_id: result.insertId,
@@ -322,7 +326,6 @@ export const insertSensorReading = async ({
     phosphorus_kgha,
     potassium_kgha,
     ph,
-    soil_type,
   };
 };
 

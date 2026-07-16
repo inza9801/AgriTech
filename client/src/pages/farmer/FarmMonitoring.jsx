@@ -214,7 +214,7 @@ function FarmMonitoring() {
     {
       icon: <FaLeaf />,
       title: "Soil Type",
-      value: latest ? latest.soil_type : "--",
+      value: crop ? crop.soil_type || "--" : "--",
     },
     {
       icon: <FaWater />,
@@ -411,7 +411,7 @@ function FarmMonitoring() {
             <table>
               <tbody>
                 <tr><td>Crop</td><td>{crop?.crop_name || "--"}</td></tr>
-                <tr><td>Soil Type</td><td>{latest?.soil_type || "--"}</td></tr>
+                <tr><td>Soil Type</td><td>{crop?.soil_type || "--"}</td></tr>
                 <tr><td>Nitrogen (N)</td><td>{latest ? `${latest.nitrogen_kgha} kg/ha` : "--"}</td></tr>
                 <tr><td>Phosphorus (P)</td><td>{latest ? `${latest.phosphorus_kgha} kg/ha` : "--"}</td></tr>
                 <tr><td>Potassium (K)</td><td>{latest ? `${latest.potassium_kgha} kg/ha` : "--"}</td></tr>
