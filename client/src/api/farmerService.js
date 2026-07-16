@@ -10,7 +10,13 @@ export const getCrop = (fieldId) => api.get(`/crops${fieldQuery(fieldId)}`);
 export const getLatestSensorReading = (fieldId) => api.get(`/sensors/latest${fieldQuery(fieldId)}`);
 export const submitSensorReading = (data, fieldId) =>
   api.post(`/sensors${fieldQuery(fieldId)}`, data);
-export const getWeather = (lat, lon) => api.get(`/weather?lat=${lat}&lon=${lon}`);
+
+// Weather is now resolved server-side from the field's stored latitude/
+// longitude (fields.latitude / fields.longitude) instead of the browser's
+// live geolocation — just pass the field_id, same fallback-to-default-field
+// rule as every other endpoint here.
+export const getWeather = (fieldId) => api.get(`/weather${fieldQuery(fieldId)}`);
+
 export const getSensorHistory = (fieldId) => api.get(`/sensors/history${fieldQuery(fieldId)}`);
 
 // ML (fertilizer + irrigation recommendations)
@@ -21,8 +27,8 @@ export const predictIrrigation = (data, fieldId) =>
   api.post(`/ml/predict-irrigation${fieldQuery(fieldId)}`, data);
 
 // Farms / Fields — a farmer has at most one farm; fields belong to it.
-// Field location is never sent/stored — the device's live geolocation is
-// used wherever location matters (weather), same as before.
+// Fields now carry latitude/longitude (set once when the field is created)
+// which is what getWeather resolves against — no browser geolocation needed.
 export const getFarms = () => api.get("/farms");
 export const createFarm = (data) => api.post("/farms", data);
 export const getFields = () => api.get("/fields");

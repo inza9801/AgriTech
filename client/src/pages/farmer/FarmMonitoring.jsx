@@ -2,12 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import "./css/FarmMonitoring.css";
 
 import {
-  FaTint,
-  FaTemperatureHigh,
-  FaWater,
-  FaCloudRain,
-  FaFlask,
-  FaLightbulb,
   FaBug,
   FaCamera,
   FaLeaf,
@@ -38,6 +32,7 @@ import {
   predictDisease,
 } from "../../api/farmerService";
 import FieldSelector from "../../components/common/FieldSelector";
+import SensorGrid from "../../components/common/SensorGrid";
 
 function FarmMonitoring() {
   const [latest, setLatest] = useState(null);
@@ -64,16 +59,20 @@ function FarmMonitoring() {
   // FieldSelector, which stays hidden (and this stays null) otherwise.
   const [fieldId, setFieldId] = useState(null);
 
+  // Weather is fetched here too now, scoped to the same field_id — the
+  // server resolves the field's stored lat/lng, no geolocation prompt.
   const loadSensorData = async (selectedFieldId) => {
     try {
-      const [latestRes, historyRes, cropRes] = await Promise.all([
+      const [latestRes, historyRes, cropRes, weatherRes] = await Promise.all([
         getLatestSensorReading(selectedFieldId),
         getSensorHistory(selectedFieldId),
         getCrop(selectedFieldId),
+        getWeather(selectedFieldId),
       ]);
       setLatest(latestRes.data.data);
       setHistory(historyRes.data.data);
       setCrop(cropRes.data.data);
+      setWeather(weatherRes.data.data);
     } catch (err) {
       setError("Failed to load sensor data");
       console.error(err);
@@ -81,27 +80,10 @@ function FarmMonitoring() {
   };
 
   useEffect(() => {
-    (async () => {
-      await loadSensorData(null);
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            try {
-              const { latitude, longitude } = position.coords;
-              const res = await getWeather(latitude, longitude);
-              setWeather(res.data.data);
-            } catch (err) {
-              console.error(err);
-            }
-          },
-          () => console.warn("Location permission denied — weather unavailable")
-        );
-      }
-    })();
+    loadSensorData(null);
   }, []);
 
-  // Refetch scoped sensor/crop data whenever the farmer picks a different field.
+  // Refetch scoped sensor/crop/weather data whenever the farmer picks a different field.
   useEffect(() => {
     if (fieldId === null) return;
     loadSensorData(fieldId);
@@ -179,65 +161,6 @@ function FarmMonitoring() {
     }
   };
 
-  // All sensors data — combining fields from both ML datasets
-  const sensors = [
-    {
-      icon: <FaTint />,
-      title: "Soil Moisture",
-      value: latest ? `${latest.soil_moisture_percent} %` : "--",
-    },
-    {
-      icon: <FaTemperatureHigh />,
-      title: "Soil Temperature",
-      value: latest ? `${latest.soil_temperature_celsius} °C` : "--",
-    },
-    {
-      icon: <FaFlask />,
-      title: "Nitrogen",
-      value: latest ? `${latest.nitrogen_kgha} kg/ha` : "--",
-    },
-    {
-      icon: <FaFlask />,
-      title: "Phosphorus",
-      value: latest ? `${latest.phosphorus_kgha} kg/ha` : "--",
-    },
-    {
-      icon: <FaFlask />,
-      title: "Potassium",
-      value: latest ? `${latest.potassium_kgha} kg/ha` : "--",
-    },
-    {
-      icon: <FaFlask />,
-      title: "Soil pH",
-      value: latest ? latest.ph : "--",
-    },
-    {
-      icon: <FaLeaf />,
-      title: "Soil Type",
-      value: crop ? crop.soil_type || "--" : "--",
-    },
-    {
-      icon: <FaWater />,
-      title: "Humidity",
-      value: weather ? `${weather.humidity} %` : "--",
-    },
-    {
-      icon: <FaCloudRain />,
-      title: "Rain Probability",
-      value: weather ? `${weather.rainProbability} %` : "--",
-    },
-    {
-      icon: <FaCloudRain />,
-      title: "Rainfall",
-      value: weather ? `${weather.rainfall} mm` : "--",
-    },
-    {
-      icon: <FaLightbulb />,
-      title: "Light Intensity",
-      value: weather ? `${weather.lightIntensity} W/m²` : "--",
-    },
-  ];
-
   // Reshape history rows into recharts-friendly format (now including ph)
   const graphData = history.map((row) => ({
     time: new Date(row.recorded_at).toLocaleTimeString([], {
@@ -263,18 +186,8 @@ function FarmMonitoring() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* SENSOR CARDS (real data — all sensors) */}
-      <div className="sensorGrid">
-        {sensors.map((sensor, index) => (
-          <div className="sensorCard" key={index}>
-            <div className="sensorIcon">{sensor.icon}</div>
-            <div>
-              <h4>{sensor.title}</h4>
-              <h2>{sensor.value}</h2>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* SENSOR CARDS — shared component */}
+      <SensorGrid latest={latest} weather={weather} soilType={crop?.soil_type} />
 
       {/* DISEASE DETECTION (real — image is sent to the ML service for
           prediction and is never saved on the backend) */}

@@ -285,15 +285,39 @@ export const addField = async (req, res, next) => {
       throw new Error("Please create a farm before adding fields.");
     }
 
-    const { field_name, area_acres, soil_type } = req.body;
+    const { field_name, area_acres, soil_type, latitude, longitude } = req.body;
     if (!field_name) {
       res.status(400);
       throw new Error("field_name is required.");
     }
 
+    // Latitude/longitude are required at creation time now — this is what
+    // getCurrentWeather resolves against instead of browser geolocation.
+    if (latitude === undefined || latitude === null || longitude === undefined || longitude === null) {
+      res.status(400);
+      throw new Error("latitude and longitude are required.");
+    }
+    const lat = parseFloat(latitude);
+    const lng = parseFloat(longitude);
+    if (Number.isNaN(lat) || lat < -90 || lat > 90) {
+      res.status(400);
+      throw new Error("latitude must be a number between -90 and 90.");
+    }
+    if (Number.isNaN(lng) || lng < -180 || lng > 180) {
+      res.status(400);
+      throw new Error("longitude must be a number between -180 and 180.");
+    }
+
     // Single-farm model: new fields always attach to the farmer's one farm.
     const farm_id = farms[0].farm_id;
-    const field = await createField({ farm_id, field_name, area_acres, soil_type });
+    const field = await createField({
+      farm_id,
+      field_name,
+      area_acres,
+      soil_type,
+      latitude: lat,
+      longitude: lng,
+    });
 
     res.status(201).json({ success: true, data: field });
   } catch (err) {
@@ -469,19 +493,30 @@ export const getSummary = async (req, res, next) => {
   }
 };
 
-// Weather now also returns rainfall (precipitation, mm) and lightIntensity
-// (shortwave_radiation, W/m²) so the frontend can display sensor cards from
-// both ML datasets, plus a simplified `condition` (sunny/overcast/rainy)
-// derived from the WMO weather_code for the weather icon on the dashboard.
+
+// Weather is now resolved from the field's own stored latitude/longitude
+// (fields.latitude / fields.longitude) instead of the browser's live
+// geolocation — the frontend no longer passes lat/lon at all, just an
+// optional ?field_id= (same resolution rule as every other endpoint here:
+// falls back to the farmer's default field if omitted).
 export const getCurrentWeather = async (req, res, next) => {
   try {
-    const { lat, lon } = req.query;
-    if (!lat || !lon) {
+    const field_id = await resolveFieldId(req, res);
+    const field = await getFieldById(field_id, req.user.user_id);
+
+    if (
+      field.latitude === null ||
+      field.latitude === undefined ||
+      field.longitude === null ||
+      field.longitude === undefined
+    ) {
       res.status(400);
-      throw new Error("lat and lon query params are required");
+      throw new Error(
+        "This field has no location set. Please set its latitude/longitude first."
+      );
     }
 
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,shortwave_radiation,weather_code`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${field.latitude}&longitude=${field.longitude}&current=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,shortwave_radiation,weather_code`;
     const response = await fetch(url);
     if (!response.ok) {
       res.status(502);

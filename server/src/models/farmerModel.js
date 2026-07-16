@@ -58,7 +58,7 @@ export const createFarm = async ({ farmer_id, farm_name, location, total_area_ac
 export const getFieldsForFarmer = async (farmer_id) => {
   const [rows] = await pool.query(
     `SELECT fl.field_id, fl.farm_id, fl.field_name, fl.area_acres, fl.soil_type,
-            fm.farm_name
+            fl.latitude, fl.longitude, fm.farm_name
      FROM fields fl
      JOIN farms fm ON fl.farm_id = fm.farm_id
      WHERE fm.farmer_id = ?
@@ -72,7 +72,8 @@ export const getFieldsForFarmer = async (farmer_id) => {
 // any ?field_id= query param supplied by the frontend before trusting it.
 export const getFieldById = async (field_id, farmer_id) => {
   const [rows] = await pool.query(
-    `SELECT fl.field_id, fl.farm_id, fl.field_name, fl.area_acres, fl.soil_type
+    `SELECT fl.field_id, fl.farm_id, fl.field_name, fl.area_acres, fl.soil_type,
+            fl.latitude, fl.longitude
      FROM fields fl
      JOIN farms fm ON fl.farm_id = fm.farm_id
      WHERE fl.field_id = ? AND fm.farmer_id = ?`,
@@ -81,13 +82,13 @@ export const getFieldById = async (field_id, farmer_id) => {
   return rows[0] || null;
 };
 
-export const createField = async ({ farm_id, field_name, area_acres, soil_type }) => {
+export const createField = async ({ farm_id, field_name, area_acres, soil_type, latitude, longitude }) => {
   const [result] = await pool.query(
-    `INSERT INTO fields (farm_id, field_name, area_acres, soil_type)
-     VALUES (?, ?, ?, ?)`,
-    [farm_id, field_name, area_acres || null, soil_type || null]
+    `INSERT INTO fields (farm_id, field_name, area_acres, soil_type, latitude, longitude)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [farm_id, field_name, area_acres || null, soil_type || null, latitude ?? null, longitude ?? null]
   );
-  return { field_id: result.insertId, farm_id, field_name, area_acres, soil_type };
+  return { field_id: result.insertId, farm_id, field_name, area_acres, soil_type, latitude, longitude };
 };
 
 // All crops for one field (Crop Management table, filtered to a field).

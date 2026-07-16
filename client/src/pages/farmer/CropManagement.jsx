@@ -38,11 +38,20 @@ function CropManagement() {
   const [farmSubmitting, setFarmSubmitting] = useState(false);
   const [farmMessage, setFarmMessage] = useState("");
 
-  // Add Field form (always available — a farm can have any number of fields)
+  // Add Field form (always available — a farm can have any number of fields).
+  // latitude/longitude are now required here: they're what the weather
+  // endpoint resolves against, instead of asking the browser for GPS.
   const [showFieldForm, setShowFieldForm] = useState(false);
-  const [fieldForm, setFieldForm] = useState({ field_name: "", area_acres: "", soil_type: "" });
+  const [fieldForm, setFieldForm] = useState({
+    field_name: "",
+    area_acres: "",
+    soil_type: "",
+    latitude: "",
+    longitude: "",
+  });
   const [fieldSubmitting, setFieldSubmitting] = useState(false);
   const [fieldMessage, setFieldMessage] = useState("");
+  const [fieldLocating, setFieldLocating] = useState(false);
 
   // Add Crop form
   const [showCropForm, setShowCropForm] = useState(false);
@@ -147,17 +156,51 @@ function CropManagement() {
   /* ------------------------------- Add Field ------------------------------ */
   const handleFieldChange = (e) => setFieldForm({ ...fieldForm, [e.target.name]: e.target.value });
 
+  // Convenience: fills lat/lng from the browser's current position, so the
+  // farmer doesn't have to type coordinates by hand. This is the only place
+  // geolocation is used now — a one-time convenience at field-creation time,
+  // not a per-page-load dependency like before.
+  const handleUseCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      setFieldMessage("Geolocation is not available in this browser.");
+      return;
+    }
+    setFieldLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setFieldForm((prev) => ({
+          ...prev,
+          latitude: position.coords.latitude.toFixed(6),
+          longitude: position.coords.longitude.toFixed(6),
+        }));
+        setFieldLocating(false);
+      },
+      () => {
+        setFieldMessage("Location permission denied — please enter coordinates manually.");
+        setFieldLocating(false);
+      }
+    );
+  };
+
   const handleFieldSubmit = async (e) => {
     e.preventDefault();
     setFieldMessage("");
+
+    if (fieldForm.latitude === "" || fieldForm.longitude === "") {
+      setFieldMessage("Latitude and longitude are required.");
+      return;
+    }
+
     setFieldSubmitting(true);
     try {
       await createField({
         field_name: fieldForm.field_name,
         area_acres: fieldForm.area_acres ? parseFloat(fieldForm.area_acres) : null,
         soil_type: fieldForm.soil_type || null,
+        latitude: parseFloat(fieldForm.latitude),
+        longitude: parseFloat(fieldForm.longitude),
       });
-      setFieldForm({ field_name: "", area_acres: "", soil_type: "" });
+      setFieldForm({ field_name: "", area_acres: "", soil_type: "", latitude: "", longitude: "" });
       setFieldMessage("success");
       setShowFieldForm(false);
       await loadSetupData();
@@ -365,7 +408,9 @@ function CropManagement() {
       )}
 
       {/* FIELD SETUP — available any time after the farm exists; a farm can
-          have any number of fields. */}
+          have any number of fields. Latitude/longitude are required: they're
+          stored on the field and used to fetch weather for it (no more
+          per-page-load browser geolocation). */}
       {showFieldForm && (
         <div className="setupSection">
           <div className="sectionTitle">
@@ -395,10 +440,43 @@ function CropManagement() {
               value={fieldForm.soil_type}
               onChange={handleFieldChange}
             />
+            <input
+              type="number"
+              step="0.000001"
+              min="-90"
+              max="90"
+              name="latitude"
+              placeholder="Latitude"
+              value={fieldForm.latitude}
+              onChange={handleFieldChange}
+              required
+            />
+            <input
+              type="number"
+              step="0.000001"
+              min="-180"
+              max="180"
+              name="longitude"
+              placeholder="Longitude"
+              value={fieldForm.longitude}
+              onChange={handleFieldChange}
+              required
+            />
+            <button
+              type="button"
+              className="secondaryBtn"
+              onClick={handleUseCurrentLocation}
+              disabled={fieldLocating}
+            >
+              {fieldLocating ? "Locating..." : "Use Current Location"}
+            </button>
             <button type="submit" disabled={fieldSubmitting}>
               {fieldSubmitting ? "Saving..." : "Add Field"}
             </button>
           </form>
+          <p className="setupNote">
+            Latitude/longitude are used to fetch weather for this field going forward.
+          </p>
           {fieldMessage === "success" && <span className="updateSuccess">Field added successfully</span>}
           {fieldMessage && fieldMessage !== "success" && <span className="updateError">{fieldMessage}</span>}
         </div>

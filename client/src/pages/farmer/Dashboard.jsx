@@ -1,15 +1,6 @@
 import { useState, useEffect } from "react";
 import "./css/Dashboard.css";
-import {
-  FaLeaf,
-  FaSun,
-  FaCloud,
-  FaCloudRain,
-  FaTint,
-  FaShoppingBasket,
-  FaFlask,
-  FaLightbulb,
-} from "react-icons/fa";
+import { FaLeaf, FaSun, FaCloud, FaCloudRain, FaShoppingBasket } from "react-icons/fa";
 import {
   getDashboardSummary,
   getCrop,
@@ -17,6 +8,7 @@ import {
   getWeather,
 } from "../../api/farmerService";
 import FieldSelector from "../../components/common/FieldSelector";
+import SensorGrid from "../../components/common/SensorGrid";
 
 // Picks the weather icon for the current condition (sunny / overcast / rainy)
 function WeatherIcon({ condition }) {
@@ -37,43 +29,30 @@ function Dashboard() {
   // so every call below falls back to the farmer-wide/default behaviour).
   const [fieldId, setFieldId] = useState(null);
 
+  // Weather is now fetched alongside everything else here, scoped to the
+  // same field_id — the server resolves the field's stored lat/lng itself,
+  // so there's no browser geolocation prompt anymore.
   const loadDashboardData = async (selectedFieldId) => {
     try {
-      const [summaryRes, cropRes, sensorRes] = await Promise.all([
+      const [summaryRes, cropRes, sensorRes, weatherRes] = await Promise.all([
         getDashboardSummary(selectedFieldId),
         getCrop(selectedFieldId),
         getLatestSensorReading(selectedFieldId),
+        getWeather(selectedFieldId),
       ]);
       setSummary(summaryRes.data.data);
       setCrop(cropRes.data.data);
       setSensor(sensorRes.data.data);
+      setWeather(weatherRes.data.data);
     } catch (err) {
       console.error(err);
       setError("Failed to load dashboard data");
     }
   };
 
-  const loadWeather = () => {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        try {
-          const { latitude, longitude } = position.coords;
-          const res = await getWeather(latitude, longitude);
-          setWeather(res.data.data);
-        } catch (err) {
-          console.error(err);
-          setError("Failed to load weather data");
-        }
-      },
-      () => setError("Location permission denied — weather unavailable"),
-    );
-  };
-
   useEffect(() => {
     (async () => {
       await loadDashboardData(null);
-      loadWeather();
       setLoading(false);
     })();
   }, []);
@@ -137,52 +116,10 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Sensor Cards (real data — loaded entirely from the API, taken from
-          both ML datasets: soil/nutrient sensors + live weather feed) */}
+      {/* Sensor Cards — shared component, same one used on FarmMonitoring/Irrigation */}
       <div className="section">
         <h2 className="headings">Live IoT Sensor Data</h2>
-        <div className="sensorGrid">
-          <div className="sensorCard">
-            <h3>Soil Moisture</h3>
-            <h1>{sensor ? `${sensor.soil_moisture_percent} %` : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Soil Temperature</h3>
-            <h1>{sensor ? `${sensor.soil_temperature_celsius} °C` : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Nitrogen</h3>
-            <h1>{sensor ? `${sensor.nitrogen_kgha} kg/ha` : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Phosphorus</h3>
-            <h1>{sensor ? `${sensor.phosphorus_kgha} kg/ha` : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Potassium</h3>
-            <h1>{sensor ? `${sensor.potassium_kgha} kg/ha` : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Soil pH</h3>
-            <h1>{sensor ? sensor.ph : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Soil Type</h3>
-            <h1>{sensor ? sensor.soil_type : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Air Humidity</h3>
-            <h1>{weather ? `${weather.humidity} %` : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Rainfall</h3>
-            <h1>{weather ? `${weather.rainfall} mm` : "--"}</h1>
-          </div>
-          <div className="sensorCard">
-            <h3>Light Intensity</h3>
-            <h1>{weather ? `${weather.lightIntensity} W/m²` : "--"}</h1>
-          </div>
-        </div>
+        <SensorGrid latest={sensor} weather={weather} soilType={crop?.soil_type} />
       </div>
 
       {/* Crop Table — single crop (Rice) */}
