@@ -20,48 +20,44 @@ export const getDriverProfile = async (driver_id) => {
   return rows[0];
 };
 
-export const getPendingOffers = async () => {
+// Full history of a driver's deliveries for a given month (used by the
+// driver-facing AssignedDeliveries page, which mirrors the admin Delivery
+// History page but scoped to a single driver). Orders are assigned to
+// drivers by the admin (see adminModel.assignOrderToDriver).
+export const getDriverHistoryByMonth = async (driver_id, year, month) => {
   const [rows] = await pool.query(
-    `SELECT o.order_id, o.order_unique_id, wb.crop_name, o.quantity_tons,
-            fu.full_name AS farmer_name, bu.full_name AS buyer_name
-     FROM orders o
+    `SELECT d.delivery_id, o.order_unique_id, wb.crop_name, o.quantity_tons,
+            fu.full_name AS farmer_name, bu.full_name AS buyer_name,
+            f.location AS pickup_location, bu.address AS drop_location,
+            d.status, d.assigned_at, d.delivered_at
+     FROM deliveries d
+     JOIN orders o ON d.order_id = o.order_id
      JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
      JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     JOIN farms f ON f.farmer_id = wb.farmer_id
      JOIN users fu ON wb.farmer_id = fu.user_id
      JOIN users bu ON o.buyer_id = bu.user_id
-     WHERE o.order_status = 'Confirmed'
-       AND o.order_id NOT IN (SELECT order_id FROM deliveries)
-     ORDER BY o.created_at DESC`
+     WHERE d.driver_id = ? AND MONTH(d.assigned_at) = ? AND YEAR(d.assigned_at) = ?
+     ORDER BY d.assigned_at DESC`,
+    [driver_id, month, year]
   );
   return rows;
 };
 
-// Creating a delivery (status='Assigned') always pushes the parent order to
-// 'Processing' — this applies whether a driver self-accepts an offer or an
-// admin assigns one directly (see adminModel.assignOrderToDriver).
-export const acceptDelivery = async (order_id, driver_id) => {
-  const connection = await pool.getConnection();
-  try {
-    await connection.beginTransaction();
-
-    const [orderRows] = await connection.query(`SELECT order_id FROM orders WHERE order_id = ?`, [order_id]);
-    if (!orderRows[0]) throw new Error("Order not found");
-
-    const [result] = await connection.query(
-      `INSERT INTO deliveries (order_id, driver_id, status) VALUES (?, ?, 'Assigned')`,
-      [order_id, driver_id]
-    );
-
-    await connection.query(`UPDATE orders SET order_status = 'Processing' WHERE order_id = ?`, [order_id]);
-
-    await connection.commit();
-    return { delivery_id: result.insertId };
-  } catch (err) {
-    await connection.rollback();
-    throw err;
-  } finally {
-    connection.release();
-  }
+// Per-day trip counts for the last 15 days (used to draw the earnings bar
+// chart). Days with no deliveries are simply absent from the result set —
+// the caller fills the gaps so the chart always has 15 bars.
+export const getDailyTripsLast15Days = async (driver_id) => {
+  const [rows] = await pool.query(
+    `SELECT DATE(delivered_at) AS day, COUNT(*) AS trips
+     FROM deliveries
+     WHERE driver_id = ? AND status = 'Delivered'
+       AND delivered_at >= CURDATE() - INTERVAL 14 DAY
+     GROUP BY DATE(delivered_at)
+     ORDER BY day ASC`,
+    [driver_id]
+  );
+  return rows;
 };
 
 export const getActiveDeliveriesForDriver = async (driver_id) => {

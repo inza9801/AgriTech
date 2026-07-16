@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import {
   FaTruck,
-  FaClipboardList,
+  FaHistory,
   FaShippingFast,
   FaMoneyBillWave,
   FaUserTie,
@@ -37,7 +37,7 @@ function LogisticsSidebar() {
         </NavLink>
 
         <NavLink to="/logistics/deliveries" className="navItem">
-          <FaClipboardList />
+          <FaHistory />
 
           <span>Assigned Deliveries</span>
         </NavLink>

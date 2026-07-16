@@ -9,6 +9,7 @@ import {
   getAssignableOrdersToday,
   getAssignedOrdersToday,
   getAssignedOrderDetail,
+  getDeliveryHistoryByMonth,
 } from "../models/adminModel.js";
 
 export const incomingRequests = async (req, res, next) => {
@@ -108,6 +109,20 @@ export const assignedOrderDetail = async (req, res, next) => {
       res.status(404);
       throw new Error("Assigned order not found");
     }
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const historyByMonth = async (req, res, next) => {
+  try {
+    const { year, month } = req.query;
+    if (!year || !month) {
+      res.status(400);
+      throw new Error("year and month query params are required");
+    }
+    const data = await getDeliveryHistoryByMonth(year, month);
     res.json({ success: true, data });
   } catch (err) {
     next(err);

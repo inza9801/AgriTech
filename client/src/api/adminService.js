@@ -11,3 +11,5 @@ export const getHistorySummary = () => api.get("/admin/history-summary");
 export const getAssignableOrders = () => api.get("/admin/assignable-orders");
 export const getAssignedOrdersToday = () => api.get("/admin/assigned-orders");
 export const getAssignedOrderDetail = (deliveryId) => api.get(`/admin/assigned-orders/${deliveryId}`);
+
+export const getHistoryByMonth = (year, month) => api.get(`/admin/history-by-month?year=${year}&month=${month}`);

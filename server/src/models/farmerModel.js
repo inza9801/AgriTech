@@ -248,16 +248,28 @@ export const updateListingStatus = async (listing_id, status) => {
 
 export const getOrdersForFarmer = async (farmer_id) => {
   const [rows] = await pool.query(
-    `SELECT o.order_id, o.order_unique_id, u.full_name AS buyer_name, wb.crop_name,
-            wb.batch_id, o.quantity_tons, o.total_price, o.created_at, o.order_status
+    `SELECT o.order_id,
+            o.order_unique_id,
+            u.full_name AS buyer_name,
+            wb.crop_name,
+            wb.batch_id,
+            o.quantity_tons,
+            o.total_price,
+            o.created_at,
+            o.order_status
      FROM orders o
      JOIN users u ON o.buyer_id = u.user_id
      JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
      JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
      WHERE wb.farmer_id = ?
+       AND (
+            o.order_status NOT IN ('Delivered', 'Cancelled')
+            OR DATE(o.created_at) = CURDATE()
+       )
      ORDER BY o.created_at DESC`,
     [farmer_id]
   );
+
   return rows;
 };
 

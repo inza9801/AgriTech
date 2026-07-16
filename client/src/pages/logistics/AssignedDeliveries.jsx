@@ -1,101 +1,101 @@
 import { useState, useEffect } from "react";
 import "./css/AssignedDeliveries.css";
-import { FaMapMarkerAlt, FaArrowDown, FaCheckCircle } from "react-icons/fa";
-import { getPendingOffers, acceptDelivery } from "../../api/deliveryService";
+import { getDriverHistoryByMonth } from "../../api/deliveryService";
+
+const monthNow = new Date().toISOString().slice(0, 7); // "YYYY-MM"
 
 function AssignedDeliveries() {
-  const [offers, setOffers] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState(monthNow);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const loadOffers = async () => {
+  const loadOrdersForMonth = async (monthValue) => {
+    if (!monthValue) return;
+    const [year, month] = monthValue.split("-");
+    setLoading(true);
+    setError("");
     try {
-      const res = await getPendingOffers();
-      setOffers(res.data.data);
+      const res = await getDriverHistoryByMonth(year, Number(month));
+      setOrders(res.data.data);
     } catch (err) {
-      setError("Failed to load pending offers");
+      setError("Failed to load deliveries for the selected month");
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadOffers();
-  }, []);
+    loadOrdersForMonth(selectedMonth);
+  }, [selectedMonth]);
 
-  const handleAccept = async (orderId) => {
-    try {
-      await acceptDelivery(orderId);
-      loadOffers();
-    } catch (err) {
-      setError("Failed to accept delivery");
-      console.error(err);
-    }
+  const formatMonthLabel = (monthValue) => {
+    if (!monthValue) return "";
+    const [year, month] = monthValue.split("-");
+    return new Date(Number(year), Number(month) - 1, 1).toLocaleString("default", {
+      month: "long",
+      year: "numeric",
+    });
   };
 
   return (
     <div className="assignedContainer">
       <div className="pageHeader">
         <h1>Assigned Deliveries</h1>
-        <p>Accept pending delivery offers.</p>
+        <p>Select a month to view your delivery history.</p>
       </div>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <div className="deliverySection">
         <div className="sectionTitle">
-          <h2>Pending Delivery Offers</h2>
+          <h2>Delivery History by Month</h2>
+          <input
+            type="month"
+            className="monthPicker"
+            value={selectedMonth}
+            max={monthNow}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+          />
         </div>
 
-        <div className="deliveryGrid">
-          {offers.map((offer) => (
-            <div className="deliveryCard" key={offer.order_id}>
-              <div className="cardHeader">
-                <div>
-                  <h3>{offer.order_unique_id}</h3>
-                </div>
-              </div>
-
-              <div className="routeContainer">
-                <div className="locationCard">
-                  <FaMapMarkerAlt />
-                  <div>
-                    <h4>From (Seller)</h4>
-                    <p>{offer.farmer_name}</p>
-                  </div>
-                </div>
-
-                <div className="routeArrow">
-                  <FaArrowDown />
-                </div>
-
-                <div className="locationCard">
-                  <FaMapMarkerAlt />
-                  <div>
-                    <h4>To (Buyer)</h4>
-                    <p>{offer.buyer_name}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="infoGrid">
-                <div>
-                  <span>Crop</span>
-                  <h4>{offer.crop_name}</h4>
-                </div>
-                <div>
-                  <span>Quantity</span>
-                  <h4>{offer.quantity_tons} Ton</h4>
-                </div>
-              </div>
-
-              <div className="buttonRow">
-                <button className="acceptBtn" onClick={() => handleAccept(offer.order_id)}>
-                  <FaCheckCircle />
-                  Accept Delivery
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <p>Loading deliveries...</p>
+        ) : orders.length === 0 ? (
+          <p>No deliveries found for {formatMonthLabel(selectedMonth)}.</p>
+        ) : (
+          <div className="tableContainer">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Crop</th>
+                  <th>Quantity</th>
+                  <th>Pickup (Seller)</th>
+                  <th>Drop (Buyer)</th>
+                  <th>Status</th>
+                  <th>Assigned At</th>
+                  <th>Delivered At</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((o) => (
+                  <tr key={o.delivery_id}>
+                    <td>{o.order_unique_id}</td>
+                    <td>{o.crop_name}</td>
+                    <td>{o.quantity_tons} Ton</td>
+                    <td>{o.farmer_name}</td>
+                    <td>{o.buyer_name}</td>
+                    <td>{o.status}</td>
+                    <td>{o.assigned_at ? new Date(o.assigned_at).toLocaleString() : "-"}</td>
+                    <td>{o.delivered_at ? new Date(o.delivered_at).toLocaleString() : "-"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

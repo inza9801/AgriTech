@@ -7,6 +7,7 @@ import {
   FaInbox,
   FaClipboardCheck,
   FaUsers,
+  FaUserPlus,
   FaShippingFast,
   FaHistory,
   FaSignOutAlt,
@@ -53,6 +54,12 @@ function LogisticsAdminSidebar() {
           <FaUsers />
 
           <span>Driver Management</span>
+        </NavLink>
+
+        <NavLink to="/logistics-admin/register-driver" className="navItem">
+          <FaUserPlus />
+
+          <span>Register Driver</span>
         </NavLink>
 
         <NavLink to="/logistics-admin/shipments" className="navItem">

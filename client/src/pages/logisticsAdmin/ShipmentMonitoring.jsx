@@ -24,13 +24,13 @@ function ShipmentMonitoring() {
     <div className="shipmentMonitoring">
       <div className="pageHeader">
         <h1>Shipment Monitoring</h1>
-        <p>Track all drivers' shipments for today.</p>
+        <p>Track all drivers' shipments.</p>
       </div>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <div className="shipmentSection">
-        <h2>Today's Shipments</h2>
+        <h2>Shipments</h2>
 
         <div className="shipmentGrid">
           {shipments.map((s) => {

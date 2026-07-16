@@ -36,7 +36,7 @@ function FarmerSidebar() {
         <FaLeaf className="logoIcon" />
 
         <div>
-          <h2>AgriTech</h2>
+          <h2>AgriNexus</h2>
           <p>Farmer Panel</p>
         </div>
 

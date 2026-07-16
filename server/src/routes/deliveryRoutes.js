@@ -1,7 +1,7 @@
 import express from "express";
 import {
-  pendingOffers,
-  accept,
+  historyByMonth,
+  dailyEarnings,
   listDeliveries,
   updateStatus,
   dashboardSummary,
@@ -16,10 +16,10 @@ const driverOnly = [protect, protectRole("driver")];
 
 
 router.get("/drivers/profile", driverOnly, profile);
-router.get("/deliveries/pending-offers", driverOnly, pendingOffers);
-router.post("/deliveries/:orderId/accept", driverOnly, accept);
+router.get("/deliveries/history-by-month", driverOnly, historyByMonth);
 router.get("/deliveries/dashboard-summary", driverOnly, dashboardSummary);
 router.get("/deliveries/earnings-summary", driverOnly, earningsSummary);
+router.get("/deliveries/daily-earnings", driverOnly, dailyEarnings);
 router.get("/deliveries", driverOnly, listDeliveries);
 router.patch("/deliveries/:id/status", driverOnly, updateStatus);
 

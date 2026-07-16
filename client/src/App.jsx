@@ -59,6 +59,7 @@ import AssignedOrders from "./pages/logisticsAdmin/AssignedOrders";
 import DriverManagement from "./pages/logisticsAdmin/DriverManagement";
 import ShipmentMonitoring from "./pages/logisticsAdmin/ShipmentMonitoring";
 import DeliveryHistory from "./pages/logisticsAdmin/DeliveryHistory";
+import RegisterDriver from "./pages/logisticsAdmin/RegisterDriver";
 
 /* ===========================
    OTHER PAGES
@@ -154,6 +155,7 @@ function App() {
         <Route path="/logistics-admin/drivers" element={<DriverManagement />} />
         <Route path="/logistics-admin/shipments" element={<ShipmentMonitoring />} />
         <Route path="/logistics-admin/history" element={<DeliveryHistory />} />
+        <Route path="/logistics-admin/register-driver" element={<RegisterDriver />} />
       </Route>
 
       {/* ===========================

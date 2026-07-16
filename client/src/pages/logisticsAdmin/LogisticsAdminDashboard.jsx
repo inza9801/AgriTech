@@ -62,30 +62,6 @@ function LogisticsAdminDashboard() {
         ))}
       </div>
 
-      <div className="quickActionSection">
-        <h2>
-          <FaTasks />
-          Quick Actions
-        </h2>
-        <div className="actionGrid">
-          <div className="actionCard">
-            <FaClipboardList />
-            <h3>Incoming Requests</h3>
-            <p>Review newly accepted farmer orders waiting for dispatch.</p>
-          </div>
-          <div className="actionCard">
-            <FaTruck />
-            <h3>Assign Drivers</h3>
-            <p>Allocate available drivers and vehicles for delivery.</p>
-          </div>
-          <div className="actionCard">
-            <FaRoute />
-            <h3>Shipment Monitoring</h3>
-            <p>Monitor all active deliveries across the network.</p>
-          </div>
-        </div>
-      </div>
-
       <div className="activitySection">
         <h2>Today's Orders</h2>
         <div className="tableContainer">

@@ -1,8 +1,8 @@
 import {
   getDriverIdByUserId,
   getDriverProfile,
-  getPendingOffers,
-  acceptDelivery,
+  getDriverHistoryByMonth,
+  getDailyTripsLast15Days,
   getActiveDeliveriesForDriver,
   updateDeliveryStatus,
   getDashboardSummary,
@@ -32,21 +32,43 @@ export const profile = async (req, res, next) => {
   }
 };
 
-export const pendingOffers = async (req, res, next) => {
+export const historyByMonth = async (req, res, next) => {
   try {
-    const data = await getPendingOffers();
+    const driver_id = await resolveDriverId(req, res);
+    const { year, month } = req.query;
+    if (!year || !month) {
+      res.status(400);
+      throw new Error("year and month query params are required");
+    }
+    const data = await getDriverHistoryByMonth(driver_id, year, month);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
   }
 };
 
-export const accept = async (req, res, next) => {
+export const dailyEarnings = async (req, res, next) => {
   try {
     const driver_id = await resolveDriverId(req, res);
-    const { orderId } = req.params;
-    const result = await acceptDelivery(orderId, driver_id);
-    res.status(201).json({ success: true, data: result });
+    const rows = await getDailyTripsLast15Days(driver_id);
+    const RATE_PER_TRIP = 100;
+
+    const byDay = {};
+    rows.forEach((r) => {
+      const key = new Date(r.day).toISOString().slice(0, 10);
+      byDay[key] = r.trips;
+    });
+
+    const data = [];
+    for (let i = 14; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      const trips = byDay[key] || 0;
+      data.push({ date: key, trips, earnings: trips * RATE_PER_TRIP });
+    }
+
+    res.json({ success: true, data });
   } catch (err) {
     next(err);
   }

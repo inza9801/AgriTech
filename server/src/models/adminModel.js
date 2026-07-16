@@ -118,7 +118,7 @@ export const getDashboardSummary = async () => {
       SUM(CASE WHEN status = 'Picked Up' THEN 1 ELSE 0 END) AS pickup,
       SUM(CASE WHEN status = 'In Transit' THEN 1 ELSE 0 END) AS inTransit,
       SUM(CASE WHEN status = 'Delivered' THEN 1 ELSE 0 END) AS deliveredToday
-     FROM deliveries WHERE DATE(assigned_at) = CURDATE()`
+     FROM deliveries WHERE status != 'Delivered'`
   );
 
   return {
@@ -167,6 +167,30 @@ export const getAssignedOrdersToday = async () => {
      JOIN users du ON dr.user_id = du.user_id
      WHERE DATE(d.assigned_at) = CURDATE()
      ORDER BY d.assigned_at DESC`
+  );
+  return rows;
+};
+
+// Full delivery history for a given month (used by the admin Delivery
+// History page's month picker). Includes every delivery whose order was
+// assigned in that month, regardless of its current status.
+export const getDeliveryHistoryByMonth = async (year, month) => {
+  const [rows] = await pool.query(
+    `SELECT d.delivery_id, o.order_unique_id, wb.crop_name, o.quantity_tons,
+            fu.full_name AS farmer_name, bu.full_name AS buyer_name,
+            du.full_name AS driver_name, dr.vehicle_number,
+            d.status, d.assigned_at, d.delivered_at
+     FROM deliveries d
+     JOIN orders o ON d.order_id = o.order_id
+     JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
+     JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     JOIN users fu ON wb.farmer_id = fu.user_id
+     JOIN users bu ON o.buyer_id = bu.user_id
+     JOIN drivers dr ON d.driver_id = dr.driver_id
+     JOIN users du ON dr.user_id = du.user_id
+     WHERE MONTH(d.assigned_at) = ? AND YEAR(d.assigned_at) = ?
+     ORDER BY d.assigned_at DESC`,
+    [month, year]
   );
   return rows;
 };

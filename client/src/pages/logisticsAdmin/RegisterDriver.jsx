@@ -18,7 +18,7 @@ const initialForm = {
   joining_date: "",
 };
 
-const DriverManagement = () => {
+const RegisterDriver = () => {
   const [drivers, setDrivers] = useState([]);
   const [formData, setFormData] = useState(initialForm);
   const [error, setError] = useState("");
@@ -65,9 +65,9 @@ const DriverManagement = () => {
   };
 
   return (
-    <div className="driverManagement">
+    <div className="registerDriver">
       <div className="pageHeader">
-        <h1>Driver Management</h1>
+        <h1>Register Driver</h1>
         <p>Register new drivers and view the current fleet.</p>
       </div>
 
@@ -191,4 +191,4 @@ const DriverManagement = () => {
   );
 };
 
-export default DriverManagement;
+export default RegisterDriver;
