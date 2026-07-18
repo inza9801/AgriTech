@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./css/CartOrders.css";
 import { getOrderHistory } from "../../api/buyerService";
-import { jsPDF } from "jspdf";
 import { useCart } from "../../contexts/CartContext";
 import { useToast } from "../../hooks/useToast";
 
 const CartOrders = () => {
+  const navigate = useNavigate();
   const { cartItems, cartTotal, loading: cartLoading, removeItem, checkout } = useCart();
   const [orders, setOrders] = useState([]);
   const [ordersLoading, setOrdersLoading] = useState(true);
@@ -65,28 +66,8 @@ const CartOrders = () => {
     }
   };
 
-  const handleInvoiceDownload = (order) => {
-    const doc = new jsPDF();
-
-    doc.setFontSize(18);
-    doc.text("Invoice", 14, 20);
-
-    doc.setFontSize(11);
-    doc.text(`Order ID: ${order.order_unique_id}`, 14, 32);
-    doc.text(`Date: ${new Date(order.created_at).toLocaleDateString()}`, 14, 40);
-    doc.text(`Status: ${order.order_status}`, 14, 48);
-
-    doc.line(14, 54, 196, 54);
-
-    doc.setFontSize(12);
-    doc.text("Amount Due", 14, 64);
-    doc.setFontSize(16);
-    doc.text(`\u09F3${order.total_price}`, 14, 74);
-
-    doc.setFontSize(10);
-    doc.text("Thank you for your order via AgriNexus Marketplace.", 14, 90);
-
-    doc.save(`invoice_${order.order_unique_id}.pdf`);
+  const handleViewDetails = (order_id) => {
+    navigate(`/buyer/order-detail/${order_id}`);
   };
 
   const loading = cartLoading || ordersLoading;
@@ -95,7 +76,7 @@ const CartOrders = () => {
     <div className="cartOrders">
       <div className="pageHeader">
         <h1 className="pageTitle">Cart & Orders</h1>
-        <p className="pageSubtitle">Review your cart, place orders, and download invoices.</p>
+        <p className="pageSubtitle">Review your cart, place orders, and track order history.</p>
       </div>
 
       {error && <div className="formError">{error}</div>}
@@ -195,7 +176,7 @@ const CartOrders = () => {
                     <th>Date</th>
                     <th>Amount</th>
                     <th>Status</th>
-                    <th>Invoice</th>
+                    <th>Details</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -210,8 +191,11 @@ const CartOrders = () => {
                         </span>
                       </td>
                       <td>
-                        <button className="invoiceBtn" onClick={() => handleInvoiceDownload(order)}>
-                          Download
+                        <button
+                          className="detailBtn"
+                          onClick={() => handleViewDetails(order.order_id)}
+                        >
+                          View Details
                         </button>
                       </td>
                     </tr>

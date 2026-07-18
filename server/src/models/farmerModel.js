@@ -380,3 +380,87 @@ export const addBatch = async ({ farmer_id, crop_name, quantity_tons, arrival_da
   );
   return { batch_id: result.insertId, farmer_id, crop_name, quantity_tons, arrival_date, expiry_date, status };
 };
+// ===================================================================
+// Payments — derived entirely from `orders.order_status` and `orders.total_price`.
+// Earnings = Delivered orders. Pending = everything except Delivered/Cancelled.
+// Cancelled orders are excluded from both earnings and pending.
+// ===================================================================
+
+export const getPaymentsSummary = async (farmer_id) => {
+  const [rows] = await pool.query(
+    `SELECT
+        COALESCE(SUM(CASE WHEN o.order_status = 'Delivered' THEN o.total_price ELSE 0 END), 0) AS totalEarnings,
+        COALESCE(SUM(CASE WHEN o.order_status NOT IN ('Delivered', 'Cancelled') THEN o.total_price ELSE 0 END), 0) AS pendingAmount,
+        COALESCE(SUM(CASE WHEN o.order_status = 'Delivered'
+                           AND MONTH(o.created_at) = MONTH(CURDATE())
+                           AND YEAR(o.created_at) = YEAR(CURDATE())
+                      THEN o.total_price ELSE 0 END), 0) AS thisMonthEarnings,
+        COALESCE(SUM(CASE WHEN o.order_status = 'Delivered'
+                           AND DATE(o.created_at) = CURDATE()
+                      THEN o.total_price ELSE 0 END), 0) AS todayEarnings
+     FROM orders o
+     JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
+     JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     WHERE wb.farmer_id = ?`,
+    [farmer_id]
+  );
+  return rows[0];
+};
+
+// All orders still awaiting payment/earning (i.e. not Delivered, not Cancelled).
+export const getPendingPaymentOrders = async (farmer_id) => {
+  const [rows] = await pool.query(
+    `SELECT o.order_id, o.order_unique_id, u.full_name AS buyer_name, wb.crop_name,
+            o.quantity_tons, o.total_price, o.created_at, o.order_status
+     FROM orders o
+     JOIN users u ON o.buyer_id = u.user_id
+     JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
+     JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     WHERE wb.farmer_id = ? AND o.order_status NOT IN ('Delivered', 'Cancelled')
+     ORDER BY o.created_at DESC`,
+    [farmer_id]
+  );
+  return rows;
+};
+
+// Recent Delivered orders = recent transactions (money actually earned).
+export const getRecentTransactions = async (farmer_id, limit = 10) => {
+  const [rows] = await pool.query(
+    `SELECT o.order_id, o.order_unique_id, u.full_name AS buyer_name, wb.crop_name,
+            o.quantity_tons, o.total_price, o.created_at, o.order_status
+     FROM orders o
+     JOIN users u ON o.buyer_id = u.user_id
+     JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
+     JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     WHERE wb.farmer_id = ? AND o.order_status = 'Delivered'
+     ORDER BY o.created_at DESC
+     LIMIT ?`,
+    [farmer_id, limit]
+  );
+  return rows;
+};
+
+// All orders within a given year/month, plus that month's earnings/pending split.
+export const getOrdersByMonth = async (farmer_id, year, month) => {
+  const [rows] = await pool.query(
+    `SELECT o.order_id, o.order_unique_id, u.full_name AS buyer_name, wb.crop_name,
+            o.quantity_tons, o.total_price, o.created_at, o.order_status
+     FROM orders o
+     JOIN users u ON o.buyer_id = u.user_id
+     JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
+     JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+     WHERE wb.farmer_id = ? AND YEAR(o.created_at) = ? AND MONTH(o.created_at) = ?
+     ORDER BY o.created_at DESC`,
+    [farmer_id, year, month]
+  );
+
+  const earnings = rows
+    .filter((r) => r.order_status === "Delivered")
+    .reduce((sum, r) => sum + Number(r.total_price), 0);
+
+  const pending = rows
+    .filter((r) => r.order_status !== "Delivered" && r.order_status !== "Cancelled")
+    .reduce((sum, r) => sum + Number(r.total_price), 0);
+
+  return { orders: rows, earnings, pending };
+};

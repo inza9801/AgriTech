@@ -72,3 +72,11 @@ export const getProduct = (id) => api.get(`/products/${id}`);
 export const createProduct = (data) => api.post("/products", data);
 
 export const updateCrop = (crop_id, data) => api.patch(`/crops/${crop_id}`, data);
+
+// Payments — earnings/pending are derived server-side from order_status
+// (Delivered = earned, anything except Delivered/Cancelled = pending).
+export const getPaymentsSummary = () => api.get("/payments/summary");
+export const getPendingPayments = () => api.get("/payments/pending");
+export const getTransactions = () => api.get("/payments/transactions");
+export const getMonthlyPayments = (year, month) =>
+  api.get(`/payments/monthly?year=${year}&month=${month}`);

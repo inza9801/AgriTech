@@ -26,6 +26,10 @@ import {
   getAllCropsForFarmer,
   getAllCropsSummaryForFarmer,
   createCrop,
+   getPaymentsSummary,
+  getPendingPaymentOrders,
+  getRecentTransactions,
+  getOrdersByMonth,
 } from "../models/farmerModel.js";
 
 // Base URL of the Flask ML microservice (fertilizer + irrigation models).
@@ -710,6 +714,58 @@ export const predictIrrigation = async (req, res, next) => {
     }
 
     res.json({ success: true, data: { ...data, inputs: payload } });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ===================================================================
+// Payments — all figures are derived from orders.order_status, never a
+// separate payment_status/payment_method column. Delivered = earned,
+// anything else except Cancelled = pending.
+// ===================================================================
+
+export const getPaymentsSummaryHandler = async (req, res, next) => {
+  try {
+    const data = await getPaymentsSummary(req.user.user_id);
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getPendingPayments = async (req, res, next) => {
+  try {
+    const data = await getPendingPaymentOrders(req.user.user_id);
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getTransactions = async (req, res, next) => {
+  try {
+    const data = await getRecentTransactions(req.user.user_id, 10);
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ?year=2026&month=7 (month is 1-indexed). Defaults to the current year/month.
+export const getMonthlyPayments = async (req, res, next) => {
+  try {
+    const now = new Date();
+    const year = parseInt(req.query.year, 10) || now.getFullYear();
+    const month = parseInt(req.query.month, 10) || now.getMonth() + 1;
+
+    if (month < 1 || month > 12) {
+      res.status(400);
+      throw new Error("month must be between 1 and 12");
+    }
+
+    const data = await getOrdersByMonth(req.user.user_id, year, month);
+    res.json({ success: true, data: { ...data, year, month } });
   } catch (err) {
     next(err);
   }

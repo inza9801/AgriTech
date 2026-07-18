@@ -96,3 +96,35 @@
 @media (max-width: 900px) {
   .cartLayout { grid-template-columns: 1fr; }
 }
+.detailBtn {
+  padding: 6px 14px;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.detailBtn:hover {
+  background: #2563eb;
+  color: #fff;
+}
+.detailBtn {
+  padding: 6px 14px;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.detailBtn:hover {
+  background: #2563eb;
+  color: #fff;
+}

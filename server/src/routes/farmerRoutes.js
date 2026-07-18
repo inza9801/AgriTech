@@ -29,6 +29,10 @@ import {
   addFarm,
   getFields,
   addField,
+  getPaymentsSummaryHandler,
+  getPendingPayments,
+  getTransactions,
+  getMonthlyPayments,
 } from "../controllers/farmerController.js";
 
 import {
@@ -135,5 +139,19 @@ router.patch("/marketplace/requests/:id/cancel",farmerOnly,cancelOrder);
 router.get("/orders",farmerOnly, listOrders);
 
 router.get("/orders/shipments",farmerOnly, listShipments);
+
+/* -------------------------------------------------------------------------- */
+/*                                  Payments                                  */
+/*  All figures are derived from orders.order_status:                        */
+/*  Delivered -> earned, everything else except Cancelled -> pending.        */
+/* -------------------------------------------------------------------------- */
+
+router.get("/payments/summary", farmerOnly, getPaymentsSummaryHandler);
+
+router.get("/payments/pending", farmerOnly, getPendingPayments);
+
+router.get("/payments/transactions", farmerOnly, getTransactions);
+
+router.get("/payments/monthly", farmerOnly, getMonthlyPayments);
 
 export default router;

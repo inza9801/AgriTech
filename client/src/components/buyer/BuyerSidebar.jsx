@@ -5,7 +5,7 @@ import {
   FaStore,
   FaShoppingBasket,
   FaTruckMoving,
-  FaWallet,
+  FaFileInvoice,
   FaSignOutAlt,
 } from "react-icons/fa";
 import "./css/BuyerSidebar.css";
@@ -51,9 +51,9 @@ const BuyerSidebar = () => {
           <span>Tracking</span>
         </NavLink>
 
-        <NavLink to="/buyer/payments">
-          <FaWallet />
-          <span>Payments</span>
+        <NavLink to="/buyer/order-detail">
+          <FaFileInvoice />
+          <span>Order Details</span>
         </NavLink>
       </nav>
 

@@ -10,6 +10,7 @@ import {
   placeOrderFromCart,
   getOrderHistory,
   getTrackingForBuyer,
+  getOrderDetailForBuyer,
 } from "../models/buyerModel.js";
 
 export const dashboardSummary = async (req, res, next) => {
@@ -111,6 +112,21 @@ export const orderHistory = async (req, res, next) => {
 export const tracking = async (req, res, next) => {
   try {
     const data = await getTrackingForBuyer(req.user.user_id);
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+};
+// /buyer/order-detail/:id? — with an id, fetches that specific order
+// (ownership-checked); without one, returns the buyer's most recent order.
+export const orderDetail = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = await getOrderDetailForBuyer(req.user.user_id, id || null);
+    if (!data) {
+      res.status(404);
+      throw new Error("Order not found");
+    }
     res.json({ success: true, data });
   } catch (err) {
     next(err);

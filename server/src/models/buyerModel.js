@@ -142,7 +142,7 @@ export const getOrderHistory = async (buyer_id) => {
   const [rows] = await pool.query(
     `SELECT o.order_id, o.order_unique_id, o.created_at, o.total_price, o.order_status
      FROM orders o
-     WHERE o.buyer_id = ? AND o.order_status != 'Delivered'
+     WHERE o.buyer_id = ?
      ORDER BY o.created_at DESC`,
     [buyer_id]
   );
@@ -167,4 +167,43 @@ export const getTrackingForBuyer = async (buyer_id) => {
     [buyer_id]
   );
   return rows;
+};
+// Full order detail for the buyer's order-detail page. Pass order_id to
+// fetch a specific order (ownership checked via buyer_id); omit it to get
+// the buyer's most recent order (used as the default view).
+// deliveries/drivers are LEFT JOINed since a brand-new order may not have
+// a delivery assigned yet.
+export const getOrderDetailForBuyer = async (buyer_id, order_id = null) => {
+  let query = `
+    SELECT o.order_id, o.order_unique_id, o.quantity_tons, o.total_price,
+           o.order_status, o.created_at,
+           wb.crop_name, wb.grade,
+           f.location AS pickup_location, f.farm_name,
+           fu.full_name AS farmer_name,
+           bu.address AS drop_location, bu.full_name AS buyer_name,
+           d.status AS delivery_status, d.assigned_at, d.picked_up_at,
+           d.in_transit_at, d.delivered_at,
+           du.full_name AS driver_name, du.phone_number AS driver_phone,
+           dr.vehicle_number
+    FROM orders o
+    JOIN marketplace_listings ml ON o.listing_id = ml.listing_id
+    JOIN warehouse_batches wb ON ml.batch_id = wb.batch_id
+    JOIN farms f ON f.farmer_id = wb.farmer_id
+    JOIN users fu ON wb.farmer_id = fu.user_id
+    JOIN users bu ON o.buyer_id = bu.user_id
+    LEFT JOIN deliveries d ON d.order_id = o.order_id
+    LEFT JOIN drivers dr ON d.driver_id = dr.driver_id
+    LEFT JOIN users du ON dr.user_id = du.user_id
+    WHERE o.buyer_id = ?`;
+  const params = [buyer_id];
+
+  if (order_id) {
+    query += ` AND o.order_id = ?`;
+    params.push(order_id);
+  } else {
+    query += ` ORDER BY o.created_at DESC LIMIT 1`;
+  }
+
+  const [rows] = await pool.query(query, params);
+  return rows[0] || null;
 };

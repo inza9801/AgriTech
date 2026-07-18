@@ -11,6 +11,7 @@ import {
   placeOrder,
   orderHistory,
   tracking,
+  orderDetail,
 } from "../controllers/buyerController.js";
 
 import { protect, protectRole } from "../middleware/authMiddleware.js";
@@ -30,5 +31,7 @@ router.delete("/buyer/cart/:id", buyerOnly, deleteCartItem);
 router.post("/buyer/cart/place-order", buyerOnly, placeOrder);
 router.get("/buyer/orders", buyerOnly, orderHistory);
 router.get("/buyer/tracking", buyerOnly, tracking);
+// :id? is optional — /buyer/order-detail with no id returns the latest order.
+router.get("/buyer/order-detail/:id?", buyerOnly, orderDetail);
 
 export default router;

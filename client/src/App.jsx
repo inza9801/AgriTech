@@ -38,7 +38,7 @@ import MarketplaceHome from "./pages/buyer/MarketplaceHome";
 import ProductDetail from "./pages/buyer/ProductDetail";
 import CartOrders from "./pages/buyer/CartOrders";
 import Tracking from "./pages/buyer/Tracking";
-import BuyerPayment from "./pages/buyer/BuyerPayment";
+import OrderDetail from "./pages/buyer/OrderDetail";
 
 /* ===========================
    LOGISTICS (DRIVER) PAGES
@@ -118,7 +118,7 @@ function App() {
         <Route path="/buyer/product/:id" element={<ProductDetail />} />
         <Route path="/buyer/orders" element={<CartOrders />} />
         <Route path="/buyer/tracking" element={<Tracking />} />
-        <Route path="/buyer/payments" element={<BuyerPayment />} />
+        <Route path="/buyer/order-detail/:id?" element={<OrderDetail />} />
       </Route>
 
       {/* ===========================
