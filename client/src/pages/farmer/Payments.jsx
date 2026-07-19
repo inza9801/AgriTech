@@ -6,6 +6,7 @@ import {
   getMonthlyPayments,
 } from "../../api/farmerService";
 import "./css/Payments.css";
+import { FaCalendarAlt, FaCheckCircle } from "react-icons/fa";
 
 const formatTaka = (amount) => `৳${Number(amount || 0).toLocaleString("en-BD")}`;
 
@@ -111,7 +112,7 @@ function Payments() {
         </div>
 
         <div className="summaryCard">
-          <div className="summaryIcon monthIcon">📅</div>
+          <div className="summaryIcon monthIcon"><FaCalendarAlt /></div>
           <div>
             <h2>{loading ? "..." : formatTaka(summary.thisMonthEarnings)}</h2>
             <p>This Month's Earnings</p>
@@ -119,7 +120,7 @@ function Payments() {
         </div>
 
         <div className="summaryCard">
-          <div className="summaryIcon receivedIcon">✅</div>
+          <div className="summaryIcon receivedIcon"><FaCheckCircle /></div>
           <div>
             <h2>{loading ? "..." : formatTaka(summary.todayEarnings)}</h2>
             <p>Today's Earnings</p>
@@ -209,7 +210,7 @@ function Payments() {
 
         <div className="summaryGrid monthlySummaryGrid">
           <div className="summaryCard">
-            <div className="summaryIcon receivedIcon">✅</div>
+            <div className="summaryIcon receivedIcon"><FaCheckCircle /></div>
             <div>
               <h2>{monthlyLoading ? "..." : formatTaka(monthlyData.earnings)}</h2>
               <p>Earned in {MONTH_NAMES[selectedMonth - 1]} {selectedYear}</p>

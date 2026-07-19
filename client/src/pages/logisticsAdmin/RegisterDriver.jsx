@@ -71,8 +71,8 @@ const RegisterDriver = () => {
         <p>Register new drivers and view the current fleet.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p className="formError">{error}</p>}
+      {message && <p className="formSuccess">{message}</p>}
 
       <div className="driverFormSection">
         <h2>Register New Driver</h2>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { FaLeaf, FaQuoteLeft } from "react-icons/fa";
 import "./css/Auth.css";
 
 const ROLE_HOME = {
@@ -41,12 +42,27 @@ const Login = () => {
 
   return (
     <div className="authPage">
+      <div className="authBrandPanel">
+        <div className="authBrand">
+          <FaLeaf />
+          <span>AgriNexus</span>
+        </div>
+        <blockquote className="authQuote">
+          <FaQuoteLeft className="authQuoteMark" />
+          <p>
+            Everything from soil sensors to the last mile of delivery, in one
+            place — that's the whole point.
+          </p>
+          <cite>— Built for growers, buyers &amp; fleets</cite>
+        </blockquote>
+      </div>
+
       <div className="authCard">
         <h1>Welcome Back</h1>
-        <p className="authSubtitle">Login to your AgriTech account</p>
+        <p className="authSubtitle">Login to your AgriNexus account</p>
 
         {justRegistered && (
-          <p style={{ color: "green", fontSize: "14px", marginBottom: "12px" }}>
+          <p className="authNotice">
             Account created successfully! Please log in.
           </p>
         )}

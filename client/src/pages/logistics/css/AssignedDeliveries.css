@@ -6,7 +6,7 @@
 
     padding:30px;
 
-    background:#f5f7fa;
+    background:var(--gray-50);
 
     min-height:100vh;
 
@@ -24,7 +24,7 @@
 
 .pageHeader h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -32,7 +32,7 @@
 
 .pageHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:16px;
 
@@ -56,7 +56,7 @@
 
 .summaryCard{
 
-    background:#fff;
+    background:var(--surface);
 
     border-radius:12px;
 
@@ -68,7 +68,7 @@
 
     gap:18px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     transition:.3s;
 
@@ -100,25 +100,25 @@
 
 .assignedIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
 }
 
 .pendingIcon{
 
-    background:#FFF3E0;
+    background:var(--warning-bg);
 
 }
 
 .transitIcon{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
 }
 
 .completedIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
 }
 
@@ -126,7 +126,7 @@
 
     margin:0;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -134,7 +134,7 @@
 
     margin-top:8px;
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 
@@ -144,13 +144,13 @@
 
 .deliverySection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
@@ -162,7 +162,7 @@
 
 .sectionTitle h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -186,7 +186,7 @@
 
 .deliveryCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     border-radius:15px;
 
@@ -194,7 +194,7 @@
 
     transition:.3s;
 
-    border:1px solid #eee;
+    border:1px solid var(--gray-100);
 
 }
 
@@ -202,7 +202,7 @@
 
     transform:translateY(-5px);
 
-    box-shadow:0 8px 18px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-md);
 
 }
 
@@ -224,7 +224,7 @@
 
 .cardHeader h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -232,7 +232,7 @@
 
 .cardHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
     display:flex;
 
@@ -244,9 +244,9 @@
 
 .vehicleTag{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:8px 14px;
 
@@ -280,7 +280,7 @@
 
 .locationCard svg{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-size:22px;
 
@@ -290,7 +290,7 @@
 
 .locationCard h4{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:6px;
 
@@ -300,13 +300,13 @@
 
     font-weight:600;
 
-    color:#333;
+    color:var(--text-strong);
 
 }
 
 .locationCard small{
 
-    color:#777;
+    color:var(--text-muted);
 
 }
 
@@ -320,7 +320,7 @@
 
     margin:18px 0;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-size:22px;
 
@@ -344,7 +344,7 @@
 
 .infoGrid div{
 
-    background:white;
+    background:var(--surface);
 
     padding:15px;
 
@@ -364,7 +364,7 @@
 
     gap:6px;
 
-    color:#777;
+    color:var(--text-muted);
 
     font-size:13px;
 
@@ -374,7 +374,7 @@
 
 .infoGrid h4{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin:0;
 
@@ -413,25 +413,25 @@
 
 .priority.high{
 
-    background:#FFEBEE;
+    background:var(--danger-bg);
 
-    color:#C62828;
+    color:var(--danger-500);
 
 }
 
 .priority.medium{
 
-    background:#FFF3E0;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
 }
 
 .priority.low{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -441,9 +441,9 @@
 
 .deliveryStatus{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     padding:7px 16px;
 
@@ -499,9 +499,9 @@
 
 .acceptBtn{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
 }
 
@@ -513,9 +513,9 @@
 
 .detailsBtn{
 
-    background:#ECEFF1;
+    background:var(--gray-100);
 
-    color:#333;
+    color:var(--text-strong);
 
 }
 

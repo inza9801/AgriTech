@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaBoxOpen } from "react-icons/fa";
 import "./css/BuyerDashboard.css";
 import { getDashboardSummary, getRecentOrders } from "../../api/buyerService";
 
@@ -74,7 +75,7 @@ const BuyerDashboard = () => {
 
             {orders.length === 0 ? (
               <div className="emptyState">
-                <div className="emptyIcon">📦</div>
+                <FaBoxOpen className="emptyIcon" />
                 <p>No orders yet.</p>
               </div>
             ) : (

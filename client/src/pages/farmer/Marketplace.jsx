@@ -108,7 +108,7 @@ function Marketplace() {
         <p>List warehouse batches for sale and manage buyer requests.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="summaryGrid">
         <div className="summaryCard">

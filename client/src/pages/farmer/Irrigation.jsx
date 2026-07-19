@@ -66,7 +66,7 @@ function Irrigation() {
             humidity: weather.humidity,
             lightIntensity: weather.lightIntensity,
           },
-          fieldId
+          fieldId,
         );
 
         setIrrigation(res.data.data);
@@ -88,7 +88,7 @@ function Irrigation() {
 
       <FieldSelector onChange={setFieldId} />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       {/* Live Sensor Data */}
       <div className="sensorSection">
@@ -112,21 +112,38 @@ function Irrigation() {
         <div className="recommendationCard">
           <FaSeedling className="sensorIcon" />
 
-          {aiLoading && (
-            <p className="inlineNote">Analyzing sensor data...</p>
-          )}
+          {aiLoading && <p className="inlineNote">Analyzing sensor data...</p>}
 
-          {aiError && (
-            <p className="inlineNote errorText">{aiError}</p>
-          )}
+          {aiError && <p className="inlineNote errorText">{aiError}</p>}
 
           {irrigation && (
             <>
-              <h1 className="recommendText">
-                {irrigation.pump === 1
-                  ? "Irrigation Required"
-                  : "Irrigation Not Required"}
+              <h1
+                className="recommendText"
+                style={{
+                  color:
+                    irrigation.pumpClass === 0
+                      ? "#2e7d32"
+                      : irrigation.pumpClass === 1
+                        ? "#f57c00"
+                        : "#d32f2f",
+                }}
+              >
+                {irrigation.recommendation}
               </h1>
+
+              <p
+                style={{
+                  fontSize: "1rem",
+                  marginTop: "12px",
+                  color: "#555",
+                  lineHeight: "1.6",
+                  maxWidth: "650px",
+                  marginInline: "auto",
+                }}
+              >
+                {irrigation.description}
+              </p>
 
               <p className="confidenceText">
                 Confidence: {(irrigation.confidence * 100).toFixed(1)}%

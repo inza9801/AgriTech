@@ -1,10 +1,15 @@
+/* ==========================================================================
+   Buyer — Product Detail
+   ========================================================================== */
+
 .productDetail {
   padding-bottom: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
 }
 
-.productContainer {
-  margin-bottom: var(--space-5);
-}
+.productContainer { margin-bottom: 0; }
 
 .productInfo {
   background: var(--surface);
@@ -16,24 +21,59 @@
 }
 
 .productInfo h1 {
+  font-family: var(--serif);
   color: var(--text-strong);
-  font-size: 24px;
+  font-size: 26px;
   margin-bottom: 6px;
 }
 
 .priceTag {
+  font-family: var(--serif);
   color: var(--brand-700);
-  font-size: 20px;
-  margin-bottom: var(--space-4);
+  font-size: 21px;
+  font-weight: 600;
+  margin-bottom: var(--space-5);
 }
 
-.productInfo table {
+/* Spec sheet — plain key/value rows, not a generic browser table */
+
+.productInfo table,
+.farmerCard table {
+  width: 100%;
+  border-collapse: collapse;
   margin: var(--space-4) 0 var(--space-5);
+  font-size: 14px;
+  box-shadow: none;
 }
 
-.quantityInput {
-  margin-bottom: var(--space-4);
+.productInfo table tr,
+.farmerCard table tr {
+  border-bottom: 1px solid var(--border);
 }
+.productInfo table tr:last-child,
+.farmerCard table tr:last-child { border-bottom: none; }
+
+.productInfo table td,
+.farmerCard table td {
+  padding: 11px 4px;
+  border: none;
+}
+
+.productInfo table td:first-child,
+.farmerCard table td:first-child {
+  color: var(--text-muted);
+  font-weight: 500;
+  width: 40%;
+}
+
+.productInfo table td:last-child,
+.farmerCard table td:last-child {
+  color: var(--text-strong);
+  font-weight: 600;
+  text-align: right;
+}
+
+.quantityInput { margin-bottom: var(--space-4); }
 
 .quantityInput label {
   font-size: 13px;
@@ -41,9 +81,7 @@
   color: var(--text-muted);
 }
 
-.quantityInput input {
-  max-width: 180px;
-}
+.quantityInput input { max-width: 180px; }
 
 .quantityInput small {
   display: block;
@@ -57,9 +95,7 @@
   gap: var(--space-3);
 }
 
-.cartBtn {
-  min-width: 180px;
-}
+.cartBtn { min-width: 180px; }
 
 .linkBtn {
   border: none;
@@ -69,12 +105,17 @@
   text-decoration: underline;
   padding: 0;
   margin-left: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.linkBtn:hover { opacity: 0.75; }
+
+.farmerCard {
+  max-width: 480px;
 }
 
 .farmerCard h2 {
+  font-family: var(--serif);
+  font-size: 18px;
   margin-bottom: var(--space-3);
-}
-
-.farmerCard table {
-  max-width: 480px;
 }

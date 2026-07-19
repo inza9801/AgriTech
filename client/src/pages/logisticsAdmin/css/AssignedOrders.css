@@ -6,7 +6,7 @@
 
     padding:30px;
 
-    background:#f5f7fa;
+    background:var(--gray-50);
 
     min-height:100vh;
 
@@ -24,7 +24,7 @@
 
 .pageHeader h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -32,7 +32,7 @@
 
 .pageHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 
@@ -42,19 +42,19 @@
 
 .ordersSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
 .ordersSection h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:20px;
 
@@ -76,9 +76,9 @@ table{
 
 th{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     padding:14px;
 
@@ -92,7 +92,7 @@ td{
 
     padding:14px;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
     white-space:nowrap;
 
@@ -100,7 +100,7 @@ td{
 
 tbody tr:hover{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
 }
 
@@ -110,9 +110,9 @@ tbody tr:hover{
 
 .detailsBtn{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     border:none;
 
@@ -128,7 +128,7 @@ tbody tr:hover{
 
 .detailsBtn:hover{
 
-    background:#256428;
+    background:var(--brand-600);
 
 }
 
@@ -138,9 +138,9 @@ tbody tr:hover{
 
 .pickupStatus{
 
-    background:#FFF8E1;
+    background:var(--warning-bg);
 
-    color:#F9A825;
+    color:var(--accent-500);
 
     padding:6px 14px;
 
@@ -154,9 +154,9 @@ tbody tr:hover{
 
 .transitStatus{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     padding:6px 14px;
 
@@ -170,9 +170,9 @@ tbody tr:hover{
 
 .deliveredStatus{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 14px;
 
@@ -186,9 +186,9 @@ tbody tr:hover{
 
 .delayedStatus{
 
-    background:#FBE9E7;
+    background:var(--danger-bg);
 
-    color:#C62828;
+    color:var(--danger-500);
 
     padding:6px 14px;
 
@@ -231,7 +231,7 @@ tbody tr:hover{
 
 .summaryCard{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
@@ -243,7 +243,7 @@ tbody tr:hover{
 
     gap:18px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     transition:.3s;
 
@@ -275,33 +275,33 @@ tbody tr:hover{
 
 .assignedIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
 .transitIcon{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
 }
 
 .deliveredIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
 .delayedIcon{
 
-    background:#FBE9E7;
+    background:var(--danger-bg);
 
-    color:#C62828;
+    color:var(--danger-500);
 
 }
 
@@ -309,7 +309,7 @@ tbody tr:hover{
 
     margin:0;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-size:30px;
 
@@ -319,6 +319,6 @@ tbody tr:hover{
 
     margin-top:8px;
 
-    color:#666;
+    color:var(--text-muted);
 
 }

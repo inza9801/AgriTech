@@ -4,13 +4,13 @@
 
 .inventorySection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
@@ -32,9 +32,9 @@
 
 .inventoryTable thead{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:white;
+    color:var(--surface);
 
 }
 
@@ -50,7 +50,7 @@
 
     padding:15px;
 
-    border-bottom:1px solid #ececec;
+    border-bottom:1px solid var(--gray-100);
 
 }
 
@@ -62,7 +62,7 @@
 
 .inventoryTable tbody tr:hover{
 
-    background:#F5F9F5;
+    background:var(--success-bg);
 
 }
 
@@ -72,9 +72,9 @@
 
 .premiumBadge{
 
-    background:#FFF3CD;
+    background:var(--warning-bg);
 
-    color:#B8860B;
+    color:var(--accent-600);
 
     padding:6px 12px;
 
@@ -88,9 +88,9 @@
 
 .gradeABadge{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 12px;
 
@@ -104,9 +104,9 @@
 
 .gradeBBadge{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     padding:6px 12px;
 
@@ -124,9 +124,9 @@
 
 .storedBadge{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 12px;
 
@@ -140,9 +140,9 @@
 
 .readyBadge{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#1B5E20;
+    color:var(--brand-700);
 
     padding:6px 12px;
 
@@ -156,9 +156,9 @@
 
 .qualityBadge{
 
-    background:#FFF4E5;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
     padding:6px 12px;
 
@@ -175,13 +175,13 @@
 
 .batchSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
@@ -197,7 +197,7 @@
 
 .batchCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:22px;
 
@@ -227,7 +227,7 @@
 
 .batchHeader h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -241,7 +241,7 @@
 
     margin:12px 0;
 
-    color:#555;
+    color:var(--text);
 
 }
 
@@ -261,9 +261,9 @@
 
     border-radius:20px;
 
-    background:#ececec;
+    background:var(--gray-100);
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:13px;
 
@@ -273,17 +273,17 @@
 
 .timelineItem.completed{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
 .timelineItem.active{
 
-    background:#FFF4E5;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
 }
 /* ===================================
@@ -292,13 +292,13 @@
 
 .storageSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
@@ -314,7 +314,7 @@
 
 .storageCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     border-radius:12px;
 
@@ -332,7 +332,7 @@
 
 .storageCard h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:15px;
 
@@ -342,7 +342,7 @@
 
     font-size:38px;
 
-    color:#222;
+    color:var(--text-strong);
 
     margin-bottom:12px;
 
@@ -350,7 +350,7 @@
 
 .storageCard p{
 
-    color:#666;
+    color:var(--text-muted);
 
     line-height:1.6;
 
@@ -374,9 +374,9 @@
 
 .goodStatus{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -386,7 +386,7 @@
 
     height:12px;
 
-    background:#ddd;
+    background:var(--border);
 
     border-radius:20px;
 
@@ -400,7 +400,7 @@
 
     height:100%;
 
-    background:#43A047;
+    background:var(--brand-400);
 
     border-radius:20px;
 
@@ -418,24 +418,24 @@
 
     margin-bottom:12px;
 
-    color:#555;
+    color:var(--text);
 
     line-height:1.6;
 
 }
 
 .headings{
-    color : #43A047;
+    color : var(--brand-400);
 }
 .addBatchSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-bottom:30px;
 
@@ -469,7 +469,7 @@
 
     margin-bottom:8px;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-weight:600;
 
@@ -480,15 +480,15 @@
 
     padding:12px;
 
-    border:1px solid #ddd;
+    border:1px solid var(--border);
 
     border-radius:8px;
 
     font-size:15px;
 
-    color:#333;
+    color:var(--text-strong);
 
-    background:#fff;
+    background:var(--surface);
 
 }
 
@@ -497,9 +497,9 @@
 
     outline:none;
 
-    border-color:#2E7D32;
+    border-color:var(--brand-500);
 
-    box-shadow:0 0 0 3px rgba(46,125,50,.15);
+    box-shadow: var(--shadow-focus);
 
 }
 
@@ -507,9 +507,9 @@
 
     margin-top:25px;
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     border:none;
 
@@ -529,6 +529,6 @@
 
 .submitButton:hover{
 
-    background:#1B5E20;
+    background:var(--brand-700);
 
 }

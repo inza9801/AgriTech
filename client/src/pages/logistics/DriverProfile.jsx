@@ -42,7 +42,7 @@ function DriverProfile() {
         <p>View your personal information, assigned vehicle and work statistics.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="profileCard">
         <div className="profileTop">

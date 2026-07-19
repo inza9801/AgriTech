@@ -7,15 +7,15 @@
 
 .fieldSelector label {
   font-weight: 600;
-  color: #2e7d32;
+  color: var(--brand-500);
   font-size: 0.95rem;
 }
 
 .fieldSelector select {
   padding: 8px 14px;
-  border: 1px solid #c8e6c9;
+  border: 1px solid var(--brand-200);
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: var(--surface);
   color: #1b1b1b;
   font-size: 0.95rem;
   cursor: pointer;
@@ -25,6 +25,6 @@
 
 .fieldSelector select:hover,
 .fieldSelector select:focus {
-  border-color: #2e7d32;
-  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.15);
+  border-color: var(--brand-500);
+  box-shadow: var(--shadow-focus);
 }

@@ -328,7 +328,7 @@ function CropManagement() {
         </p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       {/* SUMMARY CARDS */}
       <div className="summaryGrid">

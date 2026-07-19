@@ -6,7 +6,7 @@
 
     padding:30px;
 
-    background:#f5f7fa;
+    background:var(--gray-50);
 
     min-height:100vh;
 
@@ -24,7 +24,7 @@
 
 .pageHeader h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -32,7 +32,7 @@
 
 .pageHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:16px;
 
@@ -44,9 +44,9 @@
 
 .profileCard{
 
-    background:linear-gradient(135deg,#2E7D32,#43A047);
+    background:linear-gradient(135deg,var(--brand-500),var(--brand-400));
 
-    color:#fff;
+    color:var(--surface);
 
     padding:30px;
 
@@ -54,7 +54,7 @@
 
     margin-bottom:35px;
 
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
+    box-shadow: var(--shadow-lg);
 
 }
 
@@ -110,9 +110,9 @@
 
     gap:8px;
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:8px 15px;
 
@@ -144,13 +144,13 @@
 
 .infoCard{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     transition:.3s;
 
@@ -164,7 +164,7 @@
 
 .infoCard h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:20px;
 
@@ -182,7 +182,7 @@
 
     padding:14px 0;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
 }
 
@@ -194,7 +194,7 @@
 
     gap:10px;
 
-    color:#555;
+    color:var(--text);
 
     font-weight:600;
 
@@ -202,7 +202,7 @@
 
 .infoCard td svg{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -214,19 +214,19 @@
 
     margin-top:35px;
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
 .statisticsSection h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:20px;
 
@@ -244,7 +244,7 @@
 
 .statCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     border-radius:12px;
 
@@ -264,7 +264,7 @@
 
 .statCard h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-size:34px;
 
@@ -274,7 +274,7 @@
 
 .statCard p{
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 
@@ -286,19 +286,19 @@
 
     margin-top:35px;
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
 .emergencySection h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     display:flex;
 
@@ -322,7 +322,7 @@
 
     padding:15px;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
 }
 
@@ -330,7 +330,7 @@
 
     font-weight:600;
 
-    color:#555;
+    color:var(--text);
 
     width:220px;
 

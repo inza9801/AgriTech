@@ -68,7 +68,7 @@ function DeliveryHistory() {
         <p>Simple stats overview of completed deliveries.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="summaryGrid">
         {summary.map((item, index) => (
@@ -94,7 +94,7 @@ function DeliveryHistory() {
           />
         </div>
 
-        {ordersError && <p style={{ color: "red" }}>{ordersError}</p>}
+        {ordersError && <p className="formError">{ordersError}</p>}
 
         {ordersLoading ? (
           <p>Loading orders...</p>

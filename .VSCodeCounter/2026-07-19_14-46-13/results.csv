@@ -1,0 +1,140 @@
+"filename", "language", "JSON", "JavaScript", "Dotenv", "XML", "HTML", "Python", "JavaScript JSX", "PostCSS", "Markdown", "comment", "blank", "total"
+"c:\Users\USER\Desktop\AgriNexus\client\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 8, 17
+"c:\Users\USER\Desktop\AgriNexus\client\eslint.config.js", "JavaScript", 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 2, 22
+"c:\Users\USER\Desktop\AgriNexus\client\index.html", "HTML", 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 1, 21
+"c:\Users\USER\Desktop\AgriNexus\client\package-lock.json", "JSON", 3445, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3446
+"c:\Users\USER\Desktop\AgriNexus\client\package.json", "JSON", 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 33
+"c:\Users\USER\Desktop\AgriNexus\client\public\favicon.svg", "XML", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\USER\Desktop\AgriNexus\client\public\icons.svg", "XML", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 1, 25
+"c:\Users\USER\Desktop\AgriNexus\client\src\App.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 275, 0, 20, 56, 351
+"c:\Users\USER\Desktop\AgriNexus\client\src\App.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 107, 0, 0, 36, 28, 171
+"c:\Users\USER\Desktop\AgriNexus\client\src\ErrorBoundary.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 5, 27
+"c:\Users\USER\Desktop\AgriNexus\client\src\api\adminService.js", "JavaScript", 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 3, 15
+"c:\Users\USER\Desktop\AgriNexus\client\src\api\authApi.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\USER\Desktop\AgriNexus\client\src\api\axios.js", "JavaScript", 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 4, 29
+"c:\Users\USER\Desktop\AgriNexus\client\src\api\buyerService.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 0, 0, 1, 1, 16
+"c:\Users\USER\Desktop\AgriNexus\client\src\api\deliveryService.js", "JavaScript", 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\USER\Desktop\AgriNexus\client\src\api\farmerService.js", "JavaScript", 0, 51, 0, 0, 0, 0, 0, 0, 0, 16, 15, 82
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\buyer\BuyerNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 110, 0, 0, 0, 12, 122
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\buyer\BuyerSidebar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 58, 0, 0, 0, 11, 69
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\buyer\css\BuyerNavbar.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 160, 0, 3, 25, 188
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\buyer\css\BuyerSidebar.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 70, 0, 0, 9, 79
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\common\ErrorBoundary.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 5, 27
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\common\FieldSelector.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 44, 0, 0, 10, 8, 62
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\common\SensorGrid.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 83, 0, 0, 12, 3, 98
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\common\css\FieldSelector.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 4, 31
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\common\css\SensorGrid.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 4, 37
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\farmer\FarmerNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 5, 31
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\farmer\FarmerSidebar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 74, 0, 0, 0, 24, 98
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\farmer\css\FarmerNavbar.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 46, 0, 0, 8, 54
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\farmer\css\FarmerSidebar.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 71, 0, 0, 11, 82
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\logisticsAdmin\LogisticsAdminNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 5, 30
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\logisticsAdmin\LogisticsAdminSidebar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 21, 86
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\logisticsAdmin\css\LogisticsAdminNavbar.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 46, 0, 0, 8, 54
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\logisticsAdmin\css\LogisticsAdminSidebar.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 10, 76
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\logistics\LogisticsNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 5, 31
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\logistics\LogisticsSidebar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 55, 0, 0, 0, 17, 72
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\logistics\css\LogisticsNavbar.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 46, 0, 0, 8, 54
+"c:\Users\USER\Desktop\AgriNexus\client\src\components\logistics\css\LogisticsSidebar.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 10, 76
+"c:\Users\USER\Desktop\AgriNexus\client\src\contexts\AuthContext.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 55, 0, 0, 2, 12, 69
+"c:\Users\USER\Desktop\AgriNexus\client\src\contexts\CartContext.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 99, 0, 0, 13, 20, 132
+"c:\Users\USER\Desktop\AgriNexus\client\src\hooks\useToast.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 39, 0, 0, 5, 9, 53
+"c:\Users\USER\Desktop\AgriNexus\client\src\index.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 126, 0, 17, 23, 166
+"c:\Users\USER\Desktop\AgriNexus\client\src\layouts\BuyerLayout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 5, 25
+"c:\Users\USER\Desktop\AgriNexus\client\src\layouts\FarmerLayout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 15, 32
+"c:\Users\USER\Desktop\AgriNexus\client\src\layouts\LogisticsAdminLayout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 16, 33
+"c:\Users\USER\Desktop\AgriNexus\client\src\layouts\LogisticsLayout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 15, 32
+"c:\Users\USER\Desktop\AgriNexus\client\src\main.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 2, 23
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\NotFound.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 17, 40
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\auth\Landing.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 109, 0, 0, 0, 8, 117
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\auth\Login.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 96, 0, 0, 0, 15, 111
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\auth\Register.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 137, 0, 0, 0, 17, 154
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\auth\css\Auth.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 161, 0, 6, 28, 195
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\auth\css\Landing.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 241, 0, 9, 40, 290
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\BuyerDashboard.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 107, 0, 0, 0, 10, 117
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\CartOrders.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 198, 0, 0, 0, 16, 214
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\MarketplaceHome.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 146, 0, 0, 0, 13, 159
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\OrderDetail.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 367, 0, 0, 8, 45, 420
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\ProductDetail.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 162, 0, 0, 0, 18, 180
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\Tracking.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 113, 0, 0, 0, 14, 127
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\css\BuyerDashboard.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 58, 0, 3, 11, 72
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\css\CartOrders.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 117, 0, 0, 13, 130
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\css\MarketplaceHome.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 57, 0, 0, 10, 67
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\css\OrderDetail.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 140, 0, 0, 24, 164
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\css\ProductDetail.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 97, 0, 4, 21, 122
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\buyer\css\Tracking.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 93, 0, 0, 19, 112
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\css\NotFound.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 71, 0, 3, 10, 84
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\CropManagement.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 629, 0, 0, 39, 48, 716
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\Dashboard.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 123, 0, 0, 12, 16, 151
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\FarmMonitoring.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 338, 0, 0, 19, 37, 394
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\Irrigation.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 113, 0, 0, 6, 23, 142
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\Marketplace.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 216, 0, 0, 2, 39, 257
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\OrdersLogistics.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 109, 0, 0, 2, 14, 125
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\Payments.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 287, 0, 0, 12, 22, 321
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\WarehouseInventory.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 198, 0, 0, 2, 36, 236
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\css\CropManagement.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 441, 0, 19, 340, 800
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\css\Dashboard.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 132, 0, 6, 26, 164
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\css\FarmMonitoring.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 395, 0, 43, 317, 755
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\css\Irrigation.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 126, 0, 21, 133, 280
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\css\Marketplace.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 526, 0, 51, 534, 1111
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\css\OrdersLogistics.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 256, 0, 18, 257, 531
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\css\Payments.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 129, 0, 12, 130, 271
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\farmer\css\WarehouseInventory.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 261, 0, 15, 258, 534
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\AssignedOrders.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 107, 0, 0, 0, 11, 118
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\DeliveryHistory.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 129, 0, 0, 0, 16, 145
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\DriverManagement.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 123, 0, 0, 0, 9, 132
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\IncomingRequests.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 113, 0, 0, 0, 12, 125
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\LogisticsAdminDashboard.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 88, 0, 0, 0, 8, 96
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\RegisterDriver.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 168, 0, 0, 0, 26, 194
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\ShipmentMonitoring.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 9, 66
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\css\AssignedOrders.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 149, 0, 21, 154, 324
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\css\DeliveryHistory.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 214, 0, 27, 221, 462
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\css\DriverManagement.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 266, 0, 27, 272, 565
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\css\IncomingRequests.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 240, 0, 30, 246, 516
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\css\LogisticsAdminDashboard.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 65, 0, 3, 13, 81
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\css\RegisterDriver.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 90, 0, 3, 17, 110
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logisticsAdmin\css\ShipmentMonitoring.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 98, 0, 4, 17, 119
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\AssignedDeliveries.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 94, 0, 0, 0, 11, 105
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\DeliveryStatus.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 115, 0, 0, 0, 16, 131
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\DriverProfile.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 10, 100
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\Earnings.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 117, 0, 0, 0, 15, 132
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\LogisticsDashboard.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 8, 72
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\css\AssignedDeliveries.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 293, 0, 42, 305, 640
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\css\DeliveryStatus.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 252, 0, 39, 263, 554
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\css\DriverProfile.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 217, 0, 27, 225, 469
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\css\Earnings.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 206, 0, 33, 213, 452
+"c:\Users\USER\Desktop\AgriNexus\client\src\pages\logistics\css\LogisticsDashboard.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 164, 0, 21, 170, 355
+"c:\Users\USER\Desktop\AgriNexus\client\src\routes\ProtectedRoute.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 7, 25
+"c:\Users\USER\Desktop\AgriNexus\client\src\routes\PublicRoute.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 17, 0, 0, 1, 7, 25
+"c:\Users\USER\Desktop\AgriNexus\client\vite.config.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 2, 8
+"c:\Users\USER\Desktop\AgriNexus\ml-service\app.py", "Python", 0, 0, 0, 0, 0, 188, 0, 0, 0, 27, 43, 258
+"c:\Users\USER\Desktop\AgriNexus\ml-service\disease_classes.json", "JSON", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"c:\Users\USER\Desktop\AgriNexus\ml-service\fertilizer_options.json", "JSON", 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42
+"c:\Users\USER\Desktop\AgriNexus\ml-service\fertilizer_remarks.json", "JSON", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12
+"c:\Users\USER\Desktop\AgriNexus\public\favicon.svg", "XML", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\USER\Desktop\AgriNexus\public\icons.svg", "XML", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 1, 25
+"c:\Users\USER\Desktop\AgriNexus\server\.env", "Dotenv", 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 4, 14
+"c:\Users\USER\Desktop\AgriNexus\server\package-lock.json", "JSON", 1644, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1645
+"c:\Users\USER\Desktop\AgriNexus\server\package.json", "JSON", 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 25
+"c:\Users\USER\Desktop\AgriNexus\server\server.js", "JavaScript", 0, 29, 0, 0, 0, 0, 0, 0, 0, 2, 17, 48
+"c:\Users\USER\Desktop\AgriNexus\server\src\config\db.js", "JavaScript", 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 5, 29
+"c:\Users\USER\Desktop\AgriNexus\server\src\controllers\adminController.js", "JavaScript", 0, 119, 0, 0, 0, 0, 0, 0, 0, 0, 11, 130
+"c:\Users\USER\Desktop\AgriNexus\server\src\controllers\authController.js", "JavaScript", 0, 147, 0, 0, 0, 0, 0, 0, 0, 1, 23, 171
+"c:\Users\USER\Desktop\AgriNexus\server\src\controllers\buyerController.js", "JavaScript", 0, 121, 0, 0, 0, 0, 0, 0, 0, 2, 11, 134
+"c:\Users\USER\Desktop\AgriNexus\server\src\controllers\deliveryController.js", "JavaScript", 0, 117, 0, 0, 0, 0, 0, 0, 0, 0, 11, 128
+"c:\Users\USER\Desktop\AgriNexus\server\src\controllers\farmerController.js", "JavaScript", 0, 622, 0, 0, 0, 0, 0, 0, 0, 62, 88, 772
+"c:\Users\USER\Desktop\AgriNexus\server\src\middleware\authMiddleware.js", "JavaScript", 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 6, 38
+"c:\Users\USER\Desktop\AgriNexus\server\src\middleware\errorMiddleware.js", "JavaScript", 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"c:\Users\USER\Desktop\AgriNexus\server\src\middleware\uploadMiddleware.js", "JavaScript", 0, 20, 0, 0, 0, 0, 0, 0, 0, 3, 5, 28
+"c:\Users\USER\Desktop\AgriNexus\server\src\models\adminModel.js", "JavaScript", 0, 194, 0, 0, 0, 0, 0, 0, 0, 5, 21, 220
+"c:\Users\USER\Desktop\AgriNexus\server\src\models\buyerModel.js", "JavaScript", 0, 182, 0, 0, 0, 0, 0, 0, 0, 8, 19, 209
+"c:\Users\USER\Desktop\AgriNexus\server\src\models\deliveryModel.js", "JavaScript", 0, 138, 0, 0, 0, 0, 0, 0, 0, 12, 18, 168
+"c:\Users\USER\Desktop\AgriNexus\server\src\models\farmerModel.js", "JavaScript", 0, 393, 0, 0, 0, 0, 0, 0, 0, 34, 39, 466
+"c:\Users\USER\Desktop\AgriNexus\server\src\models\userModel.js", "JavaScript", 0, 121, 0, 0, 0, 0, 0, 0, 0, 6, 15, 142
+"c:\Users\USER\Desktop\AgriNexus\server\src\routes\adminRoutes.js", "JavaScript", 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 5, 34
+"c:\Users\USER\Desktop\AgriNexus\server\src\routes\authRoutes.js", "JavaScript", 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 5, 16
+"c:\Users\USER\Desktop\AgriNexus\server\src\routes\buyerRoutes.js", "JavaScript", 0, 31, 0, 0, 0, 0, 0, 0, 0, 1, 5, 37
+"c:\Users\USER\Desktop\AgriNexus\server\src\routes\deliveryRoutes.js", "JavaScript", 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 5, 26
+"c:\Users\USER\Desktop\AgriNexus\server\src\routes\farmerRoutes.js", "JavaScript", 0, 77, 0, 0, 0, 0, 0, 0, 0, 32, 48, 157
+"c:\Users\USER\Desktop\AgriNexus\server\src\utils\generateToken.js", "JavaScript", 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9
+"Total", "-", 5205, 2587, 10, 50, 20, 188, 5773, 6587, 9, 922, 5733, 27084

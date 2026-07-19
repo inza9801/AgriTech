@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaShoppingCart, FaBoxOpen } from "react-icons/fa";
 import "./css/CartOrders.css";
 import { getOrderHistory } from "../../api/buyerService";
 import { useCart } from "../../contexts/CartContext";
@@ -91,7 +92,7 @@ const CartOrders = () => {
 
               {cartItems.length === 0 ? (
                 <div className="emptyState">
-                  <div className="emptyIcon">🛒</div>
+                  <FaShoppingCart className="emptyIcon" />
                   <p>Your cart is empty.</p>
                 </div>
               ) : (
@@ -165,7 +166,7 @@ const CartOrders = () => {
 
             {orders.length === 0 ? (
               <div className="emptyState">
-                <div className="emptyIcon">📦</div>
+                <FaBoxOpen className="emptyIcon" />
                 <p>No past orders.</p>
               </div>
             ) : (

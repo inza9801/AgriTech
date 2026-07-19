@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { FaExclamationTriangle } from "react-icons/fa";
 import "./css/ProductDetail.css";
 import { getListingDetail } from "../../api/buyerService";
 import { useCart } from "../../contexts/CartContext";
@@ -72,7 +73,7 @@ const ProductDetail = () => {
     return (
       <div className="productDetail">
         <div className="emptyState">
-          <div className="emptyIcon">⚠</div>
+          <FaExclamationTriangle className="emptyIcon" />
           <p>{error || "Product not found."}</p>
         </div>
       </div>

@@ -6,7 +6,7 @@
 
     padding:30px;
 
-    background:#f5f7fa;
+    background:var(--gray-50);
 
     min-height:100vh;
 
@@ -20,7 +20,7 @@
 
 .pageHeader h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -28,7 +28,7 @@
 
 .pageHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:16px;
 
@@ -50,13 +50,13 @@
 
 .summaryCard{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     display:flex;
 
@@ -82,7 +82,7 @@
 
     border-radius:50%;
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
     display:flex;
 
@@ -96,25 +96,25 @@
 
 .pendingIcon{
 
-    background:#FFF3E0;
+    background:var(--warning-bg);
 
 }
 
 .transitIcon{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
 }
 
 .deliveredIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
 }
 
 .revenueIcon{
 
-    background:#FFF8E1;
+    background:var(--warning-bg);
 
 }
 
@@ -122,7 +122,7 @@
 
     margin:0;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-size:30px;
 
@@ -132,7 +132,7 @@
 
     margin-top:8px;
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 /* ===================================
@@ -141,13 +141,13 @@
 
 .ordersSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-top:35px;
 
@@ -161,7 +161,7 @@
 
 .sectionTitle h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -181,9 +181,9 @@ table{
 
 th{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     padding:14px;
 
@@ -195,21 +195,21 @@ td{
 
     padding:14px;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
 }
 
 tbody tr:hover{
 
-    background:#f8f8f8;
+    background:var(--gray-50);
 
 }
 
 .paidStatus{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 12px;
 
@@ -223,9 +223,9 @@ tbody tr:hover{
 
 .pendingStatus{
 
-    background:#FFF3E0;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
     padding:6px 12px;
 
@@ -239,9 +239,9 @@ tbody tr:hover{
 
 .pendingPickup{
 
-    background:#FFF8E1;
+    background:var(--warning-bg);
 
-    color:#F9A825;
+    color:var(--accent-500);
 
     padding:6px 12px;
 
@@ -255,9 +255,9 @@ tbody tr:hover{
 
 .confirmedStatus{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     padding:6px 12px;
 
@@ -287,9 +287,9 @@ tbody tr:hover{
 
 .deliveredStatus{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 12px;
 
@@ -306,13 +306,13 @@ tbody tr:hover{
 
 .pickupSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-top:35px;
 
@@ -320,9 +320,9 @@ tbody tr:hover{
 
 .scheduledStatus{
 
-    background:#FFF8E1;
+    background:var(--warning-bg);
 
-    color:#F9A825;
+    color:var(--accent-500);
 
     padding:6px 12px;
 
@@ -336,9 +336,9 @@ tbody tr:hover{
 
 .pickupCompleted{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 12px;
 
@@ -355,13 +355,13 @@ tbody tr:hover{
 
 .shipmentSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-top:35px;
 
@@ -379,7 +379,7 @@ tbody tr:hover{
 
 .shipmentCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:22px;
 
@@ -409,7 +409,7 @@ tbody tr:hover{
 
 .shipmentHeader h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -427,11 +427,11 @@ tbody tr:hover{
 
     padding:10px 14px;
 
-    background:#f2f2f2;
+    background:var(--gray-100);
 
     border-radius:8px;
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:14px;
 
@@ -439,9 +439,9 @@ tbody tr:hover{
 
 .completedStep{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-weight:600;
 
@@ -449,9 +449,9 @@ tbody tr:hover{
 
 .activeStep{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     font-weight:600;
 
@@ -462,13 +462,13 @@ tbody tr:hover{
 
 .courierSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-top:35px;
 
@@ -486,7 +486,7 @@ tbody tr:hover{
 
 .courierCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:22px;
 
@@ -516,7 +516,7 @@ tbody tr:hover{
 
 .courierTop h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -524,7 +524,7 @@ tbody tr:hover{
 
     margin:12px 0;
 
-    color:#555;
+    color:var(--text);
 
     line-height:1.5;
 

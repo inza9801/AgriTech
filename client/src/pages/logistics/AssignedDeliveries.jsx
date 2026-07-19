@@ -46,7 +46,7 @@ function AssignedDeliveries() {
         <p>Select a month to view your delivery history.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="deliverySection">
         <div className="sectionTitle">

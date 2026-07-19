@@ -20,7 +20,7 @@
 
     font-size:32px;
 
-    color:#1b5e20;
+    color:var(--brand-700);
 
     margin-bottom:10px;
 
@@ -28,7 +28,7 @@
 
 .pageHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:16px;
 
@@ -50,7 +50,7 @@
 
 .sectionTitle h2{
 
-    color:#2e7d32;
+    color:var(--brand-500);
 
     font-size:24px;
 
@@ -62,13 +62,13 @@
 
 .sensorSection{
 
-    background:white;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-md);
 
 }
 
@@ -84,7 +84,7 @@
 
 .sensorCard{
 
-    background:#f8f8f8;
+    background:var(--gray-50);
 
     border-radius:12px;
 
@@ -104,7 +104,7 @@
 
     transform:translateY(-4px);
 
-    box-shadow:0 6px 15px rgba(0,0,0,.10);
+    box-shadow: var(--shadow-md);
 
 }
 
@@ -116,7 +116,7 @@
 
     border-radius:50%;
 
-    background:#e8f5e9;
+    background:var(--success-bg);
 
     display:flex;
 
@@ -126,13 +126,13 @@
 
     font-size:28px;
 
-    color:#2e7d32;
+    color:var(--brand-500);
 
 }
 
 .sensorContent h4{
 
-    color:#666;
+    color:var(--text-muted);
 
     margin-bottom:8px;
 
@@ -140,7 +140,7 @@
 
 .sensorContent h2{
 
-    color:#222;
+    color:var(--text-strong);
 
     margin-bottom:6px;
 
@@ -152,19 +152,19 @@
 
 .recommendationSection{
 
-    background:white;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-md);
 
 }
 
 .recommendationCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:25px;
 
@@ -176,7 +176,7 @@
 
 .recommendText{
 
-    color:#2e7d32;
+    color:var(--brand-500);
 
     margin:15px 0;
 
@@ -186,7 +186,7 @@
 
 .inlineNote{
 
-    color:#777;
+    color:var(--text-muted);
 
     font-size:14px;
 
@@ -194,13 +194,13 @@
 
 .errorText{
 
-    color:#d32f2f;
+    color:var(--danger-500);
 
 }
 
 .confidenceText{
 
-    color:#2e7d32;
+    color:var(--brand-500);
 
     font-weight:600;
 
@@ -222,7 +222,7 @@
 
 .irrigation table tr:hover{
 
-    background:#f7f7f7;
+    background:var(--gray-50);
 
 }
 

@@ -55,7 +55,7 @@ function Earnings() {
         <p>Track your delivery income. Each completed trip earns ৳100.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="summaryGrid">
         {summary.map((item, index) => (
@@ -74,7 +74,7 @@ function Earnings() {
           <h2>Earnings - Last 15 Days</h2>
         </div>
 
-        {chartError && <p style={{ color: "red" }}>{chartError}</p>}
+        {chartError && <p className="formError">{chartError}</p>}
 
         {chartLoading ? (
           <p>Loading chart...</p>

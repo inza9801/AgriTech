@@ -6,7 +6,7 @@
 
     padding:30px;
 
-    background:#f5f7fa;
+    background:var(--gray-50);
 
     min-height:100vh;
 
@@ -24,7 +24,7 @@
 
 .pageHeader h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -32,7 +32,7 @@
 
 .pageHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:16px;
 
@@ -56,7 +56,7 @@
 
 .summaryCard{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
@@ -68,7 +68,7 @@
 
     gap:18px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     transition:.3s;
 
@@ -100,33 +100,33 @@
 
 .driverIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
 .availableIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
 .transitIcon{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
 }
 
 .offlineIcon{
 
-    background:#FBE9E7;
+    background:var(--danger-bg);
 
-    color:#C62828;
+    color:var(--danger-500);
 
 }
 
@@ -134,7 +134,7 @@
 
     margin:0;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-size:30px;
 
@@ -144,7 +144,7 @@
 
     margin-top:8px;
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 
@@ -154,7 +154,7 @@
 
 .searchSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:18px 25px;
 
@@ -168,7 +168,7 @@
 
     margin-bottom:35px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
@@ -176,7 +176,7 @@
 
     font-size:20px;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -200,19 +200,19 @@
 
 .driverSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
 .driverSection h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:20px;
 
@@ -234,9 +234,9 @@ table{
 
 th{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     padding:14px;
 
@@ -250,7 +250,7 @@ td{
 
     padding:14px;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
     white-space:nowrap;
 
@@ -264,7 +264,7 @@ tbody tr{
 
 tbody tr:hover{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
 }
 
@@ -274,9 +274,9 @@ tbody tr:hover{
 
 .availableStatus{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 14px;
 
@@ -290,9 +290,9 @@ tbody tr:hover{
 
 .busyStatus{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     padding:6px 14px;
 
@@ -306,9 +306,9 @@ tbody tr:hover{
 
 .offlineStatus{
 
-    background:#FBE9E7;
+    background:var(--danger-bg);
 
-    color:#C62828;
+    color:var(--danger-500);
 
     padding:6px 14px;
 
@@ -326,9 +326,9 @@ tbody tr:hover{
 
 .detailsBtn{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     border:none;
 
@@ -346,7 +346,7 @@ tbody tr:hover{
 
 .detailsBtn:hover{
 
-    background:#256428;
+    background:var(--brand-600);
 
 }
 
@@ -384,19 +384,19 @@ tbody tr:hover{
 
     margin-top:35px;
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
 .profileSection h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:25px;
 
@@ -414,7 +414,7 @@ tbody tr:hover{
 
 .profileCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:25px;
 
@@ -436,9 +436,9 @@ tbody tr:hover{
 
     border-radius:50%;
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     display:flex;
 
@@ -454,7 +454,7 @@ tbody tr:hover{
 
 .profileCard h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:8px;
 
@@ -462,7 +462,7 @@ tbody tr:hover{
 
 .profileCard p{
 
-    color:#666;
+    color:var(--text-muted);
 
     margin-bottom:20px;
 
@@ -478,7 +478,7 @@ tbody tr:hover{
 
     padding:12px 0;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
     text-align:left;
 
@@ -486,7 +486,7 @@ tbody tr:hover{
 
 .statsCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:25px;
 
@@ -496,7 +496,7 @@ tbody tr:hover{
 
 .statsCard h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:25px;
 
@@ -514,7 +514,7 @@ tbody tr:hover{
 
 .statBox{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
@@ -522,13 +522,13 @@ tbody tr:hover{
 
     text-align:center;
 
-    box-shadow:0 3px 10px rgba(0,0,0,.06);
+    box-shadow: var(--shadow-sm);
 
 }
 
 .statBox h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -538,7 +538,7 @@ tbody tr:hover{
 
 .statBox p{
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 

@@ -38,7 +38,7 @@
   height: 38px;
   border-radius: 50%;
   background: var(--gray-200);
-  color: #fff;
+  color: var(--surface);
   display: flex;
   justify-content: center;
   align-items: center;

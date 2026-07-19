@@ -43,7 +43,7 @@ function LogisticsDashboard() {
         <p>Manage your assigned deliveries, pickups and daily transportation tasks.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="welcomeCard">
         <div>

@@ -27,7 +27,7 @@ function ShipmentMonitoring() {
         <p>Track all drivers' shipments.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="shipmentSection">
         <h2>Shipments</h2>
@@ -50,7 +50,6 @@ function ShipmentMonitoring() {
                         i < currentIndex ? "timelineItem completedStep" : i === currentIndex ? "timelineItem activeStep" : "timelineItem"
                       }
                     >
-                      {i <= currentIndex ? "✔ " : "○ "}
                       {stage}
                     </div>
                   ))}

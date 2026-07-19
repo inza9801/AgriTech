@@ -36,7 +36,7 @@ function IncomingRequests() {
         <p>Orders accepted by buyers today, waiting for driver assignment.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="requestSection">
         <h2>Pending Requests</h2>

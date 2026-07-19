@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import "./css/Dashboard.css";
-import { FaLeaf, FaSun, FaCloud, FaCloudRain, FaShoppingBasket } from "react-icons/fa";
+import {
+  FaLeaf,
+  FaSun,
+  FaCloud,
+  FaCloudRain,
+  FaShoppingBasket,
+} from "react-icons/fa";
 import {
   getDashboardSummary,
   getCrop,
@@ -12,8 +18,10 @@ import SensorGrid from "../../components/common/SensorGrid";
 
 // Picks the weather icon for the current condition (sunny / overcast / rainy)
 function WeatherIcon({ condition }) {
-  if (condition === "sunny") return <FaSun className="cardIcon weatherIcon sunny" />;
-  if (condition === "rainy") return <FaCloudRain className="cardIcon weatherIcon rainy" />;
+  if (condition === "sunny")
+    return <FaSun className="cardIcon weatherIcon sunny" />;
+  if (condition === "rainy")
+    return <FaCloudRain className="cardIcon weatherIcon rainy" />;
   return <FaCloud className="cardIcon weatherIcon overcast" />;
 }
 
@@ -73,17 +81,10 @@ function Dashboard() {
 
       <FieldSelector onChange={setFieldId} />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       {/* Top Cards */}
       <div className="cards">
-        <div className="card">
-          <FaLeaf className="cardIcon" />
-          <h3>Crop Health</h3>
-          <h2 className="headings">{summary?.cropHealth || "N/A"}</h2>
-          <p>Current Status</p>
-        </div>
-
         <div className="card">
           <WeatherIcon condition={weather?.condition} />
           <h3>Weather</h3>
@@ -92,9 +93,16 @@ function Dashboard() {
           </h2>
           <p className={`weatherTag ${weather?.condition || ""}`}>
             {weather
-              ? weather.condition.charAt(0).toUpperCase() + weather.condition.slice(1)
+              ? weather.condition.charAt(0).toUpperCase() +
+                weather.condition.slice(1)
               : ""}
           </p>
+        </div>
+        <div className="card">
+          <FaLeaf className="cardIcon" />
+          <h3>Crop Health</h3>
+          <h2 className="headings">{summary?.cropHealth || "N/A"}</h2>
+          <p>Current Status</p>
         </div>
 
         <div className="card">
@@ -119,7 +127,11 @@ function Dashboard() {
       {/* Sensor Cards — shared component, same one used on FarmMonitoring/Irrigation */}
       <div className="section">
         <h2 className="headings">Live IoT Sensor Data</h2>
-        <SensorGrid latest={sensor} weather={weather} soilType={crop?.soil_type} />
+        <SensorGrid
+          latest={sensor}
+          weather={weather}
+          soilType={crop?.soil_type}
+        />
       </div>
 
       {/* Crop Table — single crop (Rice) */}

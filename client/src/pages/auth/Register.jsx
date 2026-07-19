@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { FaLeaf, FaQuoteLeft } from "react-icons/fa";
 import "./css/Auth.css";
 
 const Register = () => {
@@ -42,9 +43,24 @@ const Register = () => {
 
   return (
     <div className="authPage">
+      <div className="authBrandPanel">
+        <div className="authBrand">
+          <FaLeaf />
+          <span>AgriNexus</span>
+        </div>
+        <blockquote className="authQuote">
+          <FaQuoteLeft className="authQuoteMark" />
+          <p>
+            Everything from soil sensors to the last mile of delivery, in one
+            place — that's the whole point.
+          </p>
+          <cite>— Built for growers, buyers &amp; fleets</cite>
+        </blockquote>
+      </div>
+
       <div className="authCard">
         <h1>Create Your Account</h1>
-        <p className="authSubtitle">Join AgriTech as a farmer or buyer</p>
+        <p className="authSubtitle">Join AgriNexus as a farmer or buyer</p>
 
         {error && <p className="authError">{error}</p>}
 

@@ -184,7 +184,7 @@ function FarmMonitoring() {
 
       <FieldSelector onChange={setFieldId} />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       {/* SENSOR CARDS — shared component */}
       <SensorGrid latest={latest} weather={weather} soilType={crop?.soil_type} />

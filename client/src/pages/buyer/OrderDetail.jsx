@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { jsPDF } from "jspdf";
+import { FaBoxOpen } from "react-icons/fa";
 import "./css/OrderDetail.css";
 import { getOrderDetail } from "../../api/buyerService";
 
@@ -266,7 +267,7 @@ const OrderDetail = () => {
           <h1 className="pageTitle">Order Details</h1>
         </div>
         <div className="emptyState">
-          <div className="emptyIcon">📦</div>
+          <FaBoxOpen className="emptyIcon" />
           <p>{error || "No order found."}</p>
           <button className="backBtn" onClick={() => navigate("/buyer/orders")}>
             Back to Cart & Orders

@@ -196,10 +196,33 @@ def predict_irrigation():
             'Humi': float(data['humidity']),
             'Light Intensity': float(data['lightIntensity']),
         }])
+
         pred = int(irrigation_model.predict(row)[0])
         proba = irrigation_model.predict_proba(row)[0]
         confidence = round(float(max(proba)), 4)
-        return jsonify({'pump': pred, 'confidence': confidence})
+
+        recommendations = {
+            0: {
+                "title": "No Irrigation",
+                "description": "Current soil moisture is sufficient. Irrigation is not required at this time."
+            },
+            1: {
+                "title": "Moderate Irrigation",
+                "description": "Apply a moderate amount of water to maintain optimal soil moisture for healthy crop growth."
+            },
+            2: {
+                "title": "High Irrigation",
+                "description": "The field is experiencing water stress. Immediate irrigation with a higher water volume is recommended."
+            }
+        }
+
+        return jsonify({
+            "pumpClass": pred,
+            "recommendation": recommendations[pred]["title"],
+            "description": recommendations[pred]["description"],
+            "confidence": confidence
+        })
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

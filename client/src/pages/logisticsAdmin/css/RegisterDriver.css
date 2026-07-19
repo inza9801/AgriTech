@@ -1,20 +1,34 @@
-.driverManagement {
-  padding: 24px;
+/* ==========================================================================
+   Logistics Admin — Register Driver
+   ========================================================================== */
+
+.registerDriver {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
 }
 
-.driverFormSection, .driverListSection {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+.driverFormSection,
+.driverListSection {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.driverFormSection h2,
+.driverListSection h2 {
+  font-family: var(--serif);
+  font-size: 19px;
+  margin-bottom: var(--space-4);
 }
 
 .formGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
 }
 
 .inputGroup {
@@ -26,39 +40,70 @@
 .inputGroup label {
   font-size: 13px;
   font-weight: 600;
-  color: #374151;
+  color: var(--gray-700);
 }
 
 .inputGroup input {
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   font-size: 14px;
+  margin: 0;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.inputGroup input:focus {
+  border-color: var(--brand-500);
+  box-shadow: var(--shadow-focus);
 }
 
 .submitButton {
-  background: #16a34a;
-  color: white;
-  padding: 12px 24px;
+  background: var(--brand-500);
+  color: var(--surface);
+  padding: 12px 26px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
 }
+
+.submitButton:hover:not(:disabled) { background: var(--brand-600); box-shadow: var(--shadow-sm); }
+.submitButton:active:not(:disabled) { transform: translateY(1px); }
 
 .submitButton:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
+.tableContainer { overflow-x: auto; }
+
 .tableContainer table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.tableContainer th, .tableContainer td {
+.tableContainer th,
+.tableContainer td {
   text-align: left;
-  padding: 10px 12px;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
   font-size: 14px;
+}
+
+.tableContainer th {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--gray-50);
+}
+
+.tableContainer tbody tr {
+  transition: background-color 0.15s ease;
+}
+.tableContainer tbody tr:hover td {
+  background: var(--gray-50);
 }

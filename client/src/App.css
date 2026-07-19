@@ -32,14 +32,19 @@ img { max-width: 100%; display: block; }
 
 /* ---------------------------------- Page header ------------------------ */
 
-.pageHeader { margin-bottom: var(--space-5); }
+.pageHeader {
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
 
 .pageTitle {
-  font-size: 26px;
-  font-weight: 700;
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--text-strong);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .pageSubtitle {
@@ -55,6 +60,12 @@ img { max-width: 100%; display: block; }
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.commonCard:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--gray-300);
 }
 
 /* ---------------------------------- Grids ------------------------------ */
@@ -89,6 +100,7 @@ table td {
   color: var(--text);
 }
 
+table td { transition: background-color 0.15s ease; }
 table tr:hover td { background: var(--gray-50); }
 table tr:last-child td { border-bottom: none; }
 
@@ -111,16 +123,18 @@ button { cursor: pointer; }
   transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
 }
 
-.primaryBtn { background: var(--brand-500); color: #fff; }
-.primaryBtn:hover:not(:disabled) { background: var(--brand-600); }
-.primaryBtn:active:not(:disabled) { transform: translateY(1px); }
+.primaryBtn { background: var(--brand-500); color: var(--surface); }
+.primaryBtn:hover:not(:disabled) { background: var(--brand-600); box-shadow: var(--shadow-sm); }
+.primaryBtn:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
 .primaryBtn:disabled { background: var(--gray-300); cursor: not-allowed; }
 
-.secondaryBtn { background: var(--info-500); color: #fff; }
-.secondaryBtn:hover:not(:disabled) { background: #104f97; }
+.secondaryBtn { background: var(--info-500); color: var(--surface); }
+.secondaryBtn:hover:not(:disabled) { background: #104f97; box-shadow: var(--shadow-sm); }
+.secondaryBtn:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
 
-.dangerBtn { background: var(--danger-500); color: #fff; }
-.dangerBtn:hover:not(:disabled) { background: #a91f1f; }
+.dangerBtn { background: var(--danger-500); color: var(--surface); }
+.dangerBtn:hover:not(:disabled) { background: #a91f1f; box-shadow: var(--shadow-sm); }
+.dangerBtn:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
 
 /* ---------------------------------- Inputs ------------------------------ */
 
@@ -150,7 +164,7 @@ input:focus, select:focus, textarea:focus {
   align-items: center;
   padding: 5px 13px;
   border-radius: var(--radius-pill);
-  color: #fff;
+  color: var(--surface);
   font-size: 12.5px;
   font-weight: 600;
 }
@@ -230,7 +244,7 @@ input:focus, select:focus, textarea:focus {
   width: 16px;
   height: 16px;
   border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
+  border-top-color: var(--surface);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   display: inline-block;
@@ -264,7 +278,7 @@ input:focus, select:focus, textarea:focus {
   padding: 13px 16px;
   border-radius: var(--radius-md);
   background: var(--gray-900);
-  color: #fff;
+  color: var(--surface);
   font-size: 13.5px;
   font-weight: 500;
   box-shadow: var(--shadow-lg);
@@ -294,6 +308,27 @@ input:focus, select:focus, textarea:focus {
   z-index: 3000;
   pointer-events: none;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+}
+
+/* ---------------------------------- Error boundary fallback ------------- */
+
+.errorBoundary {
+  max-width: 560px;
+  margin: 15vh auto;
+  padding: var(--space-6);
+  text-align: center;
+}
+
+.errorBoundary h1 {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--danger-500);
+  margin-bottom: var(--space-3);
+}
+
+.errorBoundary p {
+  color: var(--text-muted);
+  font-size: 14px;
 }
 
 /* ---------------------------------- Empty state -------------------------- */

@@ -1,3 +1,7 @@
+/* ==========================================================================
+   Buyer — Dashboard
+   ========================================================================== */
+
 .summaryGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -11,6 +15,13 @@
   padding: var(--space-5);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.summaryCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--gray-300);
 }
 
 .summaryCard h3 {
@@ -21,8 +32,10 @@
 }
 
 .summaryCard h2 {
+  font-family: var(--serif);
   color: var(--brand-700);
   font-size: 30px;
+  font-weight: 600;
 }
 
 .ordersSection {
@@ -31,6 +44,11 @@
   padding: var(--space-5);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+}
+
+.ordersSection h2 {
+  font-family: var(--serif);
+  font-size: 19px;
 }
 
 .ordersSection table { margin-top: var(--space-4); }
@@ -43,7 +61,10 @@
   text-decoration: underline;
   padding: 0;
   margin-left: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
 }
+.retryBtn:hover { opacity: 0.75; }
 
 @media (max-width: 900px) {
   .summaryGrid { grid-template-columns: 1fr; }

@@ -9,16 +9,16 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--surface);
+  border: 1px solid var(--gray-200);
   border-radius: 12px;
   padding: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-xs);
 }
 
 .sensorIcon {
   font-size: 22px;
-  color: #2e7d32;
+  color: var(--brand-500);
   flex-shrink: 0;
 }
 
@@ -26,12 +26,12 @@
   margin: 0 0 4px;
   font-size: 13px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--gray-500);
 }
 
 .sensorContent h2 {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--gray-800);
 }

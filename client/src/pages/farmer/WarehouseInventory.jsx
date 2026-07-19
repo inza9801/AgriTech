@@ -79,7 +79,7 @@ function WarehouseInventory() {
         <p>Monitor unsold crop batches stored in your warehouse.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="summaryGrid">
         <div className="summaryCard">

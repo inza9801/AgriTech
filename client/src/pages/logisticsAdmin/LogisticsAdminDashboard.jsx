@@ -5,8 +5,6 @@ import {
   FaTruck,
   FaShippingFast,
   FaCheckCircle,
-  FaTasks,
-  FaRoute,
   FaUsers,
 } from "react-icons/fa";
 import { getDashboardSummary, getShipments } from "../../api/adminService";
@@ -48,7 +46,7 @@ function LogisticsAdminDashboard() {
         <p>Manage delivery requests, dispatch drivers and monitor shipment operations.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="summaryGrid">
         {summary.map((item, index) => (

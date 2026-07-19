@@ -6,7 +6,7 @@
 
     padding:30px;
 
-    background:#f5f7fa;
+    background:var(--gray-50);
 
     min-height:100vh;
 
@@ -24,7 +24,7 @@
 
 .pageHeader h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -32,7 +32,7 @@
 
 .pageHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 
@@ -54,7 +54,7 @@
 
 .summaryCard{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
@@ -66,7 +66,7 @@
 
     align-items:center;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     transition:.3s;
 
@@ -98,33 +98,33 @@
 
 .deliveryIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
 .completedIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
 .delayedIcon{
 
-    background:#FFF3E0;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
 }
 
 .revenueIcon{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
 }
 
@@ -132,7 +132,7 @@
 
     margin:0;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -140,7 +140,7 @@
 
     margin-top:8px;
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 
@@ -150,19 +150,19 @@
 
 .deliverySection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
 .deliverySection h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:20px;
 
@@ -184,9 +184,9 @@ table{
 
 th{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     padding:14px;
 
@@ -198,13 +198,13 @@ td{
 
     padding:14px;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
 }
 
 tbody tr:hover{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
 }
 
@@ -214,9 +214,9 @@ tbody tr:hover{
 
 .deliveredStatus{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 14px;
 
@@ -230,9 +230,9 @@ tbody tr:hover{
 
 .delayedStatus{
 
-    background:#FFF3E0;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
     padding:6px 14px;
 
@@ -250,9 +250,9 @@ tbody tr:hover{
 
 .detailsBtn{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     border:none;
 
@@ -268,7 +268,7 @@ tbody tr:hover{
 
 .detailsBtn:hover{
 
-    background:#256428;
+    background:var(--brand-600);
 
 }
 /* ===================================
@@ -279,19 +279,19 @@ tbody tr:hover{
 
     margin-top:35px;
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
 .detailsSection h2{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:25px;
 
@@ -309,7 +309,7 @@ tbody tr:hover{
 
 .infoCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:22px;
 
@@ -319,7 +319,7 @@ tbody tr:hover{
 
 .infoCard h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:18px;
 
@@ -335,15 +335,15 @@ tbody tr:hover{
 
     padding:12px 0;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
 }
 
 .paidStatus{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 14px;
 
@@ -363,7 +363,7 @@ tbody tr:hover{
 
     margin-top:30px;
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:25px;
 
@@ -373,7 +373,7 @@ tbody tr:hover{
 
 .timelineCard h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:20px;
 
@@ -391,13 +391,13 @@ tbody tr:hover{
 
 .timelineItem{
 
-    background:#f2f2f2;
+    background:var(--gray-100);
 
     padding:15px 18px;
 
     border-radius:10px;
 
-    color:#666;
+    color:var(--text-muted);
 
     font-weight:500;
 
@@ -405,9 +405,9 @@ tbody tr:hover{
 
 .completedStep{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-weight:600;
 
@@ -421,7 +421,7 @@ tbody tr:hover{
 
     margin-top:30px;
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     padding:25px;
 
@@ -431,7 +431,7 @@ tbody tr:hover{
 
 .summaryDetails h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:20px;
 
@@ -447,7 +447,7 @@ tbody tr:hover{
 
     padding:12px 0;
 
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--gray-100);
 
 }
 

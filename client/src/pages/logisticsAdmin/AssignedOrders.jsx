@@ -43,7 +43,7 @@ function AssignedOrders() {
         <p>Deliveries assigned to drivers today.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="ordersSection">
         <h2>Assigned Delivery Orders — Today</h2>

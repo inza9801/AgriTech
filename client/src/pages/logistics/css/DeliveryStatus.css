@@ -6,7 +6,7 @@
 
     padding:30px;
 
-    background:#f5f7fa;
+    background:var(--gray-50);
 
     min-height:100vh;
 
@@ -24,7 +24,7 @@
 
 .pageHeader h1{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:10px;
 
@@ -32,7 +32,7 @@
 
 .pageHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:16px;
 
@@ -56,7 +56,7 @@
 
 .summaryCard{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
@@ -68,7 +68,7 @@
 
     gap:18px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     transition:.3s;
 
@@ -100,25 +100,25 @@
 
 .assignedIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
 }
 
 .transitIcon{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
 }
 
 .completedIcon{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
 }
 
 .delayIcon{
 
-    background:#FFEBEE;
+    background:var(--danger-bg);
 
 }
 
@@ -126,7 +126,7 @@
 
     margin:0;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -134,7 +134,7 @@
 
     margin-top:8px;
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 
@@ -144,13 +144,13 @@
 
 .statusSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
@@ -168,7 +168,7 @@
 
     gap:10px;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -192,13 +192,13 @@
 
 .statusCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     border-radius:15px;
 
     padding:22px;
 
-    border:1px solid #eee;
+    border:1px solid var(--gray-100);
 
     transition:.3s;
 
@@ -208,7 +208,7 @@
 
     transform:translateY(-5px);
 
-    box-shadow:0 8px 18px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-md);
 
 }
 
@@ -230,7 +230,7 @@
 
 .cardHeader h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:8px;
 
@@ -238,7 +238,7 @@
 
 .cardHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
 }
 
@@ -264,7 +264,7 @@
 
 .location svg{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-size:22px;
 
@@ -274,7 +274,7 @@
 
 .location strong{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
 }
 
@@ -282,7 +282,7 @@
 
     margin-top:5px;
 
-    color:#555;
+    color:var(--text);
 
 }
 
@@ -294,7 +294,7 @@
 
     margin:16px 0;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-size:20px;
 
@@ -324,13 +324,13 @@
 
     gap:12px;
 
-    background:#f2f2f2;
+    background:var(--gray-100);
 
     padding:12px 15px;
 
     border-radius:10px;
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:14px;
 
@@ -346,9 +346,9 @@
 
 .timelineItem.completed{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     font-weight:600;
 
@@ -356,9 +356,9 @@
 
 .timelineItem.active{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     font-weight:600;
 
@@ -369,9 +369,9 @@
 
 .statusBadge{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     padding:7px 16px;
 
@@ -397,9 +397,9 @@
 
     border:none;
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     padding:14px;
 

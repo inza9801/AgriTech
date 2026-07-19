@@ -47,7 +47,7 @@ function DeliveryStatus() {
         <p>Update shipment progress for your active deliveries.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="formError">{error}</p>}
 
       <div className="statusSection">
         <div className="sectionTitle">

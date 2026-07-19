@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Logistics Admin — Dashboard
+   ========================================================================== */
+
+.logisticsAdminDashboard { display: flex; flex-direction: column; gap: var(--space-6); }
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+}
+
+.summaryCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.summaryCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--gray-300);
+}
+
+.summaryIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.summaryIcon.pendingIcon   { background: var(--warning-bg); color: var(--warning-500); }
+.summaryIcon.assignedIcon  { background: var(--info-bg); color: var(--info-500); }
+.summaryIcon.driverIcon    { background: var(--brand-50); color: var(--brand-600); }
+.summaryIcon.pickupIcon    { background: var(--gray-100); color: var(--gray-700); }
+.summaryIcon.transitIcon   { background: var(--info-bg); color: var(--info-500); }
+.summaryIcon.completedIcon { background: var(--success-bg); color: var(--success-500); }
+
+.summaryCard h2 {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-strong);
+  margin-bottom: 2px;
+}
+
+.summaryCard p {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.activitySection {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.activitySection h2 {
+  font-family: var(--serif);
+  font-size: 19px;
+  margin-bottom: var(--space-4);
+}
+
+.tableContainer { overflow-x: auto; }
+
+@media (max-width: 640px) {
+  .summaryGrid { grid-template-columns: 1fr 1fr; }
+}

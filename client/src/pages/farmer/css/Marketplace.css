@@ -4,13 +4,13 @@
 
 .listingSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-bottom:30px;
 
@@ -44,7 +44,7 @@
 
     font-weight:600;
 
-    color:#333;
+    color:var(--text-strong);
 
     margin-bottom:8px;
 
@@ -56,7 +56,7 @@
 
     padding:12px 15px;
 
-    border:1px solid #dcdcdc;
+    border:1px solid var(--gray-300);
 
     border-radius:8px;
 
@@ -66,7 +66,7 @@
 
     transition:.3s;
 
-    background:#fff;
+    background:var(--surface);
 
 }
 
@@ -74,9 +74,9 @@
 
 .inputGroup select:focus{
 
-    border-color:#2E7D32;
+    border-color:var(--brand-500);
 
-    box-shadow:0 0 0 3px rgba(46,125,50,.12);
+    box-shadow: var(--shadow-focus);
 
 }
 
@@ -92,7 +92,7 @@
 
     font-weight:600;
 
-    color:#333;
+    color:var(--text-strong);
 
     margin-bottom:12px;
 
@@ -110,9 +110,9 @@
 
 .activeButton{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     border:none;
 
@@ -130,15 +130,15 @@
 
 .activeButton:hover{
 
-    background:#1B5E20;
+    background:var(--brand-700);
 
 }
 
 .inactiveButton{
 
-    background:#ececec;
+    background:var(--gray-100);
 
-    color:#333;
+    color:var(--text-strong);
 
     border:none;
 
@@ -156,7 +156,7 @@
 
 .inactiveButton:hover{
 
-    background:#dcdcdc;
+    background:var(--gray-300);
 
 }
 
@@ -166,9 +166,9 @@
 
     padding:14px 30px;
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:white;
+    color:var(--surface);
 
     border:none;
 
@@ -186,7 +186,7 @@
 
 .submitButton:hover{
 
-    background:#1B5E20;
+    background:var(--brand-700);
 
     transform:translateY(-2px);
 
@@ -229,13 +229,13 @@
 
 .productsSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-bottom:30px;
 
@@ -253,7 +253,7 @@
 
 .productCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
     border-radius:12px;
 
@@ -261,7 +261,7 @@
 
     transition:.3s;
 
-    border:1px solid #ececec;
+    border:1px solid var(--gray-100);
 
 }
 
@@ -269,7 +269,7 @@
 
     transform:translateY(-6px);
 
-    box-shadow:0 10px 25px rgba(0,0,0,.12);
+    box-shadow: var(--shadow-lg);
 
 }
 
@@ -277,7 +277,7 @@
 
     height:170px;
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
     display:flex;
 
@@ -297,7 +297,7 @@
 
 .productBody h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:15px;
 
@@ -307,7 +307,7 @@
 
     margin:10px 0;
 
-    color:#555;
+    color:var(--text);
 
     font-size:15px;
 
@@ -331,9 +331,9 @@
 
 .priceTag{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:white;
+    color:var(--surface);
 
     padding:8px 14px;
 
@@ -357,9 +357,9 @@
 
     display:inline-block;
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:7px 16px;
 
@@ -375,9 +375,9 @@
 
     display:inline-block;
 
-    background:#FFF4E5;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
     padding:7px 16px;
 
@@ -395,9 +395,9 @@
 
 .premiumBadge{
 
-    background:#FFF3CD;
+    background:var(--warning-bg);
 
-    color:#B8860B;
+    color:var(--accent-600);
 
     padding:7px 14px;
 
@@ -411,9 +411,9 @@
 
 .gradeABadge{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:7px 14px;
 
@@ -427,9 +427,9 @@
 
 .gradeBBadge{
 
-    background:#E3F2FD;
+    background:var(--info-bg);
 
-    color:#1565C0;
+    color:var(--info-500);
 
     padding:7px 14px;
 
@@ -470,13 +470,13 @@
 
 .offersSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-bottom:30px;
 
@@ -494,9 +494,9 @@
 
 .offerCard{
 
-    background:#fafafa;
+    background:var(--gray-50);
 
-    border:1px solid #ececec;
+    border:1px solid var(--gray-100);
 
     border-radius:12px;
 
@@ -510,7 +510,7 @@
 
     transform:translateY(-5px);
 
-    box-shadow:0 8px 20px rgba(0,0,0,.12);
+    box-shadow: var(--shadow-lg);
 
 }
 
@@ -532,7 +532,7 @@
 
 .offerHeader h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:6px;
 
@@ -540,7 +540,7 @@
 
 .offerHeader p{
 
-    color:#777;
+    color:var(--text-muted);
 
     font-size:14px;
 
@@ -560,7 +560,7 @@
 
     margin:10px 0;
 
-    color:#555;
+    color:var(--text);
 
     font-size:15px;
 
@@ -572,9 +572,9 @@
 
 .pendingBadge{
 
-    background:#FFF4E5;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
     padding:7px 14px;
 
@@ -588,9 +588,9 @@
 
 .acceptedBadge{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:7px 14px;
 
@@ -604,9 +604,9 @@
 
 .rejectedBadge{
 
-    background:#FDECEA;
+    background:var(--danger-bg);
 
-    color:#C62828;
+    color:var(--danger-500);
 
     padding:7px 14px;
 
@@ -636,9 +636,9 @@
 
     flex:1;
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:white;
+    color:var(--surface);
 
     border:none;
 
@@ -658,7 +658,7 @@
 
 .acceptBtn:hover{
 
-    background:#1B5E20;
+    background:var(--brand-700);
 
 }
 
@@ -666,9 +666,9 @@
 
     flex:1;
 
-    background:#D32F2F;
+    background:var(--danger-500);
 
-    color:white;
+    color:var(--surface);
 
     border:none;
 
@@ -688,7 +688,7 @@
 
 .rejectBtn:hover{
 
-    background:#B71C1C;
+    background:var(--danger-500);
 
 }
 
@@ -725,7 +725,7 @@
 
 .acceptBtn:disabled{
 
-    background:#A5D6A7;
+    background:var(--brand-200);
 
     cursor:not-allowed;
 
@@ -756,13 +756,13 @@
 
 .listingSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
     margin-bottom:30px;
 
@@ -798,7 +798,7 @@
 
     font-weight:600;
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:8px;
 
@@ -815,9 +815,9 @@
 
     border-radius:8px;
 
-    background:#fff;
+    background:var(--surface);
 
-    color:#333;
+    color:var(--text-strong);
 
     font-size:15px;
 
@@ -830,9 +830,9 @@
 
     outline:none;
 
-    border-color:#2E7D32;
+    border-color:var(--brand-500);
 
-    box-shadow:0 0 0 3px rgba(46,125,50,.15);
+    box-shadow: var(--shadow-focus);
 
 }
 
@@ -840,7 +840,7 @@
 
     background:#f5f5f5;
 
-    color:#555;
+    color:var(--text);
 
     cursor:not-allowed;
 
@@ -850,9 +850,9 @@
 
 .submitButton{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
     border:none;
 
@@ -872,7 +872,7 @@
 
 .submitButton:hover{
 
-    background:#1B5E20;
+    background:var(--brand-700);
 
     transform:translateY(-2px);
 
@@ -884,13 +884,13 @@
 
 .offersSection{
 
-    background:#fff;
+    background:var(--surface);
 
     padding:25px;
 
     border-radius:12px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-sm);
 
 }
 
@@ -916,7 +916,7 @@
 
     transition:.3s;
 
-    background:#fafafa;
+    background:var(--gray-50);
 
 }
 
@@ -924,7 +924,7 @@
 
     transform:translateY(-5px);
 
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-md);
 
 }
 
@@ -942,7 +942,7 @@
 
 .offerHeader h3{
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     margin-bottom:5px;
 
@@ -950,7 +950,7 @@
 
 .offerHeader p{
 
-    color:#666;
+    color:var(--text-muted);
 
     font-size:14px;
 
@@ -966,15 +966,15 @@
 
     margin:8px 0;
 
-    color:#555;
+    color:var(--text);
 
 }
 
 .pendingBadge{
 
-    background:#FFF4E5;
+    background:var(--warning-bg);
 
-    color:#EF6C00;
+    color:var(--warning-500);
 
     padding:6px 12px;
 
@@ -988,9 +988,9 @@
 
 .acceptedBadge{
 
-    background:#E8F5E9;
+    background:var(--success-bg);
 
-    color:#2E7D32;
+    color:var(--brand-500);
 
     padding:6px 12px;
 
@@ -1004,9 +1004,9 @@
 
 .rejectedBadge{
 
-    background:#FDECEA;
+    background:var(--danger-bg);
 
-    color:#C62828;
+    color:var(--danger-500);
 
     padding:6px 12px;
 
@@ -1049,36 +1049,36 @@
 
 .acceptBtn{
 
-    background:#2E7D32;
+    background:var(--brand-500);
 
-    color:#fff;
+    color:var(--surface);
 
 }
 
 .acceptBtn:hover:not(:disabled){
 
-    background:#1B5E20;
+    background:var(--brand-700);
 
 }
 
 .rejectBtn{
 
-    background:#D32F2F;
+    background:var(--danger-500);
 
-    color:#fff;
+    color:var(--surface);
 
 }
 
 .rejectBtn:hover:not(:disabled){
 
-    background:#B71C1C;
+    background:var(--danger-500);
 
 }
 
 .acceptBtn:disabled,
 .rejectBtn:disabled{
 
-    background:#bdbdbd;
+    background:var(--gray-300);
 
     cursor:not-allowed;
 

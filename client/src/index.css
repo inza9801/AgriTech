@@ -70,7 +70,12 @@
   --space-5: 24px;
   --space-6: 32px;
 
-  /* ---- Type ---- */
+  /* ---- Type ----
+     Fraunces (a warm, editorial serif with real personality) carries
+     headings and display moments; Inter — a neutral, highly-legible
+     grotesque — carries UI chrome, tables and body copy. The pairing is
+     deliberate: it reads "trusted institution" rather than "generic SaaS". */
+  --serif: "Fraunces", "Iowan Old Style", "Georgia", serif;
   --sans: "Inter", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 
@@ -98,9 +103,17 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--sans);
+h1, h2, h3 {
+  font-family: var(--serif);
   font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+  margin: 0;
+}
+
+h4 {
+  font-family: var(--sans);
+  font-weight: 700;
   color: var(--text-strong);
   margin: 0;
 }
@@ -111,10 +124,23 @@ p {
 
 a {
   color: inherit;
+  text-decoration: none;
 }
 
 button {
   font-family: inherit;
+}
+
+/* ---- Accessible focus rings everywhere (keyboard nav) ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
 }
 
 ::-webkit-scrollbar {

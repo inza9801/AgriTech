@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaTruck } from "react-icons/fa";
 import "./css/Tracking.css";
 import { getTracking } from "../../api/buyerService";
 
@@ -37,7 +38,7 @@ const Tracking = () => {
         <div className="skeleton" style={{ height: 260 }} />
       ) : shipments.length === 0 ? (
         <div className="emptyState">
-          <div className="emptyIcon">🚚</div>
+          <FaTruck className="emptyIcon" />
           <p>No active shipments to track.</p>
         </div>
       ) : (

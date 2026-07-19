@@ -54,8 +54,8 @@ function DriverManagement() {
         <p>Manage delivery drivers and assign today's orders.</p>
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p className="formError">{error}</p>}
+      {message && <p className="formSuccess">{message}</p>}
 
       <div className="driverSection">
         <h2>

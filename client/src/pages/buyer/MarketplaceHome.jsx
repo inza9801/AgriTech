@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaSearch } from "react-icons/fa";
 import "./css/MarketplaceHome.css";
 import { getLocations, getListings } from "../../api/buyerService";
 import { Link } from "react-router-dom";
@@ -99,7 +100,7 @@ const MarketplaceHome = () => {
         </div>
       ) : listings.length === 0 ? (
         <div className="emptyState">
-          <div className="emptyIcon">🔍</div>
+          <FaSearch className="emptyIcon" />
           <p>No listings match this filter yet.</p>
         </div>
       ) : (
